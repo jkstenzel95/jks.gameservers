@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Optimize>true</Optimize>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Jks.GameServers.ServerOperator</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\jks.gameservers.shared\jks.gameservers.shared.csproj" />
+  </ItemGroup>
+
+</Project>
