@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <Optimize>true</Optimize>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Jks.GameServers.ApiGateway</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\backup-manager\src\contracts\contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\src\shared.csproj" />
+  </ItemGroup>
+
+
+</Project>
