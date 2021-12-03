@@ -1,3 +1,7 @@
+# apply game env file
+# apply map env file
+# actually jk, set these in kube?
+
 # Game specific setup script
 ./${GAME_NAME}/setup.sh
 
