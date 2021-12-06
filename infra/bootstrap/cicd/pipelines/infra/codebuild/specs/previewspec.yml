@@ -8,8 +8,8 @@ phases:
       - chmod +x /usr/bin/terraform
   pre_build:
     commands:
+      - ls
       - cd infra/service
-      - ls -R
   build:
     commands:
       - terraform plan

@@ -18,4 +18,5 @@ variable valheim_map_names {
 
 variable "server_region" {
     description = "region to provision the server in"
+    default = "us-east-2"
 }
