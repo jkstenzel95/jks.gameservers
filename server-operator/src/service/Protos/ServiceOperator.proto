@@ -18,10 +18,10 @@ service GetPlayers
   rpc GetPlayers (GetPlayersRequest) returns (GetPlayersReply);
 }
 
-service SaveServer
+service Save
 {
   // Saves the server
-  rpc SaveServer (SaveServerRequest) returns (SaveServerReply);
+  rpc Save (SaveRequest) returns (SaveReply);
 }
 
 service Start
@@ -58,10 +58,10 @@ message GetPlayersReply {
 }
 
 // The request to save the server
-message SaveServerRequest {
+message SaveRequest {
 }
 
-message SaveServerReply {
+message SaveReply {
   OperationResult result = 1;
 }
 

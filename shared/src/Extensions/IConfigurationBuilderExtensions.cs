@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Jks.GameServers.Shared.Extensions
+namespace Jks.GameServers.Shared
 {
     public static class IConfigurationBuilderExtensions
     {

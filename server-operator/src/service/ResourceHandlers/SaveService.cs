@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace Jks.GameServers.ServerOperator
 {
-    public class GetPlayersService : GetPlayers.GetPlayersBase
+    public class SaveService : Save.SaveBase
     {
         private IGameServer _gameServer;
 
-        public GetPlayersService(
+        public SaveService(
             IGameServer gameServer)
             : base()
         {
             _gameServer = gameServer;
         }
 
-        public override Task<GetPlayersReply> GetPlayers(GetPlayersRequest request, ServerCallContext context)
+        public override Task<SaveReply> SaveServer(SaveRequest request, ServerCallContext context)
         {
-            return base.GetPlayers(request, context);
+            return base.Save(request, context);
         }
     }
 }
