@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\backup-manager\src\contracts\contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\src\shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +44,13 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ActionManagers\" />
+    <Folder Include="Games\Ark\" />
+    <Folder Include="Games\Minecraft\" />
+    <Folder Include="Games\Valheim\" />
   </ItemGroup>
 
 </Project>
