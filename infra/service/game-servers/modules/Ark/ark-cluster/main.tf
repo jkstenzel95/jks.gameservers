@@ -10,6 +10,7 @@ module "shared_data_volume" {
 module "instances" {
     source = "./../ark-instance"
 
+    env = "${var.env}"
     region_shortname = "${var.region_shortname}"
     count = length(var.map_names)
     server_region = "${var.server_region}"
