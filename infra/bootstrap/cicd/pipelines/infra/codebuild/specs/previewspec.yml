@@ -12,5 +12,5 @@ phases:
       - terraform init
   build:
     commands:
-      - ls
+      - cd "infra/service/game-servers"
       - terraform plan -var-file="./../config/${env}.tfvars"
