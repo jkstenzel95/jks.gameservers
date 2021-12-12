@@ -12,4 +12,4 @@ phases:
       - terraform init
   build:
     commands:
-      - terraform plan -var-file=\"./../config/${env}.tfvars\"
+      - terraform plan -var-file="./../config/${env}.tfvars"
