@@ -8,8 +8,8 @@ phases:
       - chmod +x /usr/bin/terraform
   pre_build:
     commands:
-      - cd infra/service
+      - cd "infra/service/game-servers"
       - terraform init
   build:
     commands:
-      - echo "Ignoring command... terraform apply -var-file=\"./config/prod.tfvars\""
+      - terraform apply -var-file=\"./../config/${env}.tfvars\"

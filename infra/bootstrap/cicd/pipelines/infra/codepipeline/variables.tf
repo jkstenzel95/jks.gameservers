@@ -1,9 +1,17 @@
-variable "preview_project_name" {
-    description = "the name of the codebuild project for previewing"
+variable "dev_preview_project_name" {
+    description = "the name of the codebuild project for dev previewing"
 }
 
-variable "deploy_project_name" {
-    description = "the name of the codebuild project for deployment"
+variable "dev_deploy_project_name" {
+    description = "the name of the codebuild project for dev deployment"
+}
+
+variable "prod_preview_project_name" {
+    description = "the name of the codebuild project for prod previewing"
+}
+
+variable "prod_deploy_project_name" {
+    description = "the name of the codebuild project for prod deployment"
 }
 
 variable "repository_name" {

@@ -9,3 +9,7 @@ variable "name" {
 variable "build_role" {
     description = "the AWS IAM role to use in the build stages"
 }
+
+variable "env" {
+    description = "the environment of the server resource set"
+}

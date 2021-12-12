@@ -30,13 +30,13 @@ resource "aws_codepipeline" "infra_codepipeline" {
     }
 
     stage {
-        name = "Preview"
+        name = "Preview_Dev"
 
         action {
-            name                = "Terraform_plan"
+            name                = "Terraform_plan_dev"
             category            = "Test"
             configuration = {
-                "ProjectName"   = "${var.preview_project_name}"
+                "ProjectName"   = "${var.dev_preview_project_name}"
             }
 
             input_artifacts     = ["SourceArtifact"]
@@ -49,10 +49,10 @@ resource "aws_codepipeline" "infra_codepipeline" {
     }
   
     stage  {
-        name = "Approval"
+        name = "Dev_Approval"
         
         action {
-            name                = "Approval"
+            name                = "Approval_dev"
             category            = "Approval"
             configuration = {
                 "CustomData"    = "Approve the following infra deployment"
@@ -68,13 +68,72 @@ resource "aws_codepipeline" "infra_codepipeline" {
     }  
 
     stage {
-        name = "Deploy"
+        name = "Deploy_Dev"
 
         action {
-            name                = "Terraform_apply"
+            name                = "Terraform_apply_dev"
             category            = "Build"
             configuration = {
-                "ProjectName"   = "${var.deploy_project_name}"
+                "ProjectName"   = "${var.dev_deploy_project_name}"
+            }
+
+            input_artifacts     = ["SourceArtifact"]
+            
+            output_artifacts    = []
+
+            owner               = "AWS"
+            provider            = "CodeBuild"
+            run_order           = 4
+            version             = "1"
+        }
+    }
+
+    stage {
+        name = "Preview_Prod"
+
+        action {
+            name                = "Terraform_plan_prod"
+            category            = "Test"
+            configuration = {
+                "ProjectName"   = "${var.prod_preview_project_name}"
+            }
+
+            input_artifacts     = ["SourceArtifact"]
+            output_artifacts    = []
+            owner               = "AWS"
+            provider            = "CodeBuild"
+            run_order           = 2
+            version             = "1"
+        }
+    }
+  
+    stage  {
+        name = "Prod_Approval"
+        
+        action {
+            name                = "Approval_prod"
+            category            = "Approval"
+            configuration = {
+                "CustomData"    = "Approve the following infra deployment"
+            }
+
+            input_artifacts     = []
+            output_artifacts    = []
+            owner               = "AWS"
+            provider            = "Manual"
+            run_order           = 3
+            version             = "1"
+        }
+    }  
+
+    stage {
+        name = "Deploy_Prod"
+
+        action {
+            name                = "Terraform_apply_prod"
+            category            = "Build"
+            configuration = {
+                "ProjectName"   = "${var.prod_deploy_project_name}"
             }
 
             input_artifacts     = ["SourceArtifact"]

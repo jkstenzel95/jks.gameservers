@@ -2,6 +2,8 @@ module "shared_data_volume" {
     source = "./../ark-volume"
 
     server_region = "${var.server_region}"
+    region_shortname = "${var.region_shortname}"
+    env = "${var.env}"
     volume_identifier_name = "arkshared"
 }
 

@@ -1,5 +1,5 @@
 data "template_file" "buildspec" {
-    template = "${file("${path.module}/specs/${var.template_filename}")}"
+    template = "${templatefile("${path.module}/specs/${var.template_filename}", { env = "${var.env}" })}"
 }
 
 resource "aws_codebuild_project" "codebuild_project" {

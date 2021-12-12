@@ -6,6 +6,6 @@ resource "aws_ebs_volume" "volume" {
     type = "gp2"
 
     tags = {
-        Name = "jks-gameservers-${var.volume_identifier_name}-data-volume"
+        Name = "jks-gs-${var.env}-${var.region_shortname}-${var.volume_identifier_name}-data"
     }
 }

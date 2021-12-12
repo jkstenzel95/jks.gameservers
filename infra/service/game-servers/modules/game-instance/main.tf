@@ -1,6 +1,6 @@
 # the role that will be used in attaching the volume to a machine on startup
 resource "aws_iam_role" "spot_launch_iam_role" {
-    name = "jks-gameservers-${var.game_name}-${var.map_name}-iam-role"
+    name = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-role"
     assume_role_policy = jsonencode({
         "Version": "2012-10-17",
         "Statement": [
@@ -25,13 +25,13 @@ resource "aws_iam_role" "spot_launch_iam_role" {
 }
 
 resource "aws_iam_instance_profile" "spot_launch_iam_profile" {
-    name = "jks-gameservers-${var.game_name}-${var.map_name}-iam-profile"
+    name = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-profile"
     role = aws_iam_role.spot_launch_iam_role.name
 }
 
 # the launch template that will attach the volume to a spot instance on launch
 resource "aws_launch_template" "spot_launch_template" {
-    name = "jks-gameservers-${var.game_name}-${var.map_name}-launch-template"
+    name = "jks-gameservers-${var.region_shortname}-{var.game_name}-${var.map_name}-launch-template"
     iam_instance_profile {
       name = aws_iam_instance_profile.spot_launch_iam_profile.name
     }
@@ -56,7 +56,7 @@ resource "aws_launch_template" "spot_launch_template" {
 
 # somehow this needs to be used to create the instance
 resource "aws_autoscaling_group" "spot_instance_autoscale_group" {
-    name = "jks-gameservers-${var.game_name}-${var.map_name}-autoscale-group"
+    name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-asg"
     availability_zones = ["${var.server_region}a"]
     desired_capacity   = 1
     max_size           = 1
@@ -82,6 +82,12 @@ resource "aws_autoscaling_group" "spot_instance_autoscale_group" {
     tag {
         key = "map"
         value = "${var.map_name}"
+        propagate_at_launch = true
+    }
+
+    tag {
+        key = "env"
+        value = "${var.env}"
         propagate_at_launch = true
     }
 }
