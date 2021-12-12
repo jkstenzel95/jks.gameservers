@@ -31,7 +31,7 @@ resource "aws_iam_instance_profile" "spot_launch_iam_profile" {
 
 # the launch template that will attach the volume to a spot instance on launch
 resource "aws_launch_template" "spot_launch_template" {
-    name = "jks-gameservers-${var.region_shortname}-{var.game_name}-${var.map_name}-launch-template"
+    name = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-launch-template"
     iam_instance_profile {
       name = aws_iam_instance_profile.spot_launch_iam_profile.name
     }
