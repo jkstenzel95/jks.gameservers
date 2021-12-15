@@ -8,8 +8,8 @@ phases:
       - chmod +x /usr/bin/terraform
   pre_build:
     commands:
-      - cd "infra/service/game-servers"
-      - terraform init
+      - cd "infra/service"
+      - terraform init -backend-config="./config/${env}.backend.tfbackend"
   build:
     commands:
-      - terraform apply -var-file="./../config/${env}.tfvars" -auto-approve
+      - terraform apply -var-file="./config/${env}.tfvars" -auto-approve

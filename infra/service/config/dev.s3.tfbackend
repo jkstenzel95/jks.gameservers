@@ -1,0 +1,6 @@
+bucket          = "jks-gs-dev-use2-state"
+key             = "global/s3/terraform.tfstate"
+region          = "us-east-2"
+
+dynamodb_table  = "jks-gs-dev-use2-state-locks"
+encrypt         = true
