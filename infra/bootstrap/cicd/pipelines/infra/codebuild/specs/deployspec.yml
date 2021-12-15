@@ -9,7 +9,7 @@ phases:
   pre_build:
     commands:
       - cd "infra/service"
-      - terraform init -backend-config="./config/${env}.backend.tfbackend"
+      - terraform init -backend-config="./config/${env}.s3.tfbackend"
   build:
     commands:
       - terraform apply -var-file="./config/${env}.tfvars" -auto-approve
