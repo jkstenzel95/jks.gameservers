@@ -1,10 +1,16 @@
+locals {
+    BUCKET_NAME = "jks-gs-${var.env}-${var.region_shortname}-state"
+    DYNAMODB_NAME = "jks-gs-${var.env}-${var.region_shortname}-state-locks"
+}
+}"jks-gs-${var.env}-${var.region_shortname}-state"
+
 terraform {
     backend "s3" {
-        bucket          = "jks-gs-${var.env}-${var.region_shortname}-state"
+        bucket          = "${local.BUCKET_NAME}"
         key             = "global/s3/terraform.tfstate"
         region          = "us-east-2"
 
-        dynamodb_table  = "jks-gs-${var.env}-${var.region_shortname}-state-locks"
+        dynamodb_table  = "${local.DYNAMODB_NAME}"
         encrypt         = true
     }
     
