@@ -67,7 +67,6 @@ resource "aws_launch_template" "spot_launch_template" {
       spot_options {
         max_price = 0.03
         spot_instance_type = "persistent"
-        block_duration_minutes = "240"
       }
     }
 
@@ -86,6 +85,7 @@ resource "aws_autoscaling_group" "spot_instance_autoscale_group" {
     desired_capacity   = 1
     max_size           = 1
     min_size           = 1
+    wait_for_capacity_timeout = 0
 
     launch_template {
         id      = "${aws_launch_template.spot_launch_template.id}"
