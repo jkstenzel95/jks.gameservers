@@ -2,7 +2,6 @@ locals {
     BUCKET_NAME = "jks-gs-${var.env}-${var.region_shortname}-state"
     DYNAMODB_NAME = "jks-gs-${var.env}-${var.region_shortname}-state-locks"
 }
-}"jks-gs-${var.env}-${var.region_shortname}-state"
 
 terraform {
     backend "s3" {
