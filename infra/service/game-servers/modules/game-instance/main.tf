@@ -99,7 +99,7 @@ resource "aws_autoscaling_group" "spot_instance_autoscale_group" {
 
     launch_template {
         id      = "${aws_launch_template.spot_launch_template.id}"
-        version = "$$Latest"
+        version = "$Latest"
     }
 
     tag {
