@@ -67,6 +67,7 @@ resource "aws_launch_template" "spot_launch_template" {
       spot_options {
         max_price = 0.03
         spot_instance_type = "persistent"
+        block_duration_minutes = "240"
       }
     }
 
