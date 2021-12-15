@@ -5,6 +5,25 @@ resource "aws_iam_role" "spot_launch_iam_role" {
         "Version": "2012-10-17",
         "Statement": [
             {
+                "Sid": "",
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": [
+                        "ec2.amazonaws.com"
+                    ]
+                },
+                "Action": "sts:AssumeRole"
+            }
+        ]
+    })
+}
+
+resource "aws_iam_policy" "policy" {
+    name = "jks-gs-${var.region_shortname}-${var.game_name}-${var.map_name}-attach-policy"
+    policy = jsonencode({
+        "Version": "2012-10-17",
+        "Statement": [
+            {
                 "Effect": "Allow",
                 "Action": [
                     "ec2:AttachVolume",
@@ -19,19 +38,14 @@ resource "aws_iam_role" "spot_launch_iam_role" {
                 "Effect": "Allow",
                 "Action": "ec2:DescribeVolumes",
                 "Resource": "arn:aws:ec2:*:*:volume/${var.data_volume_id}"
-            },
-            {
-                "Sid": "",
-                "Effect": "Allow",
-                "Principal": {
-                    "Service": [
-                    "ec2.amazonaws.com"
-                    ]
-                },
-                "Action": "sts:AssumeRole"
             }
         ]
     })
+}
+
+resource "aws_iam_role_policy_attachment" "ec2-read-only-policy-attachment" {
+    role = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-role"
+    policy_arn = aws_iam_policy.policy.arn
 }
 
 resource "aws_iam_instance_profile" "spot_launch_iam_profile" {
