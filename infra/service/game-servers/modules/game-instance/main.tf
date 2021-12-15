@@ -20,7 +20,16 @@ resource "aws_iam_role" "spot_launch_iam_role" {
                 "Action": "ec2:DescribeVolumes",
                 "Resource": "arn:aws:ec2:*:*:volume/${var.data_volume_id}"
             },
-            "Action": "sts:AssumeRole"
+            {
+                "Sid": "",
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": [
+                    "ec2.amazonaws.com"
+                    ]
+                },
+                "Action": "sts:AssumeRole"
+            }
         ]
     })
 }
