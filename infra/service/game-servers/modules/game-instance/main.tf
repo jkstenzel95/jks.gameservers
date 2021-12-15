@@ -60,6 +60,16 @@ resource "aws_launch_template" "spot_launch_template" {
       name = aws_iam_instance_profile.spot_launch_iam_profile.name
     }
 
+    update_default_version = true
+
+    block_device_mappings {
+        device_name = "/dev/sda1"
+
+        ebs {
+            volume_size = 20
+        }
+    }
+
     user_data = base64encode(templatefile("${path.module}/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}" }))
 
     instance_market_options {
@@ -89,7 +99,7 @@ resource "aws_autoscaling_group" "spot_instance_autoscale_group" {
 
     launch_template {
         id      = "${aws_launch_template.spot_launch_template.id}"
-        version = "$Latest"
+        version = "$$Latest"
     }
 
     tag {
