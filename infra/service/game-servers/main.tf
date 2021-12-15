@@ -1,10 +1,10 @@
 terraform {
     backend "s3" {
-        bucket          = "jks-gameservers-state"
+        bucket          = "jks-gs-${var.env}-${var.region_shortname}-state"
         key             = "global/s3/terraform.tfstate"
         region          = "us-east-2"
 
-        dynamodb_table  = "jks-gameservers-state-locks"
+        dynamodb_table  = "jks-gs-${var.env}-${var.region_shortname}-state-locks"
         encrypt         = true
     }
     

@@ -1,0 +1,3 @@
+module "pipelines" {
+    source = "./infra"
+}

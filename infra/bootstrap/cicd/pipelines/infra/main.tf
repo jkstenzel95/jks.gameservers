@@ -1,28 +1,3 @@
-terraform {
-    backend "s3" {
-        bucket          = "jks-gameservers-state"
-        key             = "global/s3/terraform.tfstate"
-        region          = "us-east-2"
-
-        dynamodb_table  = "jks-gameservers-state-locks"
-        encrypt         = true
-    }
-    
-    required_providers {
-        aws = {
-            source  = "hashicorp/aws"
-            version = "~> 3.68"
-        }
-    }
-
-    required_version = ">= 1.0.11"
-}
-
-provider aws {
-    profile = "default"
-    region  = "${var.region}"
-}
-
 resource "aws_iam_role" "codebuild_role" {
   name = "jks_gameservers_codebuild_deploy_role"
 
@@ -54,8 +29,8 @@ resource "aws_iam_role_policy_attachment" "codebuild_deploy" {
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
-module artifact_bucket {
-  source = "./../../artifact_bucket"
+module "artifact_bucket" {
+  source = "./../../artifact_buckets"
 }
 
 module dev_preview_codebuild_project {
