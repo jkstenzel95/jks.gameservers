@@ -39,7 +39,7 @@ resource "aws_launch_template" "spot_launch_template" {
       market_type = "spot"
       spot_options {
         max_price = 0.03
-        spot_instance_type = "persistent"
+        spot_instance_type = "one-time"
       }
     }
 
