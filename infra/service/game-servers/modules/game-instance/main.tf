@@ -67,7 +67,7 @@ EOF
 }
 
 resource "aws_iam_policy" "policy" {
-    name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-attach-policy"
+    name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-fleet-policy"
     policy = <<EOF
 {
     "Version": "2012-10-17",
