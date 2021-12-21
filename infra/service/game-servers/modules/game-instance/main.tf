@@ -11,12 +11,14 @@ module "spot_launch_iam_profile" {
     game_name = "${var.game_name}"
     map_name = "${var.map_name}"
     data_volume_id = "${var.data_volume_id}"
+    env = "${var.env}"
+    region_shortname = "${var.region_shortname}"
 }
 
 # the launch template that will attach the volume to a spot instance on launch
 resource "aws_launch_template" "spot_launch_template" {
     count = local.spot_count
-    name = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-spot-launch-template"
+    name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-spot-launch-template"
     iam_instance_profile {
       name = module.spot_launch_iam_profile.name
     }
@@ -52,7 +54,7 @@ resource "aws_launch_template" "spot_launch_template" {
 # the launch template that will attach the volume to a spot instance on launch
 resource "aws_launch_template" "dedicated_launch_template" {
     count = local.dedicated_count
-    name = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-dedicated-launch-template"
+    name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-dedicated-launch-template"
     iam_instance_profile {
       name = module.spot_launch_iam_profile.name
     }

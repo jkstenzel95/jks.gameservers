@@ -4,3 +4,4 @@ aws ec2 attach-volume --volume-id ${volume_id} --device "/dev/sdg" --instance-id
 flock ~/format.lock
 # https://serverfault.com/questions/975196/using-blkid-to-check-if-an-attached-ebs-volume-is-formatted
 blkid --match-token TYPE=ext4 "/dev/sdg" || mkfs.ext4 -m0 "/dev/sdg"
+sudo apt-get install supervisor
