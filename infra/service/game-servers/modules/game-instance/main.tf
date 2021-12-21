@@ -21,6 +21,8 @@ resource "aws_launch_template" "launch_template" {
       name = module.instance_launch_iam_profile.name
     }
 
+    key_name = "jks-gameservers"
+
     security_group_names = [
         "jks-gs-${var.env}-server_base-sg",
         "${var.additional_security_group_name}",
