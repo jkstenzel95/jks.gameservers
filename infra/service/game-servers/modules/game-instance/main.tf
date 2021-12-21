@@ -49,10 +49,6 @@ resource "aws_launch_template" "launch_template" {
     }
 
     image_id = "ami-0a672c79e61374a45"
-
-    network_interfaces {
-      associate_public_ip_address = true
-    }
 }
 
 resource "aws_iam_role" "fleet_role" {
