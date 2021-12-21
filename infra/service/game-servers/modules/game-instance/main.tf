@@ -68,38 +68,7 @@ EOF
 
 resource "aws_iam_policy" "policy" {
     name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-attach-policy"
-    policy = jsonencode({
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Action": [
-                    "ec2:DescribeImages",
-                    "ec2:DescribeSubnets",
-                    "ec2:RequestSpotInstances",
-                    "ec2:TerminateInstances",
-                    "ec2:DescribeInstanceStatus",
-                    "ec2:CreateTags",
-                    "ec2:RunInstances"
-                ],
-                "Resource": [
-                    "*"
-                ]
-            }
-        ]
-    })
-}
-
-resource "aws_iam_role_policy_attachment" "ec2-fleet-policy-attachment" {
-    role = aws_iam_role.fleet_role.name
-    policy_arn = aws_iam_policy.policy.arn
-}
-
-resource "aws_iam_policy" "spot_policy" {
-  name_prefix = "spot_policy_"
-  description = "EC2 Spot Fleet Policy"
-
-  policy = <<EOF
+    policy = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -154,6 +123,11 @@ resource "aws_iam_policy" "spot_policy" {
     ]
 }
 EOF
+}
+
+resource "aws_iam_role_policy_attachment" "ec2-fleet-policy-attachment" {
+    role = aws_iam_role.fleet_role.name
+    policy_arn = aws_iam_policy.policy.arn
 }
 
 resource "aws_spot_fleet_request" "spot_fleet" {
