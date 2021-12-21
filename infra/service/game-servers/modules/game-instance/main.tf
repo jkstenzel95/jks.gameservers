@@ -66,6 +66,96 @@ resource "aws_iam_role" "fleet_role" {
 EOF
 }
 
+resource "aws_iam_policy" "policy" {
+    name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-attach-policy"
+    policy = jsonencode({
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "ec2:DescribeImages",
+                    "ec2:DescribeSubnets",
+                    "ec2:RequestSpotInstances",
+                    "ec2:TerminateInstances",
+                    "ec2:DescribeInstanceStatus",
+                    "ec2:CreateTags",
+                    "ec2:RunInstances"
+                ],
+                "Resource": [
+                    "*"
+                ]
+            }
+        ]
+    })
+}
+
+resource "aws_iam_role_policy_attachment" "ec2-fleet-policy-attachment" {
+    role = aws_iam_role.fleet_role.name
+    policy_arn = aws_iam_policy.policy.arn
+}
+
+resource "aws_iam_policy" "spot_policy" {
+  name_prefix = "spot_policy_"
+  description = "EC2 Spot Fleet Policy"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeImages",
+                "ec2:DescribeSubnets",
+                "ec2:RequestSpotInstances",
+                "ec2:TerminateInstances",
+                "ec2:DescribeInstanceStatus",
+                "ec2:CreateTags",
+                "ec2:RunInstances"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Condition": {
+                "StringEquals": {
+                    "iam:PassedToService": [
+                        "ec2.amazonaws.com",
+                        "ec2.amazonaws.com.cn"
+                    ]
+                }
+            },
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:RegisterInstancesWithLoadBalancer"
+            ],
+            "Resource": [
+                "arn:aws:elasticloadbalancing:*:*:loadbalancer/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:RegisterTargets"
+            ],
+            "Resource": [
+                "arn:aws:elasticloadbalancing:*:*:*/*"
+            ]
+        }
+    ]
+}
+EOF
+}
+
 resource "aws_spot_fleet_request" "spot_fleet" {
     iam_fleet_role = aws_iam_role.fleet_role.arn
     spot_price = "0.03"

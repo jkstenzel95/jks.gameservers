@@ -43,7 +43,7 @@ resource "aws_iam_policy" "policy" {
     })
 }
 
-resource "aws_iam_role_policy_attachment" "ec2-read-only-policy-attachment" {
+resource "aws_iam_role_policy_attachment" "ec2-volume-attachment-policy-attachment" {
     role = aws_iam_role.instance_launch_iam_role.name
     policy_arn = aws_iam_policy.policy.arn
 }
