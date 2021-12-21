@@ -8,7 +8,6 @@ module "instance" {
     data_volume_id = "${var.data_volume_id}"
     game_name = "Ark"
     map_name = "${var.map_name}"
-    base_security_group_id = "${var.base_security_group_id}"
-    additional_security_group_id = "${var.additional_security_group_id}"
+    additional_security_group_name = "${var.additional_security_group_name}"
     use_spot_instance = "${var.use_spot_instance}"
 }

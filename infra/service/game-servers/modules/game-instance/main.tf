@@ -23,6 +23,12 @@ resource "aws_launch_template" "launch_template" {
 
     key_name = "jks-gameservers"
 
+    security_group_names = [
+        "jks-gs-${var.env}-server_base-sg",
+        "${var.additional_security_group_name}",
+        "jks-ssh-group"
+    ]
+
     update_default_version = true
 
     block_device_mappings {
@@ -45,12 +51,7 @@ resource "aws_launch_template" "launch_template" {
     image_id = "ami-0a672c79e61374a45"
 
     network_interfaces {
-        associate_public_ip_address = true
-        security_groups = [
-            "${var.base_security_group_id}",
-            "${var.additional_security_group_id}",
-            "sg-095698a868bf8a6f8"      # ssh rule
-        ]
+      associate_public_ip_address = true
     }
 }
 
