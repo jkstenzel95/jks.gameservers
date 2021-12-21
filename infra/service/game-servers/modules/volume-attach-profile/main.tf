@@ -1,5 +1,5 @@
 # the role that will be used in attaching the volume to a machine on startup
-resource "aws_iam_role" "launch_iam_role" {
+resource "aws_iam_role" "instance_launch_iam_role" {
     name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-role"
     assume_role_policy = jsonencode({
         "Version": "2012-10-17",
@@ -44,11 +44,11 @@ resource "aws_iam_policy" "policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "ec2-read-only-policy-attachment" {
-    role = aws_iam_role.launch_iam_role.name
+    role = aws_iam_role.instance_launch_iam_role.name
     policy_arn = aws_iam_policy.policy.arn
 }
 
-resource "aws_iam_instance_profile" "spot_launch_iam_profile" {
+resource "aws_iam_instance_profile" "instance_launch_iam_profile" {
     name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-profile"
-    role = aws_iam_role.spot_launch_iam_role.name
+    role = aws_iam_role.instance_launch_iam_role.name
 }
