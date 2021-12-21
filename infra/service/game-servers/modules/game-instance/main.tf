@@ -1,11 +1,10 @@
 locals {
     dedicated_count = var.use_spot_instance ? 0 : 1
     spot_count = var.use_spot_instance ? 1 : 0
-    launch_template = var.use_spot_instance ? aws_launch_template.spot_launch_template[0] : aws_launch_template.dedicated_launch_template[0]
 }
 
 # the role that will be used in attaching the volume to a machine on startup
-module "spot_launch_iam_profile" {
+module "instance_launch_iam_profile" {
     source = "./../volume-attach-profile"
 
     game_name = "${var.game_name}"
@@ -15,21 +14,20 @@ module "spot_launch_iam_profile" {
     region_shortname = "${var.region_shortname}"
 }
 
-# the launch template that will attach the volume to a spot instance on launch
-resource "aws_launch_template" "spot_launch_template" {
-    count = local.spot_count
-    name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-spot-launch-template"
+# the launch template that will attach the volume to an instance on launch
+resource "aws_launch_template" "launch_template" {
+    name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-lt"
     iam_instance_profile {
-      name = module.spot_launch_iam_profile.name
+      name = module.instance_launch_iam_profile.name
     }
 
     update_default_version = true
 
     block_device_mappings {
-        device_name = "/dev/sda1"
+        device_name = "/dev/xvda"
 
         ebs {
-            volume_size = 20
+            volume_size = 10
         }
     }
 
@@ -38,49 +36,121 @@ resource "aws_launch_template" "spot_launch_template" {
     instance_market_options {
       market_type = "spot"
       spot_options {
-        max_price = 0.03
         spot_instance_type = "one-time"
       }
     }
 
     image_id = "ami-0a672c79e61374a45"
-    instance_type = "${var.instance_type}"
 
     network_interfaces {
       associate_public_ip_address = true
     }
 }
 
-# the launch template that will attach the volume to a spot instance on launch
-resource "aws_launch_template" "dedicated_launch_template" {
-    count = local.dedicated_count
-    name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-dedicated-launch-template"
-    iam_instance_profile {
-      name = module.spot_launch_iam_profile.name
+resource "aws_iam_role" "fleet_role" {
+    name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-fleet_role"
+    assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "spotfleet.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
     }
+  ]
+}
+EOF
+}
 
-    update_default_version = true
+resource "aws_spot_fleet_request" "spot_fleet" {
+    iam_fleet_role = aws_iam_role.fleet_role.arn
+    spot_price = "0.03"
+    allocation_strategy = "lowestPrice"
+    target_capacity = local.spot_count
+    fleet_type = "maintain"
 
-    block_device_mappings {
-        device_name = "/dev/sda1"
+    launch_template_config {
+        launch_template_specification {
+            id = aws_launch_template.launch_template.id
+            version = "$Latest"
+        }
 
-        ebs {
-            volume_size = 20
+        overrides {
+            instance_type = "a1.xlarge"
+            availability_zone = "${var.server_region}a"
+        }
+
+        overrides {
+            instance_type = "a1.xlarge"
+            availability_zone = "${var.server_region}b"
+        }
+        
+        overrides {
+            instance_type = "a1.xlarge"
+            availability_zone = "${var.server_region}c"
+        }
+
+        overrides {
+            instance_type = "c6g.xlarge"
+            availability_zone = "${var.server_region}a"
+        }
+
+        overrides {
+            instance_type = "c6g.xlarge"
+            availability_zone = "${var.server_region}b"
+        }
+
+        overrides {
+            instance_type = "c6g.xlarge"
+            availability_zone = "${var.server_region}c"
+        }
+
+        overrides {
+            instance_type = "c6gn.xlarge"
+            availability_zone = "${var.server_region}a"
+        }
+
+        overrides {
+            instance_type = "c6gn.xlarge"
+            availability_zone = "${var.server_region}b"
+        }
+
+        overrides {
+            instance_type = "c6gn.xlarge"
+            availability_zone = "${var.server_region}c"
+        }
+
+        overrides {
+            instance_type = "c6i.xlarge"
+            availability_zone = "${var.server_region}a"
+        }
+
+        overrides {
+            instance_type = "c6i.xlarge"
+            availability_zone = "${var.server_region}b"
+        }
+
+        overrides {
+            instance_type = "c6i.xlarge"
+            availability_zone = "${var.server_region}c"
         }
     }
 
-    user_data = base64encode(templatefile("${path.module}/../../scripts/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}" }))
-
-    image_id = "ami-0a672c79e61374a45"
-    instance_type = "${var.instance_type}"
-
-    network_interfaces {
-      associate_public_ip_address = true
+    tags = {
+        Name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-spot_fleet"
+        game = "${var.game_name}"
+        map = "${var.map_name}"
+        env = "${var.env}"
     }
 }
 
 # this ensures there is an instance running
-resource "aws_autoscaling_group" "instance_autoscale_group" {
+resource "aws_autoscaling_group" "dedicated_autoscale_group" {
+    count = local.dedicated_count
     name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-asg"
     availability_zones = ["${var.server_region}a"]
     desired_capacity   = 1
@@ -89,14 +159,8 @@ resource "aws_autoscaling_group" "instance_autoscale_group" {
     wait_for_capacity_timeout = 0
 
     launch_template {
-        id      = "${local.launch_template.id}"
+        id      = "${aws_launch_template.launch_template.id}"
         version = "$Latest"
-    }
-
-    tag {
-        key = "Name"
-        value = "${var.game_name}_${var.map_name}"
-        propagate_at_launch = true
     }
 
     tag {
