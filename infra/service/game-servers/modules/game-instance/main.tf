@@ -23,7 +23,8 @@ resource "aws_launch_template" "launch_template" {
 
     security_group_names = [
         "jks-gs-${var.env}-server_base-sg",
-        "${var.additional_security_group_name}"
+        "${var.additional_security_group_name}",
+        "jks-ssh-group"
     ]
 
     update_default_version = true
