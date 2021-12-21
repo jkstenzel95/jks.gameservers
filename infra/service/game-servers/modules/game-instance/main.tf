@@ -43,7 +43,7 @@ resource "aws_launch_template" "spot_launch_template" {
       }
     }
 
-    image_id = "ami-056b1936002ca8ede"
+    image_id = "ami-0a672c79e61374a45"
     instance_type = "${var.instance_type}"
 
     network_interfaces {
@@ -71,7 +71,7 @@ resource "aws_launch_template" "dedicated_launch_template" {
 
     user_data = base64encode(templatefile("${path.module}/../../scripts/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}" }))
 
-    image_id = "ami-056b1936002ca8ede"
+    image_id = "ami-0a672c79e61374a45"
     instance_type = "${var.instance_type}"
 
     network_interfaces {
