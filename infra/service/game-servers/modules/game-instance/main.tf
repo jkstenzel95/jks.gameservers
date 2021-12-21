@@ -21,6 +21,11 @@ resource "aws_launch_template" "launch_template" {
       name = module.instance_launch_iam_profile.name
     }
 
+    security_group_names = [
+        "jks-gs-${var.env}-server_base-sg",
+        "${var.additional_security_group_name}"
+    ]
+
     update_default_version = true
 
     block_device_mappings {

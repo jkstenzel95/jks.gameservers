@@ -1,3 +1,9 @@
+module "shared_sg" {
+    source = "./modules/security-group"
+
+    env = "${var.env}"
+}
+
 module "ark_cluster" {
     source = "./modules/Ark/ark-cluster"
 

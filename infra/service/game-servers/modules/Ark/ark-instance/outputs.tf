@@ -1,4 +1,4 @@
-output "scale_group" {
+output "instance" {
     description = "the spot instance created"
-    value = module.scale_group
+    value = module.instance
 }

@@ -1,3 +1,9 @@
+module "ark_sg" {
+    source = "./../ark-security-group"
+
+    env = "${var.env}"
+}
+
 module "shared_data_volume" {
     source = "./../ark-volume"
 
@@ -7,7 +13,7 @@ module "shared_data_volume" {
     volume_identifier_name = "arkshared"
 }
 
-module "scale_groups" {
+module "ark_instances" {
     source = "./../ark-instance"
 
     env = "${var.env}"
@@ -16,5 +22,6 @@ module "scale_groups" {
     server_region = "${var.server_region}"
     data_volume_id = "${module.shared_data_volume.id}"
     map_name = var.map_names[count.index]
+    additional_security_group_name = "${module.ark_sg.name}"
     use_spot_instance = "${var.use_spot_instance}"
 }
