@@ -26,3 +26,9 @@ variable "region_shortname" {
     description = "the shortname of the region to provision the instance in"
     default = "use2"
 }
+
+variable "use_spot_instance" {
+    description = "Use a persistent spot request for hosting instead of dedicated instances"
+    type = bool
+    default = true
+}

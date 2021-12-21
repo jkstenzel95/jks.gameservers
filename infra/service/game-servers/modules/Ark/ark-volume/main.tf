@@ -1,6 +1,6 @@
 module "volume" {
     volume_identifier_name = "${var.volume_identifier_name}"
-    source = "./../../spot-volume"
+    source = "./../../volume"
 
     server_region = "${var.server_region}"
     region_shortname = "${var.region_shortname}"

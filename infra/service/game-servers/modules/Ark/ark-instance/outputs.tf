@@ -1,4 +1,4 @@
-output "instance" {
-    description = "the instance created"
-    value = module.ark_scale_group.instance_autoscale_group
+output "scale_group" {
+    description = "the spot instance created"
+    value = module.scale_group
 }

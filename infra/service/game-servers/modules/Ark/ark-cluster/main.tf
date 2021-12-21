@@ -7,7 +7,7 @@ module "shared_data_volume" {
     volume_identifier_name = "arkshared"
 }
 
-module "instances" {
+module "scale_groups" {
     source = "./../ark-instance"
 
     env = "${var.env}"
@@ -16,4 +16,5 @@ module "instances" {
     server_region = "${var.server_region}"
     data_volume_id = "${module.shared_data_volume.id}"
     map_name = var.map_names[count.index]
+    use_spot_instance = "${var.use_spot_instance}"
 }

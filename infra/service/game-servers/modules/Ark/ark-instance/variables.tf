@@ -17,3 +17,9 @@ variable "data_volume_id" {
 variable "map_name" {
     description = "the map for which the server is created"
 }
+
+variable "use_spot_instance" {
+    description = "Use a persistent spot request for hosting instead of dedicated instances"
+    type = bool
+    default = true
+}

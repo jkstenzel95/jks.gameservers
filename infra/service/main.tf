@@ -4,7 +4,14 @@ locals {
 }
 
 terraform {
-    backend "s3" { }
+    backend "s3" { 
+        bucket          = locals.BUCKET_NAME
+        key             = "global/s3/terraform.tfstate"
+        region          = "us-east-2"
+
+        dynamodb_table  = locals.DYNAMODB_NAME
+        encrypt         = true
+    }
     
     required_providers {
         aws = {

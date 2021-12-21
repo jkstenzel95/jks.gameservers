@@ -1,63 +1,24 @@
+locals {
+    dedicated_count = var.use_spot_instance ? 0 : 1
+    spot_count = var.use_spot_instance ? 1 : 0
+    launch_template = var.use_spot_instance ? aws_launch_template.spot_launch_template[0] : aws_launch_template.dedicated_launch_template[0]
+}
+
 # the role that will be used in attaching the volume to a machine on startup
-resource "aws_iam_role" "spot_launch_iam_role" {
-    name = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-role"
-    assume_role_policy = jsonencode({
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "",
-                "Effect": "Allow",
-                "Principal": {
-                    "Service": [
-                        "ec2.amazonaws.com"
-                    ]
-                },
-                "Action": "sts:AssumeRole"
-            }
-        ]
-    })
-}
+module "spot_launch_iam_profile" {
+    source = "./../volume-attach-profile"
 
-resource "aws_iam_policy" "policy" {
-    name = "jks-gs-${var.region_shortname}-${var.game_name}-${var.map_name}-attach-policy"
-    policy = jsonencode({
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Action": [
-                    "ec2:AttachVolume",
-                    "ec2:DetachVolume"
-                ],
-                "Resource": [
-                    "arn:aws:ec2:*:*:instance/*",
-                    "arn:aws:ec2:*:*:volume/${var.data_volume_id}"
-                ]
-            },
-            {
-                "Effect": "Allow",
-                "Action": "ec2:DescribeVolumes",
-                "Resource": "arn:aws:ec2:*:*:volume/${var.data_volume_id}"
-            }
-        ]
-    })
-}
-
-resource "aws_iam_role_policy_attachment" "ec2-read-only-policy-attachment" {
-    role = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-role"
-    policy_arn = aws_iam_policy.policy.arn
-}
-
-resource "aws_iam_instance_profile" "spot_launch_iam_profile" {
-    name = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-profile"
-    role = aws_iam_role.spot_launch_iam_role.name
+    game_name = "${var.game_name}"
+    map_name = "${var.map_name}"
+    data_volume_id = "${var.data_volume_id}"
 }
 
 # the launch template that will attach the volume to a spot instance on launch
 resource "aws_launch_template" "spot_launch_template" {
-    name = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-launch-template"
+    count = local.spot_count
+    name = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-spot-launch-template"
     iam_instance_profile {
-      name = aws_iam_instance_profile.spot_launch_iam_profile.name
+      name = module.spot_launch_iam_profile.name
     }
 
     update_default_version = true
@@ -70,7 +31,7 @@ resource "aws_launch_template" "spot_launch_template" {
         }
     }
 
-    user_data = base64encode(templatefile("${path.module}/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}" }))
+    user_data = base64encode(templatefile("${path.module}/../../scripts/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}" }))
 
     instance_market_options {
       market_type = "spot"
@@ -88,8 +49,36 @@ resource "aws_launch_template" "spot_launch_template" {
     }
 }
 
-# somehow this needs to be used to create the instance
-resource "aws_autoscaling_group" "spot_instance_autoscale_group" {
+# the launch template that will attach the volume to a spot instance on launch
+resource "aws_launch_template" "dedicated_launch_template" {
+    count = local.dedicated_count
+    name = "jks-gameservers-${var.region_shortname}-${var.game_name}-${var.map_name}-dedicated-launch-template"
+    iam_instance_profile {
+      name = module.spot_launch_iam_profile.name
+    }
+
+    update_default_version = true
+
+    block_device_mappings {
+        device_name = "/dev/sda1"
+
+        ebs {
+            volume_size = 20
+        }
+    }
+
+    user_data = base64encode(templatefile("${path.module}/../../scripts/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}" }))
+
+    image_id = "ami-056b1936002ca8ede"
+    instance_type = "${var.instance_type}"
+
+    network_interfaces {
+      associate_public_ip_address = true
+    }
+}
+
+# this ensures there is an instance running
+resource "aws_autoscaling_group" "instance_autoscale_group" {
     name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-asg"
     availability_zones = ["${var.server_region}a"]
     desired_capacity   = 1
@@ -98,7 +87,7 @@ resource "aws_autoscaling_group" "spot_instance_autoscale_group" {
     wait_for_capacity_timeout = 0
 
     launch_template {
-        id      = "${aws_launch_template.spot_launch_template.id}"
+        id      = "${local.launch_template.id}"
         version = "$Latest"
     }
 
