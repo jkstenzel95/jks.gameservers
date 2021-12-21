@@ -43,7 +43,7 @@ resource "aws_launch_template" "spot_launch_template" {
       }
     }
 
-    image_id = "ami-0a672c79e61374a45"
+    image_id = "ami-056b1936002ca8ede"
     instance_type = "${var.instance_type}"
 
     network_interfaces {
