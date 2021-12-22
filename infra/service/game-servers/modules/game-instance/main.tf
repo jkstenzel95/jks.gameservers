@@ -48,10 +48,6 @@ resource "aws_launch_template" "launch_template" {
       }
     }
 
-    network_interfaces {
-        associate_public_ip_address = true
-    }
-
     image_id = "ami-0a672c79e61374a45"
 }
 
