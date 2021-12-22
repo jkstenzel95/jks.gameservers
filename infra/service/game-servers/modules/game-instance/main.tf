@@ -136,7 +136,8 @@ resource "aws_iam_role_policy_attachment" "ec2-fleet-policy-attachment" {
 
 resource "aws_spot_fleet_request" "spot_fleet" {
     iam_fleet_role = aws_iam_role.fleet_role.arn
-    spot_price = "0.03"
+    # TODO: CHANGE THIS BACK TO 0.3 ONCE THIS BUG RESOLVES: https://github.com/hashicorp/terraform/issues/30244
+    spot_price = "0.0425"
     allocation_strategy = "lowestPrice"
     target_capacity = local.spot_count
     fleet_type = "maintain"
