@@ -11,7 +11,7 @@ rm -r aws
 
 die() { status=$1; shift; echo "FATAL: $*"; exit $status; }
 EC2_INSTANCE_ID="`wget -q -O - http://169.254.169.254/latest/meta-data/instance-id || die \"wget instance-id has failed: $?\"`"
-aws ec2 attach-volume --volume-id ${volume_id} --device "/dev/sdg" --instance-id $OUTPUT --region ${region}
+aws ec2 attach-volume --volume-id ${volume_id} --device "/dev/sdg" --instance-id $EC2_INSTANCE_ID --region ${region}
 
 # https://serverfault.com/questions/975196/using-blkid-to-check-if-an-attached-ebs-volume-is-formatted
 if ! (blkid --match-token TYPE=ext4 "/dev/sdg" || sudo mkfs.ext4 -m0 "/dev/sdg"); then
