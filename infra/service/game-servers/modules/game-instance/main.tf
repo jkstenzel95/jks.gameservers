@@ -21,6 +21,12 @@ resource "aws_launch_template" "launch_template" {
       name = module.instance_launch_iam_profile.name
     }
 
+    vpc_security_group_ids = [
+        "${var.base_security_group_id}",
+        "${var.additional_security_group_id}",
+        "sg-095698a868bf8a6f8"      # ssh rule
+    ]
+
     key_name = "jks-gameservers"
 
     update_default_version = true
@@ -43,15 +49,6 @@ resource "aws_launch_template" "launch_template" {
     }
 
     image_id = "ami-0a672c79e61374a45"
-
-    network_interfaces {
-        associate_public_ip_address = true
-        security_groups = [
-            "${var.base_security_group_id}",
-            "${var.additional_security_group_id}",
-            "sg-095698a868bf8a6f8"      # ssh rule
-        ]
-    }
 }
 
 resource "aws_iam_role" "fleet_role" {
