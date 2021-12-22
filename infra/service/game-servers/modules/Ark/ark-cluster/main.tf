@@ -25,5 +25,6 @@ module "ark_instances" {
     base_security_group_id = "${var.shared_sg_id}"
     additional_security_group_id = "${module.ark_sg.id}"
     server_image_id = "${var.server_image_id}"
+    ssh_security_group = "${var.ssh_security_group}"
     use_spot_instance = "${var.use_spot_instance}"
 }

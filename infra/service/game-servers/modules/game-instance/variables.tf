@@ -35,8 +35,12 @@ variable "additional_security_group_id" {
     description = "the game-specific security group id to associate"
 }
 
-variable server_image_id {
+variable "server_image_id" {
     description = "the image ID (AMI) of the servers being provisioned"
+}
+
+variable "ssh_security_group" {
+    description = "the pre-existing security group providing personal machine ssh access"
 }
 
 variable "use_spot_instance" {

@@ -17,19 +17,23 @@ variable server_image_id {
     description = "the image ID (AMI) of the servers being provisioned"
 }
 
-variable "env" {
+variable ssh_security_group {
+    description = "the pre-existing security group providing personal machine ssh access"
+}
+
+variable env {
     description = "the environment of the server resource set"
 }
 
-variable "server_region" {
+variable server_region {
     description = "region to provision the server in"
 }
 
-variable "region_shortname" {
+variable region_shortname {
     description = "the shortname of the region to provision the instance in"
 }
 
-variable "use_spot_instance" {
+variable use_spot_instance {
     description = "Use a persistent spot request for hosting instead of dedicated instances"
     type = bool
     default = true

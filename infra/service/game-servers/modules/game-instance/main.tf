@@ -24,7 +24,7 @@ resource "aws_launch_template" "launch_template" {
     vpc_security_group_ids = [
         "${var.base_security_group_id}",
         "${var.additional_security_group_id}",
-        "sg-095698a868bf8a6f8"      # ssh rule
+        "${var.ssh_security_group}"
     ]
 
     key_name = "jks-gameservers"
