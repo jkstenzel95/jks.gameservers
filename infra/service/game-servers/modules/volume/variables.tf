@@ -11,7 +11,15 @@ variable "env" {
 }
 
 variable "volume_size" {
-    description = "size of the volumen in GiB"
+    description = "size of the volume in GiB"
+}
+
+variable "type" {
+    description = "type of the volume"
+}
+
+variable "multi_attach_enabled" {
+    description = "whether the volume is permitted to attach to multiple instances"
 }
 
 variable "volume_identifier_name" {
