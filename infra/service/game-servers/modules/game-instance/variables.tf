@@ -35,6 +35,10 @@ variable "additional_security_group_id" {
     description = "the game-specific security group id to associate"
 }
 
+variable server_image_id {
+    description = "the image ID (AMI) of the servers being provisioned"
+}
+
 variable "use_spot_instance" {
     description = "Use a persistent spot request for hosting instead of dedicated instances"
     type = bool

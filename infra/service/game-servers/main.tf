@@ -12,5 +12,6 @@ module "ark_cluster" {
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
     shared_sg_id = module.shared_sg.id
+    server_image_id = "${var.server_image_id}"
     use_spot_instance = var.use_spot_instance
 }

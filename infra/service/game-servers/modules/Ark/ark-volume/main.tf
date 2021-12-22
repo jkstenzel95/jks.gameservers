@@ -8,5 +8,6 @@ module "volume" {
     volume_size = 200
     type = "io1"
     multi_attach_enabled = true
+    # https://en.wikipedia.org/wiki/IOPS
     iops = 200
 }

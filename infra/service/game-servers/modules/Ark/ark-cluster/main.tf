@@ -24,5 +24,6 @@ module "ark_instances" {
     map_name = var.map_names[count.index]
     base_security_group_id = "${var.shared_sg_id}"
     additional_security_group_id = "${module.ark_sg.id}"
+    server_image_id = "${var.server_image_id}"
     use_spot_instance = "${var.use_spot_instance}"
 }

@@ -19,6 +19,10 @@ variable "shared_sg_id" {
     description = "the base security group id"
 }
 
+variable server_image_id {
+    description = "the image ID (AMI) of the servers being provisioned"
+}
+
 variable "use_spot_instance" {
     description = "use a persistent spot request for hosting instead of dedicated instances"
     type = bool

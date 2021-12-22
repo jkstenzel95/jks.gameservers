@@ -48,7 +48,7 @@ resource "aws_launch_template" "launch_template" {
       }
     }
 
-    image_id = "ami-0af13f091353ff69d"
+    image_id = "${var.server_image_id}"
 }
 
 resource "aws_iam_role" "fleet_role" {

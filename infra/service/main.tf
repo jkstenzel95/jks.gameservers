@@ -37,4 +37,5 @@ module "game-servers" {
     env = "${var.env}"
     server_region = "${var.server_region}"
     region_shortname = "${var.region_shortname}"
+    server_image_id = "${var.server_image_id}"
 }

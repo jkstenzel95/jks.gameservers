@@ -13,18 +13,20 @@ variable valheim_map_names {
     type = list(string)
 }
 
+variable server_image_id {
+    description = "the image ID (AMI) of the servers being provisioned"
+}
+
 variable "env" {
     description = "the environment of the server resource set"
 }
 
 variable "server_region" {
     description = "region to provision the server in"
-    default = "us-east-2"
 }
 
 variable "region_shortname" {
     description = "the shortname of the region to provision the instance in"
-    default = "use2"
 }
 
 variable "use_spot_instance" {

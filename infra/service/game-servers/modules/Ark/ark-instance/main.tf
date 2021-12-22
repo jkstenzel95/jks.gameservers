@@ -10,5 +10,6 @@ module "instance" {
     map_name = "${var.map_name}"
     base_security_group_id = "${var.base_security_group_id}"
     additional_security_group_id = "${var.additional_security_group_id}"
+    server_image_id = "${var.server_image_id}"
     use_spot_instance = "${var.use_spot_instance}"
 }
