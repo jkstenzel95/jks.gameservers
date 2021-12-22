@@ -1,7 +1,7 @@
 # the actual volume
 
 resource "aws_ebs_volume" "volume" {
-    availability_zone = "${var.server_region}a"
+    availability_zone = "${var.server_region}b"
     size = var.volume_size
     type = "gp2"
 

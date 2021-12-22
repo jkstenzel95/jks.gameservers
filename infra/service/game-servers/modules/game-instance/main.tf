@@ -149,37 +149,12 @@ resource "aws_spot_fleet_request" "spot_fleet" {
 
         overrides {
             instance_type = "a1.xlarge"
-            availability_zone = "${var.server_region}a"
-        }
-
-        overrides {
-            instance_type = "a1.xlarge"
-            availability_zone = "${var.server_region}b"
-        }
-        
-        overrides {
-            instance_type = "a1.xlarge"
-            availability_zone = "${var.server_region}c"
-        }
-
-        overrides {
-            instance_type = "c6g.xlarge"
-            availability_zone = "${var.server_region}a"
-        }
-
-        overrides {
-            instance_type = "c6g.xlarge"
             availability_zone = "${var.server_region}b"
         }
 
         overrides {
             instance_type = "c6g.xlarge"
-            availability_zone = "${var.server_region}c"
-        }
-
-        overrides {
-            instance_type = "c6gn.xlarge"
-            availability_zone = "${var.server_region}a"
+            availability_zone = "${var.server_region}b"
         }
 
         overrides {
@@ -188,23 +163,8 @@ resource "aws_spot_fleet_request" "spot_fleet" {
         }
 
         overrides {
-            instance_type = "c6gn.xlarge"
-            availability_zone = "${var.server_region}c"
-        }
-
-        overrides {
-            instance_type = "c6i.xlarge"
-            availability_zone = "${var.server_region}a"
-        }
-
-        overrides {
             instance_type = "c6i.xlarge"
             availability_zone = "${var.server_region}b"
-        }
-
-        overrides {
-            instance_type = "c6i.xlarge"
-            availability_zone = "${var.server_region}c"
         }
     }
 
