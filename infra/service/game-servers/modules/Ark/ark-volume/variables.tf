@@ -10,6 +10,6 @@ variable "env" {
     description = "the environment of the server resource set"
 }
 
-variable "volume_identifier_name" {
-  description = "the short identifier to be used in naming the volume"
+variable availability_zone {
+    description =  "the name of the availability zone"
 }

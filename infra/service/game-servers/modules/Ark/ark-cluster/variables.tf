@@ -10,9 +10,8 @@ variable "env" {
     description = "the environment of the server resource set"
 }
 
-variable "map_names" {
-    description = "the set of maps to be added to the Ark cluster"
-    type = list(string)
+variable availability_zone {
+    description =  "the name of the availability zone"
 }
 
 variable "shared_sg_id" {

@@ -1,13 +1,14 @@
 module "instance" {
     source = "./../../game-instance"
 
-    instance_type = "a1.xlarge"
     server_region = "${var.server_region}"
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
+    availability_zone = "${var.availability_zone}"
     data_volume_id = "${var.data_volume_id}"
     game_name = "Ark"
-    map_name = "${var.map_name}"
+    map_name = "all"
+    instance_type = "c6g.8xlarge"
     base_security_group_id = "${var.base_security_group_id}"
     additional_security_group_id = "${var.additional_security_group_id}"
     server_image_id = "${var.server_image_id}"

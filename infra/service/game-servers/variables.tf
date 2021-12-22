@@ -1,8 +1,3 @@
-variable ark_map_names {
-    description = "a list of names of ark maps to create"
-    type = list(string)
-}
-
 variable minecraft_map_names {
     description = "a list of names of minecraft maps to create"
     type = list(string)
@@ -31,6 +26,10 @@ variable server_region {
 
 variable region_shortname {
     description = "the shortname of the region to provision the instance in"
+}
+
+variable availability_zone {
+    description =  "the name of the availability zone"
 }
 
 variable use_spot_instance {

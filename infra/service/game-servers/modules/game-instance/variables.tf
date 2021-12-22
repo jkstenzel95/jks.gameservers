@@ -1,8 +1,3 @@
-variable "instance_type" {
-    description = "the type of instance that will run the server"
-    default = "a1.xlarge"
-}
-
 variable "server_region" {
     description = "region to provision the instance in"
 }
@@ -19,6 +14,10 @@ variable "env" {
     description = "the environment of the server resource set"
 }
 
+variable availability_zone {
+    description =  "the name of the availability zone"
+}
+
 variable "game_name" {
     description = "the game for which the instance is created"
 }
@@ -33,6 +32,10 @@ variable "base_security_group_id" {
 
 variable "additional_security_group_id" {
     description = "the game-specific security group id to associate"
+}
+
+variable "instance_type" {
+    description = "the type of the instance to be used in the fleet"
 }
 
 variable "server_image_id" {

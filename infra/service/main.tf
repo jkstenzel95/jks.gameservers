@@ -31,12 +31,12 @@ provider aws {
 module "game-servers" {
     source = "./game-servers"
 
-    ark_map_names = "${var.ark_map_names}"
     minecraft_map_names = "${var.minecraft_map_names}"
     valheim_map_names = "${var.valheim_map_names}"
     env = "${var.env}"
     server_region = "${var.server_region}"
     region_shortname = "${var.region_shortname}"
+    availability_zone = "${var.availability_zone}"
     server_image_id = "${var.server_image_id}"
     ssh_security_group = "${var.ssh_security_group}"
     use_spot_instance = "${var.use_spot_instance}"

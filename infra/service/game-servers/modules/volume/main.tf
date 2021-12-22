@@ -1,13 +1,12 @@
 # the actual volume
 
 resource "aws_ebs_volume" "volume" {
-    availability_zone = "${var.server_region}b"
+    availability_zone = "${var.availability_zone}"
     size = var.volume_size
     type = "${var.type}"
-    multi_attach_enabled = var.multi_attach_enabled
     iops = var.iops
 
     tags = {
-        Name = "jks-gs-${var.env}-${var.volume_identifier_name}-data-volume"
+        Name = "jks-gs-${var.env}-${var.game_name}-${var.map_name}-data-volume"
     }
 }

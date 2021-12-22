@@ -149,23 +149,8 @@ resource "aws_spot_fleet_request" "spot_fleet" {
         }
 
         overrides {
-            instance_type = "a1.xlarge"
-            availability_zone = "${var.server_region}b"
-        }
-
-        overrides {
-            instance_type = "c6g.xlarge"
-            availability_zone = "${var.server_region}b"
-        }
-
-        overrides {
-            instance_type = "c6gn.xlarge"
-            availability_zone = "${var.server_region}b"
-        }
-
-        overrides {
-            instance_type = "c6i.xlarge"
-            availability_zone = "${var.server_region}b"
+            instance_type = "${var.instance_type}"
+            availability_zone = "${var.availability_zone}"
         }
     }
 
@@ -181,7 +166,7 @@ resource "aws_spot_fleet_request" "spot_fleet" {
 resource "aws_autoscaling_group" "dedicated_autoscale_group" {
     count = local.dedicated_count
     name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-asg"
-    availability_zones = ["${var.server_region}a"]
+    availability_zones = ["${var.availability_zone}"]
     desired_capacity   = 1
     max_size           = 1
     min_size           = 1

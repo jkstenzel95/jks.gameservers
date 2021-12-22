@@ -1,13 +1,13 @@
 module "volume" {
-    volume_identifier_name = "${var.volume_identifier_name}"
     source = "./../../volume"
 
     server_region = "${var.server_region}"
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
+    game_name = "Ark"
+    map_name = "all"
+    availability_zone = "${var.availability_zone}"
     volume_size = 200
-    type = "io1"
-    multi_attach_enabled = true
-    # https://en.wikipedia.org/wiki/IOPS
-    iops = 200
+    type = "gp2"
+    iops = null
 }

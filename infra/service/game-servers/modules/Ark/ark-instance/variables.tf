@@ -10,12 +10,12 @@ variable "env" {
     description = "the environment of the server resource set"
 }
 
-variable "data_volume_id" {
-    description = "the id of the volume to attach to the instance"
+variable availability_zone {
+    description =  "the name of the availability zone"
 }
 
-variable "map_name" {
-    description = "the map for which the server is created"
+variable "data_volume_id" {
+    description = "the id of the volume to attach to the instance"
 }
 
 variable "base_security_group_id" {
