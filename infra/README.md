@@ -7,3 +7,6 @@ The Terraform and script repository for infrastructure deployment and initializa
 - Infra that's only meant to be deployed once (infra storage, build pipelines)
 ### /service
 - The main infra for game servers and the surrounding services
+
+Create keypair jks-gameservers
+Create SSH security group for ssh, put id in config
