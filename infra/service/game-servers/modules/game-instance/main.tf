@@ -39,7 +39,7 @@ resource "aws_launch_template" "launch_template" {
         }
     }
 
-    user_data = base64encode(templatefile("${path.module}/../../scripts/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}" }))
+    # user_data = base64encode(templatefile("${path.module}/../../scripts/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}" }))
 
     instance_market_options {
       market_type = "spot"
