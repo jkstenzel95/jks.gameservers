@@ -5,6 +5,7 @@ resource "aws_ebs_volume" "volume" {
     size = var.volume_size
     type = "${var.type}"
     multi_attach_enabled = var.multi_attach_enabled
+    iops = var.iops
 
     tags = {
         Name = "jks-gs-${var.env}-${var.volume_identifier_name}-data-volume"

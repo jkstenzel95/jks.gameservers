@@ -22,6 +22,10 @@ variable "multi_attach_enabled" {
     description = "whether the volume is permitted to attach to multiple instances"
 }
 
+variable "iops" {
+    description = "provisioned iops"
+}
+
 variable "volume_identifier_name" {
     description = "the short identifier to be used in naming the volume"
 }

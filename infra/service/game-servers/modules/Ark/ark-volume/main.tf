@@ -5,8 +5,8 @@ module "volume" {
     server_region = "${var.server_region}"
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
-    #TODO it needs to be a lot bigger than this
-    volume_size = 50
-    type = "gp2"
+    volume_size = 200
+    type = "io1"
     multi_attach_enabled = true
+    iops = 200
 }
