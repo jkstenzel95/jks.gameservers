@@ -22,6 +22,7 @@ module "ark_instances" {
     server_region = "${var.server_region}"
     data_volume_id = "${module.shared_data_volume.id}"
     map_name = var.map_names[count.index]
-    additional_security_group_name = "${module.ark_sg.name}"
+    base_security_group_id = "${var.shared_sg_id}"
+    additional_security_group_id = "${module.ark_sg.id}"
     use_spot_instance = "${var.use_spot_instance}"
 }

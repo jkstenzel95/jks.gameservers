@@ -27,8 +27,12 @@ variable "map_name" {
     description = "the map for which the instance is created"
 }
 
-variable "additional_security_group_name" {
-    description = "the game-specific security group name to associate"
+variable "base_security_group_id" {
+    description = "the base security group id to associate"
+}
+
+variable "additional_security_group_id" {
+    description = "the game-specific security group id to associate"
 }
 
 variable "use_spot_instance" {

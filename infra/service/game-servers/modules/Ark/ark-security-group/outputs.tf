@@ -1,4 +1,4 @@
-output "name" {
-    description = "the name of the ark"
-    value = "aws_security_group.base_sg.name"
+output "id" {
+    description = "the id of the ark security group"
+    value = "aws_security_group.base_sg.id"
 }
