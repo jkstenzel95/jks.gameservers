@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 sudo yum update -y
 sudo yum install unzip -y
 sudo yum -y install wget

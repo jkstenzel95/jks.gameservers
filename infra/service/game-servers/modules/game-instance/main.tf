@@ -43,7 +43,7 @@ resource "aws_launch_template" "launch_template" {
         }
     }
 
-    user_data = base64encode("${local.full_launch_script}")
+    # user_data = base64encode("${local.full_launch_script}")
 
     instance_market_options {
       market_type = "spot"
