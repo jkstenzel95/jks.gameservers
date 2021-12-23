@@ -22,6 +22,10 @@ variable server_image_id {
     description = "the image ID (AMI) of the servers being provisioned"
 }
 
+variable "instance_type" {
+    description = "the type of the instance to be used in the fleet"
+}
+
 variable ssh_security_group {
     description = "the pre-existing security group providing personal machine ssh access"
 }

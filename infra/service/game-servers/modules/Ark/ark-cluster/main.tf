@@ -13,7 +13,7 @@ module "shared_data_volume" {
     availability_zone = "${var.availability_zone}"
 }
 
-module "ark_instances" {
+module "ark_instance" {
     source = "./../ark-instance"
 
     env = "${var.env}"
@@ -24,6 +24,7 @@ module "ark_instances" {
     base_security_group_id = "${var.shared_sg_id}"
     additional_security_group_id = "${module.ark_sg.id}"
     server_image_id = "${var.server_image_id}"
+    instance_type = "${var.instance_type}"
     ssh_security_group = "${var.ssh_security_group}"
     use_spot_instance = "${var.use_spot_instance}"
 }

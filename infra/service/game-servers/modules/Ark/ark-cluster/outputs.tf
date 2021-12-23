@@ -1,4 +1,4 @@
-output "ark_instances" {
-    description = "the instances created"
-    value = module.ark_instances[*].instance
+output "ark_instance" {
+    description = "the instance created"
+    value = module.ark_instance.instance
 }

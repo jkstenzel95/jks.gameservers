@@ -8,8 +8,12 @@ variable valheim_map_names {
     type = list(string)
 }
 
-variable server_image_id {
-    description = "the image ID (AMI) of the servers being provisioned"
+variable ark_server_image_id {
+    description = "the image ID (AMI) of the Ark server being provisioned"
+}
+
+variable "ark_instance_type" {
+    description = "the type of the instance to be used in the Ark fleet"
 }
 
 variable ssh_security_group {

@@ -8,7 +8,7 @@ module "instance" {
     data_volume_id = "${var.data_volume_id}"
     game_name = "Ark"
     map_name = "all"
-    instance_type = "c6g.8xlarge"
+    instance_type = "${var.instance_type}"
     base_security_group_id = "${var.base_security_group_id}"
     additional_security_group_id = "${var.additional_security_group_id}"
     server_image_id = "${var.server_image_id}"
