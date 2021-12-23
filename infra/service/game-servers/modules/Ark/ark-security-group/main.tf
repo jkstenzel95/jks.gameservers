@@ -6,7 +6,14 @@ resource "aws_security_group" "ark_sg" {
         description = "Ark Port"
         from_port = 7777
         to_port = 7777
-        protocol = "tcp"
+        protocol = "udp"
+    }
+
+    ingress {
+        description = "Ark Port 2"
+        from_port = 7778
+        to_port = 7778
+        protocol = "udp"
     }
 
     ingress {
