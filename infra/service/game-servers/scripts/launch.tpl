@@ -14,13 +14,8 @@ EC2_INSTANCE_ID="`wget -q -O - http://169.254.169.254/latest/meta-data/instance-
 aws ec2 attach-volume --volume-id ${volume_id} --device "/dev/sdg" --instance-id $EC2_INSTANCE_ID --region ${region}
 
 # https://serverfault.com/questions/975196/using-blkid-to-check-if-an-attached-ebs-volume-is-formatted
-if ! (blkid --match-token TYPE=ext4 "/dev/sdg" || sudo mkfs.ext4 -m0 "/dev/sdg"); then
-    echo "Could not format"
-    while ! blkid --match-token TYPE=ext4 "/dev/sdg"; do echo "Waiting before checking if formatted yet"; sleep 15; done
-    echo "Drive now formatted"
-fi
-
+blkid --match-token TYPE=ext4 "/dev/sdg" || sudo mkfs.ext4 -m0 "/dev/sdg"
 
 sudo mkdir ${server_mount_location}
-while ! (sudo mount /dev/sdg ${server_mount_location}); do echo "Mount not successful... retrying in 15 seconds"; sleep 15; done
+while ! sudo mount /dev/sdg ${server_mount_location}; do echo "Mount not successful... retrying in 15 seconds"; sleep 15; done
 sudo chmod ugo+wx ${server_mount_location}
