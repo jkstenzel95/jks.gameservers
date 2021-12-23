@@ -1,6 +1,10 @@
 locals {
     dedicated_count = var.use_spot_instance ? 0 : 1
     spot_count = var.use_spot_instance ? 1 : 0
+    server_mount_location = "/mnt/gameservers"
+    common_script = templatefile("${path.module}/../../scripts/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}", server_mount_location = "${local.server_mount_location}" })
+    server_setup_script = templatefile("${path.module}/../../scripts/${var.game_name}-setup.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}", server_mount_location = "${local.server_mount_location}" })
+    full_launch_script = "${local.common_script}\n\n${local.server_setup_script}"
 }
 
 # the role that will be used in attaching the volume to a machine on startup
@@ -39,7 +43,7 @@ resource "aws_launch_template" "launch_template" {
         }
     }
 
-    user_data = base64encode(templatefile("${path.module}/../../scripts/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}", map_name = "${var.map_name}", game_name = "${var.game_name}" }))
+    user_data = base64encode("${local.full_launch_script}")
 
     instance_market_options {
       market_type = "spot"
