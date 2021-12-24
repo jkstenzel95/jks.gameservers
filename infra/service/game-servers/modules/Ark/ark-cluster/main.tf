@@ -19,7 +19,7 @@ module "resources_bucket" {
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
     game_name = "Ark"
-    purpose = "game_resources"
+    purpose = "gameresources"
 }
 module "ark_instance" {
     source = "./../ark-instance"

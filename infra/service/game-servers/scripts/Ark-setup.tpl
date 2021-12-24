@@ -11,5 +11,6 @@ if [[ ! -f "${init_flag}" ]]; then
     tar -zxf steamcmd.tar.gz
     rm steamcmd.tar.gz
     mkdir Ark
-    sudo ./steamcmd.sh +force_install_dir "./Ark" +login anonymous +app_update 376030 validate +workshop_download_item 376030 684970590 +quit
+    sudo ./steamcmd.sh +force_install_dir "./Ark" +login anonymous +app_update 376030 validate +quit
 fi
+
