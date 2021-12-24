@@ -137,6 +137,11 @@ resource "aws_iam_policy" "policy" {
 EOF
 }
 
+resource "aws_iam_role_policy_attachment" "ec2-fleet-policy-attachment" {
+    role = aws_iam_role.fleet_role.name
+    policy_arn = aws_iam_policy.policy.arn
+}
+
 resource "aws_spot_fleet_request" "spot_fleet" {
     iam_fleet_role = aws_iam_role.fleet_role.arn
     # TODO: CHANGE THIS BACK TO 0.3 ONCE THIS BUG RESOLVES: https://github.com/hashicorp/terraform/issues/30244
