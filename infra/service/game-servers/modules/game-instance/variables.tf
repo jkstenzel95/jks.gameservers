@@ -45,3 +45,7 @@ variable "server_image_id" {
 variable "ssh_security_group" {
     description = "the pre-existing security group providing personal machine ssh access"
 }
+
+variable "game_policy_arn" {
+    description = "the arn for the game-specific policy for accessing kms, s3, etc"
+}

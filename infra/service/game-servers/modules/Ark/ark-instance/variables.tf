@@ -10,6 +10,11 @@ variable "env" {
     description = "the environment of the server resource set"
 }
 
+variable "map_name" {
+    description = "the map for which the instance is created"
+    default = "all"
+}
+
 variable availability_zone {
     description =  "the name of the availability zone"
 }
@@ -36,4 +41,8 @@ variable "instance_type" {
 
 variable ssh_security_group {
     description = "the pre-existing security group providing personal machine ssh access"
+}
+
+variable resources_bucket_arn {
+    description = "the bucket containing Ark server resources"
 }

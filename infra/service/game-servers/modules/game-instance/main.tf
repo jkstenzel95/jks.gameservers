@@ -6,9 +6,9 @@ locals {
     full_launch_script = "${local.common_script}\n\n${local.server_setup_script}\n\ntouch ${local.initialized_flag_file}"
 }
 
-# the role that will be used in attaching the volume to a machine on startup
-module "instance_launch_iam_profile" {
-    source = "./../volume-attach-profile"
+# the role that will be used by the instance
+module "instance_iam_profile" {
+    source = "./../instance-profile"
 
     game_name = "${var.game_name}"
     map_name = "${var.map_name}"
@@ -17,11 +17,16 @@ module "instance_launch_iam_profile" {
     region_shortname = "${var.region_shortname}"
 }
 
-# the launch template that will attach the volume to an instance on launch
+resource "aws_iam_role_policy_attachment" "ec2-instance-policy-attachment" {
+    role = module.instance_iam_profile.role_name
+    policy_arn = var.game_policy_arn
+}
+
+# the launch template for the spot fleet
 resource "aws_launch_template" "launch_template" {
     name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-lt"
     iam_instance_profile {
-      name = module.instance_launch_iam_profile.name
+      name = module.instance_iam_profile.name
     }
 
     vpc_security_group_ids = [
@@ -130,11 +135,6 @@ resource "aws_iam_policy" "policy" {
     ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "ec2-fleet-policy-attachment" {
-    role = aws_iam_role.fleet_role.name
-    policy_arn = aws_iam_policy.policy.arn
 }
 
 resource "aws_spot_fleet_request" "spot_fleet" {

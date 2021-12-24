@@ -13,6 +13,14 @@ module "shared_data_volume" {
     availability_zone = "${var.availability_zone}"
 }
 
+module "resources_bucket" {
+    source = "./../../s3-bucket"
+
+    region_shortname = "${var.region_shortname}"
+    env = "${var.env}"
+    game_name = "Ark"
+    purpose = "game_resources"
+}
 module "ark_instance" {
     source = "./../ark-instance"
 
@@ -26,4 +34,5 @@ module "ark_instance" {
     server_image_id = "${var.server_image_id}"
     instance_type = "${var.instance_type}"
     ssh_security_group = "${var.ssh_security_group}"
+    resources_bucket_arn = module.resources_bucket.arn
 }

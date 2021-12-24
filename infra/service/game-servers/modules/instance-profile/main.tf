@@ -1,5 +1,5 @@
 # the role that will be used in attaching the volume to a machine on startup
-resource "aws_iam_role" "instance_launch_iam_role" {
+resource "aws_iam_role" "instance_iam_role" {
     name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-role"
     assume_role_policy = jsonencode({
         "Version": "2012-10-17",
@@ -19,7 +19,7 @@ resource "aws_iam_role" "instance_launch_iam_role" {
 }
 
 resource "aws_iam_policy" "policy" {
-    name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-attach-policy"
+    name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-instance_policy"
     policy = jsonencode({
         "Version": "2012-10-17",
         "Statement": [
@@ -43,12 +43,12 @@ resource "aws_iam_policy" "policy" {
     })
 }
 
-resource "aws_iam_role_policy_attachment" "ec2-volume-attachment-policy-attachment" {
-    role = aws_iam_role.instance_launch_iam_role.name
+resource "aws_iam_role_policy_attachment" "ec2-policy-attachment" {
+    role = aws_iam_role.instance_iam_role.name
     policy_arn = aws_iam_policy.policy.arn
 }
 
-resource "aws_iam_instance_profile" "instance_launch_iam_profile" {
+resource "aws_iam_instance_profile" "instance_iam_profile" {
     name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-profile"
-    role = aws_iam_role.instance_launch_iam_role.name
+    role = aws_iam_role.instance_iam_role.name
 }
