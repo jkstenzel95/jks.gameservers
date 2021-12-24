@@ -40,5 +40,4 @@ module "game-servers" {
     ark_server_image_id = "${var.ark_server_image_id}"
     ark_instance_type = "${var.ark_instance_type}"
     ssh_security_group = "${var.ssh_security_group}"
-    use_spot_instance = "${var.use_spot_instance}"
 }

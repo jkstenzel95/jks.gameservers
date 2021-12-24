@@ -1,6 +1,4 @@
 locals {
-    dedicated_count = var.use_spot_instance ? 0 : 1
-    spot_count = var.use_spot_instance ? 1 : 0
     server_mount_location = "/mnt/gameservers"
     common_script = templatefile("${path.module}/../../scripts/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}", server_mount_location = "${local.server_mount_location}" })
     server_setup_script = templatefile("${path.module}/../../scripts/${var.game_name}-setup.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}", server_mount_location = "${local.server_mount_location}" })
@@ -143,7 +141,7 @@ resource "aws_spot_fleet_request" "spot_fleet" {
     # TODO: CHANGE THIS BACK TO 0.3 ONCE THIS BUG RESOLVES: https://github.com/hashicorp/terraform/issues/30244
     spot_price = "0.355"
     allocation_strategy = "lowestPrice"
-    target_capacity = local.spot_count
+    target_capacity = 1
     fleet_type = "maintain"
 
     launch_template_config {
@@ -163,39 +161,5 @@ resource "aws_spot_fleet_request" "spot_fleet" {
         game = "${var.game_name}"
         map = "${var.map_name}"
         env = "${var.env}"
-    }
-}
-
-# this ensures there is an instance running
-resource "aws_autoscaling_group" "dedicated_autoscale_group" {
-    count = local.dedicated_count
-    name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-asg"
-    availability_zones = ["${var.availability_zone}"]
-    desired_capacity   = 1
-    max_size           = 1
-    min_size           = 1
-    wait_for_capacity_timeout = 0
-
-    launch_template {
-        id      = "${aws_launch_template.launch_template.id}"
-        version = "$Latest"
-    }
-
-    tag {
-        key = "game"
-        value = "${var.game_name}"
-        propagate_at_launch = true
-    }
-
-    tag {
-        key = "map"
-        value = "${var.map_name}"
-        propagate_at_launch = true
-    }
-
-    tag {
-        key = "env"
-        value = "${var.env}"
-        propagate_at_launch = true
     }
 }

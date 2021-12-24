@@ -26,5 +26,4 @@ module "ark_instance" {
     server_image_id = "${var.server_image_id}"
     instance_type = "${var.instance_type}"
     ssh_security_group = "${var.ssh_security_group}"
-    use_spot_instance = "${var.use_spot_instance}"
 }

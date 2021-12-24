@@ -29,9 +29,3 @@ variable "instance_type" {
 variable ssh_security_group {
     description = "the pre-existing security group providing personal machine ssh access"
 }
-
-variable "use_spot_instance" {
-    description = "use a persistent spot request for hosting instead of dedicated instances"
-    type = bool
-    default = true
-}

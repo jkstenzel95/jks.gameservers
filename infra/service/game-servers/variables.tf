@@ -35,9 +35,3 @@ variable region_shortname {
 variable availability_zone {
     description =  "the name of the availability zone"
 }
-
-variable use_spot_instance {
-    description = "Use a persistent spot request for hosting instead of dedicated instances"
-    type = bool
-    default = true
-}

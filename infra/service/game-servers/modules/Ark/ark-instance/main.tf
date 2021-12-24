@@ -13,5 +13,4 @@ module "instance" {
     additional_security_group_id = "${var.additional_security_group_id}"
     server_image_id = "${var.server_image_id}"
     ssh_security_group = "${var.ssh_security_group}"
-    use_spot_instance = "${var.use_spot_instance}"
 }
