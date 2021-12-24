@@ -12,5 +12,7 @@ if [[ ! -f "${init_flag}" ]]; then
     rm steamcmd.tar.gz
     mkdir Ark
     sudo ./steamcmd.sh +force_install_dir "./Ark" +login anonymous +app_update 376030 validate +quit
+    # Load Backup!!!
 fi
 
+# Pull latest config

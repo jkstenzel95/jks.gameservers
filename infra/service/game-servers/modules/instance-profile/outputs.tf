@@ -5,5 +5,5 @@ output "name" {
 
 output "role_name" {
     description = "The name of the underlying IAM role"
-    value = aws_iam_policy.policy.name
+    value = aws_iam_role.instance_iam_role.name
 }
