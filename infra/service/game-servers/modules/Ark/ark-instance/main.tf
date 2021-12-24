@@ -1,5 +1,5 @@
 resource "aws_iam_policy" "data_access_policy" {
-    name = "jks-gs-${var.env}-${var.region_shortname}-Ark-${var.map_name}-instance_policy"
+    name = "jks-gs-${var.env}-${var.region_shortname}-Ark-${var.map_name}-data_policy"
     policy = jsonencode({
         "Version": "2012-10-17",
         "Statement": [
