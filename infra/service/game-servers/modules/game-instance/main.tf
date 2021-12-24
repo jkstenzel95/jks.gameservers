@@ -1,8 +1,9 @@
 locals {
     server_mount_location = "/mnt/gameservers"
+    initialized_flag_file = "${local.server_mount_location}/init_flag"
     common_script = templatefile("${path.module}/../../scripts/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}", server_mount_location = "${local.server_mount_location}" })
-    server_setup_script = templatefile("${path.module}/../../scripts/${var.game_name}-setup.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}", server_mount_location = "${local.server_mount_location}" })
-    full_launch_script = "${local.common_script}\n\n${local.server_setup_script}"
+    server_setup_script = templatefile("${path.module}/../../scripts/${var.game_name}-setup.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}", server_mount_location = "${local.server_mount_location}", init_flag = "${local.initialized_flag_file}" })
+    full_launch_script = "${local.common_script}\n\n${local.server_setup_script}\n\ntouch ${local.initialized_flag_file}"
 }
 
 # the role that will be used in attaching the volume to a machine on startup
@@ -41,7 +42,7 @@ resource "aws_launch_template" "launch_template" {
         }
     }
 
-    # user_data = base64encode("${local.full_launch_script}")
+    user_data = base64encode("${local.full_launch_script}")
 
     instance_market_options {
       market_type = "spot"

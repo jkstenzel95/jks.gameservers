@@ -6,10 +6,10 @@ sudo sysctl -p /etc/sysctl.conf
 echo -e "* soft nofile 1000000\n* hard nofile 1000000" | sudo tee -a /etc/security/limits.conf
 
 pushd "${server_mount_location}"
-if [[ ! -f ./steamcmd.sh ]]; then
+if [[ ! -f "${init_flag}" ]]; then
     curl http://media.steampowered.com/installer/steamcmd_linux.tar.gz > steamcmd.tar.gz
     tar -zxf steamcmd.tar.gz
     rm steamcmd.tar.gz
     mkdir Ark
-    ./steamcmd.sh +force_install_dir "./Ark" +login anonymous +app_update 376030 validate +quit
+    ./steamcmd.sh +force_install_dir "./Ark" +login anonymous +app_update 376030 validate +workshop_download_item 376030 684970590 +quit
 fi
