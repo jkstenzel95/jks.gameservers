@@ -45,14 +45,6 @@ resource "aws_launch_template" "launch_template" {
     }
 
     user_data = base64encode("${local.full_launch_script}")
-
-    instance_market_options {
-      market_type = "spot"
-      spot_options {
-        spot_instance_type = "persistent"
-      }
-    }
-
     image_id = "${var.server_image_id}"
 }
 
