@@ -47,8 +47,3 @@ resource "aws_iam_role_policy_attachment" "ec2-policy-attachment" {
     role = aws_iam_role.instance_iam_role.name
     policy_arn = aws_iam_policy.policy.arn
 }
-
-resource "aws_iam_instance_profile" "instance_iam_profile" {
-    name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-profile"
-    role = aws_iam_role.instance_iam_role.name
-}

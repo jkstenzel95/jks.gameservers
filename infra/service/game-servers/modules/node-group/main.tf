@@ -7,8 +7,8 @@ locals {
 }
 
 # the role that will be used by the instance
-module "instance_iam_profile" {
-    source = "./../instance-profile"
+module "instance_iam_role" {
+    source = "./../instance-role"
 
     game_name = "${var.game_name}"
     map_name = "${var.map_name}"
@@ -18,16 +18,13 @@ module "instance_iam_profile" {
 }
 
 resource "aws_iam_role_policy_attachment" "ec2-instance-policy-attachment" {
-    role = module.instance_iam_profile.role_name
+    role = module.instance_iam_role.name
     policy_arn = var.game_policy_arn
 }
 
 # the launch template for the spot fleet
 resource "aws_launch_template" "launch_template" {
     name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-lt"
-    iam_instance_profile {
-      name = module.instance_iam_profile.name
-    }
 
     vpc_security_group_ids = [
         "${var.base_security_group_id}",
@@ -59,40 +56,25 @@ resource "aws_launch_template" "launch_template" {
     image_id = "${var.server_image_id}"
 }
 
-resource "aws_iam_role" "node_role" {
-  name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-node_role"
-
-  assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "ec2.amazonaws.com"
-      }
-    }]
-    Version = "2012-10-17"
-  })
-}
-
 resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.node_role.name
+  role       = module.instance_iam_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.node_role.name
+  role       = module.instance_iam_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.node_role.name
+  role       = module.instance_iam_role.name
 }
 
 resource "aws_eks_node_group" "game_node" {
     cluster_name    = "${var.cluster_name}"
     node_group_name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-node_group"
-    node_role_arn   = aws_iam_role.node_role.arn
+    node_role_arn   = module.instance_iam_role.arn
     subnet_ids      = [ var.subnet_id ]
     instance_types = [ "${var.instance_type}" ]
     capacity_type = "SPOT"
