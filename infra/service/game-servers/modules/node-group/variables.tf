@@ -26,6 +26,10 @@ variable "map_name" {
     description = "the map for which the instance is created"
 }
 
+variable resources_bucket_name {
+    description = "the name of the bucket containing Ark server resources"
+}
+
 variable "base_security_group_id" {
     description = "the base security group id to associate"
 }
@@ -48,4 +52,12 @@ variable "ssh_security_group" {
 
 variable "game_policy_arn" {
     description = "the arn for the game-specific policy for accessing kms, s3, etc"
+}
+
+variable "cluster_name" {
+    description = "the name of the Kubernetes cluster"
+}
+
+variable subnet_id {
+    description = "the subnet id"
 }

@@ -1,0 +1,44 @@
+{{ $deploymentName := print "Deployment-" .Values.game "-" .Values.map}}
+apiVersion: apps/v1
+kind: {{- }}
+metadata:
+  name: {{ $deploymentName }}
+  labels:
+    game: {{ .Values.game }}
+    map: {{ .Values.map }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      game: {{ .Values.game }}
+      map: {{ .Values.map }}
+  template:
+    metadata:
+      annotations: # ?
+      labels:
+        game: {{ .Values.game }}
+        map: {{ .Values.map }}
+    spec:
+      # imagePullSecrets:    # Think about this later...
+      initContainers:
+      - name: gameserver-init
+        image: {{ .Values.initImage }}
+        command: {{ .Values.initCommand }}
+      containers:
+      - name: gameserver
+        image: {{ .Values.gameServerImage }}
+        command: {{ .Values.gameServerCommand }}
+        env:
+        - name: GAME_NAME
+          value: {{ .Values.game }}
+        - name: MAP_NAME
+          value: {{ .Values.map }}
+        {{- range $name, $value := .Values.environmentVariables}}
+        - name: {{ $name }}
+          value: {{ $value }}
+        {{- end}}
+        ports:
+        {{- $port := .Values.ports }}
+        - containerPort: {{ $port.number }}
+          name: {{ $port.name }}
+        {{- end }}

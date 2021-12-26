@@ -32,6 +32,10 @@ variable "region_shortname" {
     description = "the shortname of the region to provision the instance in"
 }
 
-variable availability_zone {
-    description =  "the name of the availability zone"
+variable primary_availability_zone {
+    description =  "the name of the primary availability zone (where the vast majority of regions are provisioned)"
+}
+
+variable secondary_availability_zone {
+    description =  "the name of the secondary availability zone"
 }

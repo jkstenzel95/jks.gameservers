@@ -21,8 +21,18 @@ module "resources_bucket" {
     game_name = "Ark"
     purpose = "gameresources"
 }
-module "ark_instance" {
-    source = "./../ark-instance"
+
+module "backup_bucket" {
+    source = "./../../s3-bucket"
+
+    region_shortname = "${var.region_shortname}"
+    env = "${var.env}"
+    game_name = "Ark"
+    purpose = "backup"
+}
+
+module "ark_node_group" {
+    source = "./../ark-node-group"
 
     env = "${var.env}"
     region_shortname = "${var.region_shortname}"
@@ -35,4 +45,8 @@ module "ark_instance" {
     instance_type = "${var.instance_type}"
     ssh_security_group = "${var.ssh_security_group}"
     resources_bucket_arn = module.resources_bucket.arn
+    resources_bucket_name = module.resources_bucket.name
+    backup_bucket_arn = module.backup_bucket.arn
+    cluster_name = "${var.cluster_name}"
+    subnet_id = var.subnet_id
 }

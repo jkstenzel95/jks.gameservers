@@ -46,3 +46,19 @@ variable ssh_security_group {
 variable resources_bucket_arn {
     description = "the bucket containing Ark server resources"
 }
+
+variable resources_bucket_name {
+    description = "the name of the bucket containing Ark server resources"
+}
+
+variable backup_bucket_arn {
+    description = "the bucket containing Ark server backups"
+}
+
+variable "cluster_name" {
+    description = "the name of the Kubernetes cluster"
+}
+
+variable subnet_id {
+    description = "the subnet id"
+}

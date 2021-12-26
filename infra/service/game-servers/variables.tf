@@ -35,3 +35,11 @@ variable region_shortname {
 variable availability_zone {
     description =  "the name of the availability zone"
 }
+
+variable "cluster_name" {
+    description = "the name of the Kubernetes cluster"
+}
+
+variable subnet_id {
+    description = "the subnet id"
+}

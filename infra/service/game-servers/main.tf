@@ -4,8 +4,8 @@ module "shared_sg" {
     env = "${var.env}"
 }
 
-module "ark_cluster" {
-    source = "./modules/Ark/ark-cluster"
+module "ark_resources" {
+    source = "./modules/Ark/ark-resources"
 
     server_region = "${var.server_region}"
     region_shortname = "${var.region_shortname}"
@@ -15,4 +15,6 @@ module "ark_cluster" {
     server_image_id = "${var.ark_server_image_id}"
     instance_type = "${var.ark_instance_type}"
     ssh_security_group = "${var.ssh_security_group}"
+    cluster_name = "${var.cluster_name}"
+    subnet_id = var.subnet_id
 }

@@ -29,3 +29,11 @@ variable "instance_type" {
 variable ssh_security_group {
     description = "the pre-existing security group providing personal machine ssh access"
 }
+
+variable "cluster_name" {
+    description = "the name of the Kubernetes cluster"
+}
+
+variable subnet_id {
+    description = "the subnet id"
+}

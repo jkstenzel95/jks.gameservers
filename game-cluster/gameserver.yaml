@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ${game_name}-${map_name}-pod
+  labels:
+    game: ${game_name}
+    map: ${map_name}
+spec:
+  initContainers:
+  - name: prepare-map
+    image: # TODO: INIT CONTAINER
+    command: ['', '', '']
+  containers:
+  - name: gameserver
+    image: # TODO: INIT CONTAINER
+    command: ['', '', '']
