@@ -1,7 +1,6 @@
 server_region = "us-east-2"
 region_shortname = "use2"
 primary_availability_zone = "us-east-2a"
-secondary_availability_zone = "us-east-2b"
 env = "dev"
 ark_server_image_id = "ami-05d862a033e95f6e6"
 ark_instance_type = "c6i.4xlarge"

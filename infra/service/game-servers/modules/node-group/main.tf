@@ -136,7 +136,7 @@ resource "aws_eks_node_group" "game_node" {
 
     remote_access {
       ec2_ssh_key = "jks-gameservers"
-      source_security_group_ids = "${var.ssh_security_group}"
+      source_security_group_ids = [ "${var.ssh_security_group}" ]
     }
 
     taint {
