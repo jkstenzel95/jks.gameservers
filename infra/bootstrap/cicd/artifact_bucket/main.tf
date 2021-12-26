@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "artifact_bucket" {
-  bucket = "jks-gs-artifacts"
+  bucket = "jks-gs-${var.pipeline_identifier}-artifacts"
   # Enable versioning so we can see the full revision history of our
   # state files
   versioning {

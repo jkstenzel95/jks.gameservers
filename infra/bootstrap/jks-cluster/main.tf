@@ -12,9 +12,10 @@ resource "aws_subnet" "subnet1" {
   vpc_id     = aws_default_vpc.default.id
   availability_zone = "${var.primary_availability_zone}"
   cidr_block = "172.31.64.0/24"
+  map_public_ip_on_launch = true
 
   tags = {
-    Resource = "kubernetes.io/cluster/${local.cluster_name}"
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
 }
 
@@ -22,9 +23,10 @@ resource "aws_subnet" "subnet2" {
   vpc_id     = aws_default_vpc.default.id
   availability_zone = "${var.secondary_availability_zone}"
   cidr_block = "172.31.65.0/24"
+  map_public_ip_on_launch = true
 
   tags = {
-    Resource = "kubernetes.io/cluster/${local.cluster_name}"
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
 }
 

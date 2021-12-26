@@ -7,7 +7,7 @@ resource "aws_codebuild_project" "codebuild_project" {
   build_timeout  = 60
   name           = "${var.name}"
   queued_timeout = 480
-  service_role   = var.build_role.arn
+  service_role   = var.build_role_arn
 
   artifacts {
     type                   = "CODEPIPELINE"

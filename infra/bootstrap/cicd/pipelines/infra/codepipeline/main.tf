@@ -2,7 +2,7 @@
 
 resource "aws_codepipeline" "infra_codepipeline" {
     name            = "${var.name}"
-    role_arn        = var.pipeline_role.arn
+    role_arn        = var.pipeline_role_arn
 
     artifact_store {
         location = var.artifacts_bucket_name

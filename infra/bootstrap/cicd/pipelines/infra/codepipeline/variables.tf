@@ -33,8 +33,8 @@ variable "name" {
     description = "the name of the codepipeline"
 }
 
-variable "pipeline_role" {
-    description = "the AWS IAM role to use in the pipeline"
+variable "pipeline_role_arn" {
+    description = "the arn of the AWS IAM role to use in the pipeline"
 }
 
 variable "artifacts_bucket_name" {

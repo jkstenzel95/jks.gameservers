@@ -22,7 +22,3 @@ variable "github_connection_arn" {
     description = "the arn of the github connection"
     default = "arn:aws:codestar-connections:us-east-2:493757919697:connection/f7703010-9ff0-4aed-875d-babb63ce26bf"
 }
-
-variable role_arn {
-    description = "the arn of the role to associate with the pipeline and its build steps"
-}
