@@ -26,3 +26,12 @@ provider aws {
 module "cicd" {
     source = "./cicd"
 }
+
+module "jks_cluster" {
+    source = "./jks-cluster"
+
+    region = "us-east-2"
+    region_shortname = "use2"
+    primary_availability_zone = "us-east-2a"
+    secondary_availability_zone = "us-east-2b"
+}

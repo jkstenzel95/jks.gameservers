@@ -14,5 +14,5 @@ output "kubeconfig-certificate-authority-data" {
 
 output "primary_subnet_id" {
     description = "the primary subnet id"
-    value = module.az1.id
+    value = aws_subnet.subnet1.id
 }

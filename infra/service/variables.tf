@@ -32,6 +32,14 @@ variable "region_shortname" {
     description = "the shortname of the region to provision the instance in"
 }
 
+variable "cluster_name" {
+    description = "the name of the Kubernetes cluster"
+}
+
+variable subnet_id {
+    description = "the subnet id"
+}
+
 variable primary_availability_zone {
     description =  "the name of the primary availability zone (where the vast majority of regions are provisioned)"
 }

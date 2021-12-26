@@ -1,7 +1,3 @@
-variable env {
-    description = "the environment of the cluster"
-}
-
 variable region {
     description = "region to provision the cluster in"
 }

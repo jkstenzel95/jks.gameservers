@@ -28,16 +28,6 @@ provider aws {
     region  = "${var.server_region}"
 }
 
-module "jks_cluster" {
-    source = "./jks-cluster"
-
-    env = "${var.env}"
-    region = "${var.server_region}"
-    region_shortname = "${var.region_shortname}"
-    primary_availability_zone = "${var.primary_availability_zone}"
-    secondary_availability_zone = "${var.secondary_availability_zone}"
-}
-
 module "game_servers" {
     source = "./game-servers"
 
@@ -50,6 +40,6 @@ module "game_servers" {
     ark_server_image_id = "${var.ark_server_image_id}"
     ark_instance_type = "${var.ark_instance_type}"
     ssh_security_group = "${var.ssh_security_group}"
-    cluster_name = "${module.jks_cluster.name}"
-    subnet_id = module.jks_cluster.primary_subnet_id
+    cluster_name = "${var.cluster_name}"
+    subnet_id = var.subnet_id
 }

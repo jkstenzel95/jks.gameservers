@@ -1,19 +1,31 @@
 locals {
-    cluster_name = "jks-${var.env}-${var.region_shortname}"
+    cluster_name = "jks-${var.region_shortname}"
 }
 
-module "az1" {
-    source = "./../cluster-subnet"
-
-    cluster_name = "${local.cluster_name}"
-    availability_zone = "${var.primary_availability_zone}"
+resource "aws_default_vpc" "default" {
+  tags = {
+    Name = "Default VPC"
+  }
 }
 
-module "az2" {
-    source = "./../cluster-subnet"
+resource "aws_subnet" "subnet1" {
+  vpc_id     = aws_default_vpc.default.id
+  availability_zone = "${var.primary_availability_zone}"
+  cidr_block = "172.31.64.0/24"
 
-    cluster_name = "${local.cluster_name}"
-    availability_zone = "${var.secondary_availability_zone}"
+  tags = {
+    Resource = "kubernetes.io/cluster/${local.cluster_name}"
+  }
+}
+
+resource "aws_subnet" "subnet2" {
+  vpc_id     = aws_default_vpc.default.id
+  availability_zone = "${var.secondary_availability_zone}"
+  cidr_block = "172.31.65.0/24"
+
+  tags = {
+    Resource = "kubernetes.io/cluster/${local.cluster_name}"
+  }
 }
 
 resource "aws_iam_role" "cluster_role" {
@@ -52,7 +64,7 @@ resource "aws_eks_cluster" "cluster" {
   role_arn = aws_iam_role.cluster_role.arn
 
   vpc_config {
-    subnet_ids = [module.az1.id, module.az2.id]
+    subnet_ids = [aws_subnet.subnet1.id, aws_subnet.subnet2.id]
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
