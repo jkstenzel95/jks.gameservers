@@ -43,7 +43,3 @@ variable subnet_id {
 variable primary_availability_zone {
     description =  "the name of the primary availability zone (where the vast majority of regions are provisioned)"
 }
-
-variable secondary_availability_zone {
-    description =  "the name of the secondary availability zone"
-}
