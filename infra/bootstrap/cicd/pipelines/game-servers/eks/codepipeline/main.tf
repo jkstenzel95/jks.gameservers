@@ -36,7 +36,7 @@ resource "aws_codepipeline" "gameservers_eks_codepipeline" {
             name                = "Approval_dev"
             category            = "Approval"
             configuration = {
-                "CustomData"    = "Approve the following infra deployment"
+                "CustomData"    = "Approve the following eks deployment"
             }
 
             input_artifacts     = []
@@ -76,7 +76,7 @@ resource "aws_codepipeline" "gameservers_eks_codepipeline" {
             name                = "Approval_prod"
             category            = "Approval"
             configuration = {
-                "CustomData"    = "Approve the following infra deployment"
+                "CustomData"    = "Approve the following eks deployment"
             }
 
             input_artifacts     = []

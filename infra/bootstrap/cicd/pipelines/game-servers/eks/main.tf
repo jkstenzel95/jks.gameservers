@@ -1,14 +1,14 @@
 module "artifact_bucket" {
   source = "./../../../artifact_bucket"
 
-  pipeline_identifier = "infra"
+  pipeline_identifier = "gameserver-eks"
 }
 
 module dev_deploy_codebuild_project {
   source = "./codebuild"
 
   template_filename = "deployspec.yml"
-  name = "jks-gs-dev-infra-deploy"
+  name = "jks-gs-dev-gameserver-eks-deploy"
   build_role_arn = var.role_arn
   env = "dev"
 }
@@ -17,15 +17,15 @@ module prod_deploy_codebuild_project {
   source = "./codebuild"
 
   template_filename = "deployspec.yml"
-  name = "jks-gs-prod-infra-deploy"
+  name = "jks-gs-prod-gameserver-eks-deploy"
   build_role_arn = var.role_arn
   env = "prod"
 }
 
-module infra_deployment_pipeline {
+module gameserver-eks_deployment_pipeline {
   source = "./codepipeline"
 
-  name = "jks-gs-infra-pipeline"
+  name = "jks-gs-gameserver-eks-pipeline"
   pipeline_role_arn = var.role_arn
   artifacts_bucket_name = module.artifact_bucket.name
   github_connection_arn = var.github_connection_arn
