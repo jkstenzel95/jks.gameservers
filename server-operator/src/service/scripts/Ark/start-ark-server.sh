@@ -2,7 +2,7 @@
 
 prefix=""
 postfix=""
-while getopts u:a:f: flag
+while getopts m: flag
 do
     case "${flag}" in
         m) map=${OPTARG};;

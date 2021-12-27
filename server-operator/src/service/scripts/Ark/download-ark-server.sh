@@ -1,6 +1,6 @@
 ﻿#!/bin/bash
 
-while getopts u:a:f: flag
+while getopts d:m:s flag
 do
     case "${flag}" in
         d) datadirectory=${OPTARG};;

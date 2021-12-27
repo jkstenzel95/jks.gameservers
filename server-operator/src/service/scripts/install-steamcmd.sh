@@ -1,6 +1,6 @@
 ﻿#!/bin/bash
 
-while getopts u:a:f: flag
+while getopts s: flag
 do
     case "${flag}" in
         s) steamdir=${OPTARG};;

@@ -15,7 +15,8 @@ if [[ ! -f "${init_flag}" ]]; then
     sudo ./steamcmd.sh +force_install_dir "./Ark" +login anonymous +app_update 376030 validate +quit
     aws s3 cp s3://${resource_bucket_name}/Mods.zip Mods.zip
     unzip -o Mods.zip -d "${server_mount_location}/Ark/ShooterGame/Content/"
-    # Load Backup!!! Including configs that aren't map specific.
+    mkdir Ark/MapSaves
+    # Load backup configs that aren't map specific.
 fi
 
 # Download scripts (Publish these to game resources s3)

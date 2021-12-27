@@ -1,0 +1,60 @@
+{
+    "maps": [
+    {
+        "name": "TheIsland",
+        "map_code": "TheIsland",
+        "additional_server_params": ""
+    },
+    {
+        "name": "TheCenter",
+        "map_code": "TheCenter",
+        "additional_server_params": "?PreventUploadDinos=True?PreventUploadItems=True"
+    },
+    {
+        "name": "ScorchedEarth",
+        "map_code": "ScorchedEarth_P",
+        "additional_server_params": "?PreventDownloadDinos=True?PreventDownloadItems=True"
+    },
+    {
+        "name": "Ragnarok",
+        "map_code": "Ragnarok",
+        "additional_server_params": "?PreventUploadDinos=True?PreventUploadItems=True"
+    },
+    {
+        "name": "Aberration",
+        "map_code": "Aberration_P",
+        "additional_server_params": "?PreventDownloadDinos=True?PreventDownloadItems=True"
+
+    },
+    {
+        "name": "Extinction",
+        "map_code": "Extinction",
+        "additional_server_params": ""
+    },
+    {
+        "name": "Valguero",
+        "map_code": "Valguero_P",
+        "additional_server_params": "?PreventUploadDinos=True?PreventUploadItems=True"
+    },
+    {
+        "name": "GenesisPart1",
+        "map_code": "Genesis",
+        "additional_server_params": "?PreventDownloadDinos=True?PreventDownloadItems=True"
+    },
+    {
+        "name": "CrystalIsles",
+        "map_code": "CrystalIsles",
+        "additional_server_params": "?PreventUploadDinos=True?PreventUploadItems=True"
+    },
+    {
+        "name": "GenesisPart2",
+        "map_code": "Gen2",
+        "additional_server_params": ""
+    },
+    {
+        "name": "LostIsland",
+        "map_code": "LostIsland",
+        "additional_server_params": "?PreventUploadDinos=True?PreventUploadItems=True"
+    }
+    ]
+}

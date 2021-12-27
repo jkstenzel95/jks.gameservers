@@ -3,7 +3,7 @@ data "template_file" "buildspec" {
 }
 
 module "codebuild" {
-  source = "../../modules/codebuild"
+  source = "../../../modules/codebuild"
 
   buildspec = data.template_file.buildspec
   name = "${var.name}"

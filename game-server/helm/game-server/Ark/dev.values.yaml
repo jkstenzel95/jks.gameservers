@@ -1,0 +1,30 @@
+game: Ark
+initArgs: []
+gameServerArgs: []
+
+# ---- SET WITH --set DURING HELM INSTALL ----
+# (Example values below)
+# imageTag: prod.202112270000
+# map: TheIsland
+# ports: [
+#   {
+#     number: 7777,
+#     protocol: udp,
+#     name: serverPort1
+#   },
+#   {
+#     number: 7778,
+#     protocol: udp,
+#     name: serverPort2
+#   },
+#   {
+#     number: 27015,
+#     protocol: udp,
+#     name: steamQuery
+#   },
+#   {
+#     number: 32330,
+#     protocol: tcp,
+#     name: RCON
+#   }
+# ]

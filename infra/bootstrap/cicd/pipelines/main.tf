@@ -3,3 +3,8 @@ module "infra_pipeline" {
 
     role_arn = var.role_arn
 }
+module "game_servers_pipeline" {
+    source = "./game-servers"
+
+    role_arn = var.role_arn
+}
