@@ -5,16 +5,7 @@ resource "aws_security_group" "ark_sg" {
     ingress {
         description = "Ark Port"
         from_port = 7777
-        to_port = 7777
-        protocol = "udp"
-        cidr_blocks      = ["0.0.0.0/0"]
-        ipv6_cidr_blocks = ["::/0"]
-    }
-
-    ingress {
-        description = "Ark Port 2"
-        from_port = 7778
-        to_port = 7778
+        to_port = 7718
         protocol = "udp"
         cidr_blocks      = ["0.0.0.0/0"]
         ipv6_cidr_blocks = ["::/0"]
@@ -23,7 +14,7 @@ resource "aws_security_group" "ark_sg" {
     ingress {
         description = "Query Port"
         from_port = 27015
-        to_port = 27015
+        to_port = 27055
         protocol = "udp"
         cidr_blocks      = ["0.0.0.0/0"]
         ipv6_cidr_blocks = ["::/0"]
@@ -32,7 +23,7 @@ resource "aws_security_group" "ark_sg" {
     ingress {
         description = "RCON Port"
         from_port = 32330
-        to_port = 32330
+        to_port = 32370
         protocol = "tcp"
         cidr_blocks      = ["0.0.0.0/0"]
         ipv6_cidr_blocks = ["::/0"]
