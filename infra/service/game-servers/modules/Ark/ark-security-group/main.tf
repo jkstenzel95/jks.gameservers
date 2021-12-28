@@ -5,7 +5,7 @@ resource "aws_security_group" "ark_sg" {
     ingress {
         description = "Ark Port"
         from_port = 7777
-        to_port = 7718
+        to_port = 7818
         protocol = "udp"
         cidr_blocks      = ["0.0.0.0/0"]
         ipv6_cidr_blocks = ["::/0"]
