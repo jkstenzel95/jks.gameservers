@@ -24,7 +24,6 @@ resource "aws_codepipeline" "infra_codepipeline" {
             output_artifacts            = ["SourceArtifact"]
             owner                       = "AWS"
             provider                    = "CodeStarSourceConnection"
-            run_order                   = 1
             version                     = "1"
         }
     }
@@ -43,7 +42,6 @@ resource "aws_codepipeline" "infra_codepipeline" {
             output_artifacts    = []
             owner               = "AWS"
             provider            = "CodeBuild"
-            run_order           = 2
             version             = "1"
         }
     }
@@ -62,7 +60,6 @@ resource "aws_codepipeline" "infra_codepipeline" {
             output_artifacts    = []
             owner               = "AWS"
             provider            = "Manual"
-            run_order           = 3
             version             = "1"
         }
     }  
@@ -83,7 +80,6 @@ resource "aws_codepipeline" "infra_codepipeline" {
 
             owner               = "AWS"
             provider            = "CodeBuild"
-            run_order           = 4
             version             = "1"
         }
     }
@@ -102,7 +98,6 @@ resource "aws_codepipeline" "infra_codepipeline" {
             output_artifacts    = []
             owner               = "AWS"
             provider            = "CodeBuild"
-            run_order           = 2
             version             = "1"
         }
     }
@@ -121,7 +116,6 @@ resource "aws_codepipeline" "infra_codepipeline" {
             output_artifacts    = []
             owner               = "AWS"
             provider            = "Manual"
-            run_order           = 3
             version             = "1"
         }
     }  
@@ -142,7 +136,6 @@ resource "aws_codepipeline" "infra_codepipeline" {
 
             owner               = "AWS"
             provider            = "CodeBuild"
-            run_order           = 4
             version             = "1"
         }
     }

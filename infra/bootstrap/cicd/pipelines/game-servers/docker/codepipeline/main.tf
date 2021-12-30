@@ -24,7 +24,6 @@ resource "aws_codepipeline" "gameservers_docker_codepipeline" {
             output_artifacts            = ["SourceArtifact"]
             owner                       = "AWS"
             provider                    = "CodeStarSourceConnection"
-            run_order                   = 1
             version                     = "1"
         }
     }
@@ -43,7 +42,6 @@ resource "aws_codepipeline" "gameservers_docker_codepipeline" {
             output_artifacts    = []
             owner               = "AWS"
             provider            = "Manual"
-            run_order           = 3
             version             = "1"
         }
     }
@@ -62,7 +60,6 @@ resource "aws_codepipeline" "gameservers_docker_codepipeline" {
             output_artifacts    = []
             owner               = "AWS"
             provider            = "CodeBuild"
-            run_order           = 2
             version             = "1"
         }
     }
@@ -81,7 +78,6 @@ resource "aws_codepipeline" "gameservers_docker_codepipeline" {
             output_artifacts    = []
             owner               = "AWS"
             provider            = "Manual"
-            run_order           = 3
             version             = "1"
         }
     }  
@@ -90,17 +86,16 @@ resource "aws_codepipeline" "gameservers_docker_codepipeline" {
         name = "Build_Prod"
 
         action {
-            name                = "Docker_build_dev"
+            name                = "Docker_build_prod"
             category            = "Test"
             configuration = {
-                "ProjectName"   = "${var.dev_build_project_name}"
+                "ProjectName"   = "${var.prod_build_project_name}"
             }
 
             input_artifacts     = ["SourceArtifact"]
             output_artifacts    = []
             owner               = "AWS"
             provider            = "CodeBuild"
-            run_order           = 2
             version             = "1"
         }
     }

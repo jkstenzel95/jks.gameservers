@@ -6,6 +6,11 @@ variable "name" {
     description = "the name of the codebuild project"
 }
 
+variable "is_test" {
+    description = "whether this is just a dry run"
+    default = false
+}
+
 variable "build_role_arn" {
     description = "the AWS IAM role to use in the build stages"
 }

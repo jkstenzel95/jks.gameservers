@@ -5,7 +5,7 @@ import sys
 import deployment_utilities
 from subprocess import call
 
-def apply_charts(mappings_file, config_file, env):
+def apply_charts(mappings_file, config_file, env, test):
     with open(mappings_file) as md:
         with open(config_file) as cd:
             mappings_json = json.load(md)
@@ -27,9 +27,17 @@ def apply_charts(mappings_file, config_file, env):
                             gp2_port_string = "ports[1].name=game_port_2,ports[1].protocol=udp,ports[1].number={}".format(game_port_2)
                             query_port_string = "ports[2].name=query_port,ports[2].protocol=udp,ports[2].number={}".format(query_port)
                             rcon_port_string = "ports[3].name=rcon_port,ports[3].protocol=udp,ports[3].number={}".format(rcon_port)
-                            values_string = "--set imageTag={},map={},{},{},{},{}".format(image_version, map_info["name"], gp1_port_string, gp2_port_string, query_port_string, rcon_port_string)
                             dir_path = os.path.dirname(os.path.realpath(__file__))
-                            call(["{}/helm_deploy.sh".format(dir_path), "-g", "Ark", "-m", map_info["name"],"-e", env, "-v", values_string])
+                            env_file = "{}_env_list.txt".format(map_info["name"])
+                            env_file_path = "{}/../../helm/game-server/{}".format(dir_path, env_file)
+                            env_dict = { "map_code" : map_info["map_code"], "additional_server_params": map_info["additional_server_params"], "mod_params": "?GameModIds=684970590" }
+                            deployment_utilities.generate_env_file(env_dict, env_file_path)
+                            values_string = "--set imageTag={},game=Ark,map={},environmentVariableFile={},{},{},{},{}".format(image_version, map_info["name"], env_file, gp1_port_string, gp2_port_string, query_port_string, rcon_port_string)
+                            call_command = ["{}/helm_deploy.sh".format(dir_path), "-g", "Ark", "-m", map_info["name"],"-e", env, "-v", values_string]
+                            if test:
+                                call_command.append("-t")
+                            call(call_command)
+                            os.remove(env_file_path)
 
 if __name__ == '__main__':
     # test1.py executed as script
@@ -40,7 +48,7 @@ if __name__ == '__main__':
     argumentList = sys.argv[1:]
     
     # Options
-    options = "hmo:"
+    options = "t"
     
     # Long options
     long_options = ["mappings-file=", "config-file=", "env="]
@@ -48,6 +56,7 @@ if __name__ == '__main__':
     mappings_file = None
     config_file = None
     env = None
+    test = False
 
     try:
         # Parsing argument
@@ -63,12 +72,15 @@ if __name__ == '__main__':
 
             elif currentArgument == "--env":
                 env = currentValue
+
+            elif currentArgument == "-t":
+                test = True
                 
     except getopt.error as err:
         # output error, and return with an error code
         print (str(err))
 
-    if (mappings_file is None) or (config_file is None) or (image_version is None):
+    if (mappings_file is None) or (config_file is None) or (image_version is None) or (test is False):
         sys.exit("Either --mappings-file, --config-file, --env, or --image-version were not provided.")
 
-    apply_charts(mappings_file, config_file, image_version, env)
+    apply_charts(mappings_file, config_file, image_version, env, test)

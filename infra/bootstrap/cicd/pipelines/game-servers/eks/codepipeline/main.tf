@@ -24,8 +24,27 @@ resource "aws_codepipeline" "gameservers_eks_codepipeline" {
             output_artifacts            = ["SourceArtifact"]
             owner                       = "AWS"
             provider                    = "CodeStarSourceConnection"
-            run_order                   = 1
             version                     = "1"
+        }
+    }
+
+    stage {
+        name = "Dry_Run_Dev"
+
+        action {
+            name                = "dry_run_dev"
+            category            = "Test"
+            configuration = {
+                "ProjectName"   = "${var.dev_preview_project_name}"
+            }
+
+            input_artifacts     = ["SourceArtifact"]
+            
+            output_artifacts    = []
+
+            owner               = "AWS"
+            provider            = "CodeBuild"
+            version             = "1"
         }
     }
   
@@ -33,7 +52,7 @@ resource "aws_codepipeline" "gameservers_eks_codepipeline" {
         name = "Dev_Approval"
         
         action {
-            name                = "Approval_dev"
+            name                = "approval_dev"
             category            = "Approval"
             configuration = {
                 "CustomData"    = "Approve the following eks deployment"
@@ -43,7 +62,6 @@ resource "aws_codepipeline" "gameservers_eks_codepipeline" {
             output_artifacts    = []
             owner               = "AWS"
             provider            = "Manual"
-            run_order           = 3
             version             = "1"
         }
     }  
@@ -52,7 +70,7 @@ resource "aws_codepipeline" "gameservers_eks_codepipeline" {
         name = "Deploy_Dev"
 
         action {
-            name                = "Terraform_apply_dev"
+            name                = "deploy_dev"
             category            = "Build"
             configuration = {
                 "ProjectName"   = "${var.dev_deploy_project_name}"
@@ -64,7 +82,26 @@ resource "aws_codepipeline" "gameservers_eks_codepipeline" {
 
             owner               = "AWS"
             provider            = "CodeBuild"
-            run_order           = 4
+            version             = "1"
+        }
+    }
+
+    stage {
+        name = "Dry_Run_Prod"
+
+        action {
+            name                = "dry_run_prod"
+            category            = "Test"
+            configuration = {
+                "ProjectName"   = "${var.prod_preview_project_name}"
+            }
+
+            input_artifacts     = ["SourceArtifact"]
+            
+            output_artifacts    = []
+
+            owner               = "AWS"
+            provider            = "CodeBuild"
             version             = "1"
         }
     }
@@ -73,7 +110,7 @@ resource "aws_codepipeline" "gameservers_eks_codepipeline" {
         name = "Prod_Approval"
         
         action {
-            name                = "Approval_prod"
+            name                = "approval_prod"
             category            = "Approval"
             configuration = {
                 "CustomData"    = "Approve the following eks deployment"
@@ -83,7 +120,6 @@ resource "aws_codepipeline" "gameservers_eks_codepipeline" {
             output_artifacts    = []
             owner               = "AWS"
             provider            = "Manual"
-            run_order           = 3
             version             = "1"
         }
     }  
@@ -92,7 +128,7 @@ resource "aws_codepipeline" "gameservers_eks_codepipeline" {
         name = "Deploy_Prod"
 
         action {
-            name                = "Terraform_apply_prod"
+            name                = "deploy_prod"
             category            = "Build"
             configuration = {
                 "ProjectName"   = "${var.prod_deploy_project_name}"
@@ -104,7 +140,6 @@ resource "aws_codepipeline" "gameservers_eks_codepipeline" {
 
             owner               = "AWS"
             provider            = "CodeBuild"
-            run_order           = 4
             version             = "1"
         }
     }

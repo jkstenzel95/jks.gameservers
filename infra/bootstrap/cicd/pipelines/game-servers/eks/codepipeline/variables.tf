@@ -1,6 +1,15 @@
+variable "dev_preview_project_name" {
+    description = "the name of the codebuild project for previewing dev deployment"
+}
+
 variable "dev_deploy_project_name" {
     description = "the name of the codebuild project for dev deployment"
 }
+
+variable "prod_preview_project_name" {
+    description = "the name of the codebuild project for previewing prod deployment"
+}
+
 variable "prod_deploy_project_name" {
     description = "the name of the codebuild project for prod deployment"
 }

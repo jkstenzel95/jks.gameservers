@@ -42,6 +42,7 @@ spec:
           value: {{ .Values.game }}
         - name: MAP_NAME
           value: {{ .Values.map }}
+{{ .Files.Get .Values.environmentVariableFile | indent 8 }}
         ports:
           {{- range $port := .Values.ports }}
           - containerPort: {{ $port.number }}

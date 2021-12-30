@@ -22,8 +22,8 @@ while ! (blkid --match-token TYPE=ext4 "/dev/sdg" || sudo timeout 60 mkfs.ext4 -
 echo "Ensured Formatting!"
 
 sudo mkdir ${server_mount_location}
+sudo chown ec2-user -R ${server_mount_location} 
 sudo chmod -R 0777 ${server_mount_location}
 echo "Attempting mount..."
 while ! sudo mount /dev/sdg ${server_mount_location}; do echo "Mount not successful... retrying in 15 seconds"; sleep 15; done
 echo "Mount complete!"
-sudo chmod -R 0777 ${server_mount_location}
