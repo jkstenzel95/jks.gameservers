@@ -1,6 +1,7 @@
 FROM amazonlinux:latest
 ARG REPO_ROOT
 ENV REPO_ROOT=$REPO_ROOT
+WORKDIR $REPO_ROOT
 COPY "${REPO_ROOT}/game-server/scripts/guest/init" /scripts
 COPY "${REPO_ROOT}/shared/scripts/data" /game-info
 RUN yum install python3 nano jq vim wget screen glibc.i686 libstdc++.i686 ncurses-libs.i686 -y
