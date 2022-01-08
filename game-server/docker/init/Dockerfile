@@ -1,5 +1,4 @@
 FROM amazonlinux:latest
-RUN dir
 COPY /scripts /scripts
 COPY /game-info /game-info
 RUN yum install python3 nano jq vim wget screen glibc.i686 libstdc++.i686 ncurses-libs.i686 -y
