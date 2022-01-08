@@ -12,7 +12,7 @@ phases:
       - version=$(printf '%(%Y%m%d%k%M)T\n' -1)
       - cp -r game-server/scripts game-server/docker/init/scripts
       - cp -r shared/data game-server/docker/init/data
-      - cp -r game-server/scripts gameserver/docker/runtime/scripts
+      - cp -r game-server/scripts games-server/docker/runtime/scripts
   build:
     commands:
       - docker build game-server/docker/init -t "jkstenzel95/jks_gameserver_init:${env}.latest" -t "jkstenzel95/jks_gameserver_init:${env}.$version"
