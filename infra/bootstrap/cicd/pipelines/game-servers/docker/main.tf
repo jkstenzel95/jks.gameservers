@@ -11,6 +11,7 @@ module dev_build_codebuild_project {
   name = "jks-gs-dev-gameserver-docker-build"
   build_role_arn = var.role_arn
   env = "dev"
+  privileged_mode = true
 }
 
 module prod_build_codebuild_project {
@@ -20,6 +21,7 @@ module prod_build_codebuild_project {
   name = "jks-gs-prod-gameserver-docker-build"
   build_role_arn = var.role_arn
   env = "prod"
+  privileged_mode = true
 }
 
 module gameservers_docker_pipeline {

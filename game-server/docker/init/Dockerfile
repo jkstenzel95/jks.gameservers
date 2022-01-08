@@ -1,6 +1,6 @@
 FROM amazonlinux:latest
-COPY ~/game-server/scripts/guest/init ~/scripts
-COPY ~/shared/scripts/data ~/data
+COPY $HOME/game-server/scripts/guest/init ~/scripts
+COPY $HOME/shared/scripts/data ~/data
 RUN yum install python3 nano jq vim wget screen glibc.i686 libstdc++.i686 ncurses-libs.i686 -y
 RUN echo "fs.file-max=100000" >> /etc/sysctl.conf
 RUN sysctl -p /etc/sysctl.conf

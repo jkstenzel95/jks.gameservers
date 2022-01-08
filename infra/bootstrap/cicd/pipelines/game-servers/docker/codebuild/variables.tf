@@ -13,3 +13,8 @@ variable "build_role_arn" {
 variable "env" {
     description = "the environment of the server resource set"
 }
+
+variable "privileged_mode" {
+    description = "Whether to enable running the Docker daemon inside a Docker container."
+    default = false
+}
