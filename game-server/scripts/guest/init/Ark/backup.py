@@ -10,7 +10,7 @@ nonsave_folders=["Config", "Logs", "SaveGames", "clusters"]
 
 def backup_saves_and_configs(shared_mount_location, backup_storage_name):
     map_codes = {}
-    mappings_file = "~/data/ark_mappings.json"
+    mappings_file = "/game-info/ark_mappings.json"
     with open(os.path.expanduser(mappings_file)) as md:
         mappings_json = json.load(md)
         for idx, map_info in enumerate(mappings_json["maps"]):

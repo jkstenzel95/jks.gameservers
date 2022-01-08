@@ -1,7 +1,7 @@
 #!/bin/bash
 -e
 
-scripts_dir="~/scripts"
+scripts_dir="/scripts"
 
 pushd $scripts_dir
 
