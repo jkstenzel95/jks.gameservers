@@ -38,10 +38,20 @@ spec:
       - name: gameserver
         image: {{ $image }}
         env:
+        - name: SERVER_MOUNT_LOCATION
+          value: "/mnt/gameservers"
         - name: GAME_NAME
           value: {{ .Values.game }}
         - name: MAP_NAME
           value: {{ .Values.map }}
+        - name: ENVIRONMENT
+          value: {{ .Values.env }}
+        - name: REGION_SHORTNAME
+          value: {{ .Values.regionShortname }}
+        - name: BACKUP_STORAGE_NAME
+          value: {{ .Values.backupStorageName }}
+        - name: RESOURCE_BUCKET_NAME
+          value: { .Values.resourceBucketName }
 {{ .Files.Get .Values.environmentVariableFile | indent 8 }}
         ports:
           {{- range $port := .Values.ports }}

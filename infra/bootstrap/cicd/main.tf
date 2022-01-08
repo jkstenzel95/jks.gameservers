@@ -24,9 +24,22 @@ resource "aws_iam_role" "codebuild_role" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "codebuild_deploy" {
+resource "aws_iam_role_policy_attachment" "eks_kubectl-AmazonEKSClusterPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.codebuild_role.name
+}
+resource "aws_iam_role_policy_attachment" "eks_kubectl-AmazonEKSServicePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
+  role       = aws_iam_role.codebuild_role.name
+}
+resource "aws_iam_role_policy_attachment" "eks_kubectl-AmazonEKSWorkerNodePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  role       = aws_iam_role.codebuild_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "codebuild_deploy" {
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  role       = aws_iam_role.codebuild_role.name
 }
 
 module "pipelines" {

@@ -8,6 +8,7 @@
                 "TheCenter",
                 "ScorchedEarth"
             ],
+            "max_players": 16,
             "mods": [
                 684970590
             ]

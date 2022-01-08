@@ -17,11 +17,3 @@ if [[ ! -f "${init_flag}" ]]; then
     unzip -o Mods.zip -d "${server_mount_location}/Ark/ShooterGame/Content/"
     rm Mods.zip
 fi
-
-mkdir -p "${server_mount_location}/Ark/ShooterGame/Saved/Config/LinuxServer"
-mkdir -p "${server_mount_location}/Ark/ShooterGame/Binaries/Linux"
-# Download GameUserSettings.ini
-aws s3 cp s3://${resource_bucket_name}/GameUserSettings.ini "${server_mount_location}/Ark/ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini"
-# Download PlayersJoinNoCheckList.txt
-aws s3 cp s3://${resource_bucket_name}/PlayersJoinNoCheckList.txt "${server_mount_location}/Ark/ShooterGame/Binaries/Linux/PlayersJoinNoCheckList.txt"
-# Download scripts (Publish these to game resources s3)

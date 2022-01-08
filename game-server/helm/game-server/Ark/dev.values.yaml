@@ -1,3 +1,7 @@
 game: Ark
+env: dev
+regionShortname: use2
 initArgs: []
 gameServerArgs: []
+backupStorageName: jks-gs-dev-use2-ark-backup-bucket
+resourceBucketName: jks-gs-dev-use2-ark-gameresources-bucket
