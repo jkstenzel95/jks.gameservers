@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - yum install -y python3
+      - curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      - install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      - curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+      - chmod 700 get_helm.sh
+      - ./get_helm.sh
+      - chmod -R 0777 ./*
+  pre_build:
+    commands:
+      - aws eks --region us-east-2 update-kubeconfig --name jks-use2 --role-arn ${build_role}
+  build:
+    commands:
+      - python3 ./game-server/scripts/deployment/deploy_chart.py --shared-files-location ./shared --env ${env} ${test_clause}

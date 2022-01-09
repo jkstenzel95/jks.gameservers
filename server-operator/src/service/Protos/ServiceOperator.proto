@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Jks.GameServers.ServerOperator";
+
+package jks.gameservers.serveroperator;
+
+service Backup
+{
+  // Backs up the game server
+  rpc Backup (BackupRequest) returns (BackupReply);
+}
+
+service GetPlayers
+{
+  // Lists the players on a server, or else lists them
+  rpc GetPlayers (GetPlayersRequest) returns (GetPlayersReply);
+}
+
+service Save
+{
+  // Saves the server
+  rpc Save (SaveRequest) returns (SaveReply);
+}
+
+service Start
+{
+  // Starts the server
+  rpc StartServer (StartServerRequest) returns (StartServerReply);
+}
+
+service Stop
+{
+  // Stops the server
+  rpc StopServer (StopServerRequest) returns (StopServerReply);
+}
+
+// The request to backup the server.
+message BackupRequest {
+}
+
+// The resulting backup's info.
+message BackupReply {
+  OperationResult result = 1;
+  optional BackupInfo backupInfo = 2;
+}
+
+// The request for player info on a server.
+message GetPlayersRequest {
+}
+
+// The count and info of players on the server
+message GetPlayersReply {
+  OperationResult result = 1;
+  uint32 playerCount = 2;
+  repeated PlayerInfo playerInfoList = 3;
+}
+
+// The request to save the server
+message SaveRequest {
+}
+
+message SaveReply {
+  OperationResult result = 1;
+}
+
+// The request message containing the user's name.
+message StartServerRequest {
+}
+
+// The request message containing the user's name.
+message StartServerReply {
+  OperationResult result = 1;
+}
+
+// The request message containing the user's name.
+message StopServerRequest {
+}
+
+// The request message containing the user's name.
+message StopServerReply {
+  OperationResult result = 1;
+}
+
+message BackupInfo {
+  string backupName = 1;
+  google.protobuf.Timestamp createTime = 2;
+}
+
+message PlayerInfo {
+  string playerName = 1;
+}
+
+message OperationResult {
+  enum result {
+    SUCCESS = 0;
+    FAILURE = 1;
+    INVALID_SERVER_STATE = 2;
+    NOT_SUPPORTED = 3;
+  }
+}

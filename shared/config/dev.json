@@ -1,0 +1,17 @@
+{
+    "games" : [
+        {
+            "name": "Ark",
+            "image_version" : "2",
+            "maps": [
+                "TheIsland",
+                "TheCenter",
+                "ScorchedEarth"
+            ],
+            "max_players": 16,
+            "mods": [
+                684970590
+            ]
+        }
+    ] 
+}

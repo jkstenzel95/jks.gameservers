@@ -1,0 +1,17 @@
+﻿{
+  "profiles": {
+    "jks.gameservers.smgs": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:5001",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "GAME_NAME": "",
+        "MAP_NAME": "default",
+        "MODS": "",
+        "BACKUP_URI": "",
+        "SERVER_FILEPATH": "",
+      }
+    }
+  }
+}

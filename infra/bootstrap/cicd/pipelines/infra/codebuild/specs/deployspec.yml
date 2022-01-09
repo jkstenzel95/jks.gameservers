@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - curl -s -qL -o terraform_install.zip https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip
+      - unzip terraform_install.zip -d /usr/bin/
+      - chmod +x /usr/bin/terraform
+  pre_build:
+    commands:
+      - cd "infra/service"
+      - terraform init -backend-config="./config/${env}.s3.tfbackend"
+  build:
+    commands:
+      - terraform apply -var-file="./config/${env}.tfvars" -auto-approve
