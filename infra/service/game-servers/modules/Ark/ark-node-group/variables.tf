@@ -47,12 +47,16 @@ variable resources_bucket_arn {
     description = "the bucket containing Ark server resources"
 }
 
-variable resources_bucket_name {
+variable "backup_bucket_arn" {
+    description = "the bucket containing Ark server backups"
+}
+
+variable "resources_bucket_name" {
     description = "the name of the bucket containing Ark server resources"
 }
 
-variable backup_bucket_arn {
-    description = "the bucket containing Ark server backups"
+variable "backup_bucket_name" {
+    description = "the name of the bucket containing Ark server backups"
 }
 
 variable "cluster_name" {

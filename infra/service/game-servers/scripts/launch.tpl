@@ -1,5 +1,7 @@
 #!/bin/bash
 
+-e
+
 sudo yum update -y
 sudo yum install unzip -y
 sudo yum -y install wget
@@ -21,9 +23,20 @@ echo "Ensuring formatted..."
 while ! (blkid --match-token TYPE=ext4 "/dev/sdg" || sudo timeout 60 mkfs.ext4 -m0 "/dev/sdg"); do printf "\nLikely hung on prompt to format a formatted drive, retrying...\n"; done
 echo "Ensured Formatting!"
 
-sudo mkdir ${server_mount_location}
-sudo chown ec2-user -R ${server_mount_location} 
-sudo chmod -R 0777 ${server_mount_location}
+sudo mkdir ${SERVER_MOUNT_LOCATION}
+sudo chown ec2-user -R ${SERVER_MOUNT_LOCATION} 
+sudo chmod -R 0777 ${SERVER_MOUNT_LOCATION}
 echo "Attempting mount..."
-while ! sudo mount /dev/sdg ${server_mount_location}; do echo "Mount not successful... retrying in 15 seconds"; sleep 15; done
+while ! sudo mount /dev/sdg ${SERVER_MOUNT_LOCATION}; do echo "Mount not successful... retrying in 15 seconds"; sleep 15; done
 echo "Mount complete!"
+
+export SERVER_MOUNT_LOCATION=${SERVER_MOUNT_LOCATION}
+export GAME_NAME=${GAME_NAME}
+export MAP_NAME=${MAP_NAME}
+export ENV=${ENV}
+export REGION_SHORTNAME=${REGION_SHORTNAME}
+export BACKUP_STORAGE_NAME=${BACKUP_STORAGE_NAME}
+export RESOURCE_BUCKET_NAME=${RESOURCE_BUCKET_NAME}
+
+# Download scripts
+# Run the entrypoint script
