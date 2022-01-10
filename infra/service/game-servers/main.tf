@@ -4,6 +4,15 @@ module "shared_sg" {
     env = "${var.env}"
 }
 
+resource "aws_s3_bucket" "packages_bucket" {
+  bucket = "jks-gs-packages-bucket"
+  acl    = "private"
+
+  tags = {
+    Name        = "jks-gs-packages-bucket"
+  }
+}
+
 module "ark_resources" {
     source = "./modules/Ark/ark-resources"
 

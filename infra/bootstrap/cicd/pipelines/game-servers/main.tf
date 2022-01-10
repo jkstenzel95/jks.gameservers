@@ -9,3 +9,9 @@ module eks_pipeline {
 
     role_arn = var.role_arn    
 }
+
+module shared_packages_pipeline {
+    source = "./shared-packages"
+
+    role_arn = var.role_arn    
+}
