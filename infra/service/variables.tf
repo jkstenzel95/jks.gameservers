@@ -43,3 +43,7 @@ variable subnet_id {
 variable primary_availability_zone {
     description =  "the name of the primary availability zone (where the vast majority of regions are provisioned)"
 }
+
+variable "shared_package_version" {
+    description = "the scripts and data files archive file version to download"
+}

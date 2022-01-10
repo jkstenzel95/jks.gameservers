@@ -50,4 +50,6 @@ module "node_group" {
     game_policy_arn = "${aws_iam_policy.data_access_policy.arn}"
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id
+    packages_bucket_name = var.packages_bucket_name
+    shared_package_version = var.shared_package_version
 }
