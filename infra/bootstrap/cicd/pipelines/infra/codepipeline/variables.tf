@@ -21,7 +21,7 @@ variable "repository_name" {
 
 variable "repository_branch" {
     description = "the name of the branch to use as source"
-    default = "user/jastenze/initial-commit"
+    default = "main"
 }
 
 variable "repository_owner" {

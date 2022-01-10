@@ -1,9 +1,19 @@
 locals {
     server_mount_location = "/mnt/gameservers"
     initialized_flag_file = "${local.server_mount_location}/init_flag"
-    common_script = templatefile("${path.module}/../../scripts/launch.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}", server_mount_location = "${local.server_mount_location}" })
-    server_setup_script = templatefile("${path.module}/../../scripts/${var.game_name}-setup.tpl", { volume_id = "${var.data_volume_id}", region = "${var.server_region}", server_mount_location = "${local.server_mount_location}", init_flag = "${local.initialized_flag_file}", resource_bucket_name = "${var.resources_bucket_name}" })
-    full_launch_script = "${local.common_script}\n\n${local.server_setup_script}\n\ntouch ${local.initialized_flag_file}"
+    common_script = templatefile("${path.module}/../../scripts/launch.tpl", 
+      { 
+        volume_id = "${var.data_volume_id}",
+        region = "${var.server_region}",
+        SERVER_MOUNT_LOCATION = "${local.server_mount_location}",
+        GAME_NAME = "${var.game_name}",
+        MAP_NAME = "${var.map_name}",
+        ENV = "${var.env}",
+        REGION_SHORTNAME = "${var.region_shortname}",
+        BACKUP_STORAGE_NAME = "${var.backup_bucket_name}",
+        RESOURCE_BUCKET_NAME = "${var.resources_bucket_name}"
+      })
+    full_launch_script = "${local.common_script}\n\ntouch ${local.initialized_flag_file}"
     cluster_cidr_blocks = [ "172.31.64.0/24", "172.31.65.0/24" ] 
 }
 

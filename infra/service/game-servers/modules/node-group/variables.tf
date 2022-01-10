@@ -26,7 +26,11 @@ variable "map_name" {
     description = "the map for which the instance is created"
 }
 
-variable resources_bucket_name {
+variable "backup_bucket_name" {
+    description = "the name of the bucket containing Ark server backups"
+}
+
+variable "resources_bucket_name" {
     description = "the name of the bucket containing Ark server resources"
 }
 
