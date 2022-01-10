@@ -42,4 +42,5 @@ module "game_servers" {
     ssh_security_group = "${var.ssh_security_group}"
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id
+    shared_package_version = var.shared_package_version
 }

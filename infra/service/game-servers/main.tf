@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "packages_bucket" {
   acl    = "private"
 
   tags = {
-    Name        = "jks-gs-packages-bucket"
+    Name = "jks-gs-packages-bucket"
   }
 }
 
@@ -26,4 +26,6 @@ module "ark_resources" {
     ssh_security_group = "${var.ssh_security_group}"
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id
+    packages_bucket_name = aws_s3_bucket.packages_bucket.id
+    shared_package_version = var.shared_package_version
 }

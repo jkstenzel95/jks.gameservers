@@ -39,4 +39,11 @@ export BACKUP_STORAGE_NAME=${BACKUP_STORAGE_NAME}
 export RESOURCE_BUCKET_NAME=${RESOURCE_BUCKET_NAME}
 
 # Download scripts
+if [ ! -d /gameservers-package ]
+    aws s3 cp "s3://${packages_bucket_name}/shared-package_${shared_package_version}.zip" ~/gameservers-package.zip
+    mkdir /gameservers-package
+    unzip -o gameservers-package.zip -d /gameservers-package
+fi
+
 # Run the entrypoint script
+. /gameservers-packages/scripts/init/initialize.sh
