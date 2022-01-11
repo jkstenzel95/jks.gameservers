@@ -1,7 +1,7 @@
 #!/bin/bash
 -e
 
-scripts_dir="/gameservers-package/scripts"
+scripts_dir="/gameservers-package/shared/scripts"
 init_flag="${SERVER_MOUNT_LOCATION}/init_flag"
 
 pushd $scripts_dir

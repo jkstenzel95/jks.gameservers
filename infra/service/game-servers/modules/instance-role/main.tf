@@ -38,6 +38,12 @@ resource "aws_iam_policy" "policy" {
                 "Effect": "Allow",
                 "Action": "ec2:DescribeVolumes",
                 "Resource": "arn:aws:ec2:*:*:volume/${var.data_volume_id}"
+            },
+            {
+                "Sid": "DescribeQueryScanBooksTable",
+                "Effect": "Allow",
+                "Action": "dynamodb:*",
+                "Resource": "*"
             }
         ]
     })
