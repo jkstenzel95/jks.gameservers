@@ -31,6 +31,15 @@ module "backup_bucket" {
     purpose = "backup"
 }
 
+module "kv_store" {
+    source = "./../../game-kv-store"
+
+    region_shortname = "${var.region_shortname}"
+    env = "${var.env}"
+    game_name = "Ark"
+    map_name = "all"
+}
+
 module "ark_node_group" {
     source = "./../ark-node-group"
 
