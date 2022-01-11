@@ -7,11 +7,6 @@ resource "aws_dynamodb_table" "game_key_value_store" {
     type = "S"
   }
 
-  attribute {
-    name = "Value"
-    type = "S"
-  }
-
   replica {
     region_name = "us-east-2"
   }
