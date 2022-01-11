@@ -10,7 +10,8 @@ resource "aws_iam_policy" "data_access_policy" {
             ],
             "Resource": [
                 "${var.resources_bucket_arn}",
-                "${var.backup_bucket_arn}"
+                "${var.backup_bucket_arn}",
+                "${var.packages_bucket_arn}"
             ]
             },
             {
@@ -23,7 +24,8 @@ resource "aws_iam_policy" "data_access_policy" {
             ],
             "Resource": [
                 "${var.resources_bucket_arn}/*",
-                "${var.backup_bucket_arn}/*"
+                "${var.backup_bucket_arn}/*",
+                "${var.packages_bucket_arn}/*"
             ]
             }
         ]

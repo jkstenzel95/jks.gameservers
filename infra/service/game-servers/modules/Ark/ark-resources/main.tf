@@ -55,8 +55,9 @@ module "ark_node_group" {
     ssh_security_group = "${var.ssh_security_group}"
     resources_bucket_arn = module.resources_bucket.arn
     resources_bucket_name = module.resources_bucket.name
-    backup_bucket_arn = module.resources_bucket.arn
+    backup_bucket_arn = module.backup_bucket.arn
     backup_bucket_name = module.backup_bucket.name
+    packages_bucket_arn = var.packages_bucket_arn
     packages_bucket_name = var.packages_bucket_name
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id
