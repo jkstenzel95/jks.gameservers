@@ -38,6 +38,10 @@ variable subnet_id {
     description = "the subnet id"
 }
 
+variable "packages_bucket_arn" {
+    description = "the bucket containing the scripts and data files package"
+}
+
 variable "packages_bucket_name" {
     description = "the name of the bucket containing the scripts and data files package"
 }
