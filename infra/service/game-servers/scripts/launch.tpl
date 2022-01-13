@@ -41,11 +41,13 @@ export RESOURCE_BUCKET_NAME=${RESOURCE_BUCKET_NAME}
 # Download scripts
 if [ ! -d /gameservers-package ]
 then
-    aws s3 cp "s3://${packages_bucket_name}/shared-packages/shared-package_${shared_package_version}.zip" ~/gameservers-package.zip
+    sudo aws s3 cp "s3://${packages_bucket_name}/shared-packages/shared-package_${shared_package_version}.zip" /gameservers-package.zip
+    sudo chmod -R 0777 /gameservers-package.zip
     mkdir /gameservers-package
     sudo chown ec2-user -R /gameservers-package
     sudo chmod -R 0777 /gameservers-package
     unzip -o gameservers-package.zip -d /gameservers-package
+    rm /gameservers-package.zip
 fi
 
 # Run the entrypoint script
