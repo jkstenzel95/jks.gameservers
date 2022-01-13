@@ -51,4 +51,5 @@ then
 fi
 
 # Run the entrypoint script
-# . /gameservers-package/shared/scripts/init/initialize.sh
+
+. /gameservers-packages/shared/scripts/init/initialize.sh
