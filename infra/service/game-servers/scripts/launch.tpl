@@ -49,4 +49,4 @@ then
 fi
 
 # Run the entrypoint script
-# . /gameservers-packages/shared/scripts/init/initialize.sh
+# . /gameservers-package/shared/scripts/init/initialize.sh
