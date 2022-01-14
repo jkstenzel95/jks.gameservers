@@ -18,3 +18,5 @@ rm Mods.zip
 pushd "${SERVER_MOUNT_LOCATION}"
 
 ./steamcmd.sh +force_install_dir "./Ark" +login anonymous +app_update 376030 validate +quit
+
+popd
