@@ -15,4 +15,6 @@ aws s3 cp s3://${RESOURCE_BUCKET_NAME}/Mods.zip Mods.zip
 unzip -o Mods.zip -d "${SERVER_MOUNT_LOCATION}/Ark/ShooterGame/Content/"
 rm Mods.zip
 
-. "${SERVER_MOUNT_LOCATION}/steamcmd.sh" +force_install_dir "./Ark" +login anonymous +app_update 376030 validate +quit
+pushd "${SERVER_MOUNT_LOCATION}"
+
+./steamcmd.sh +force_install_dir "./Ark" +login anonymous +app_update 376030 validate +quit
