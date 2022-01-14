@@ -25,3 +25,5 @@ then
 fi
 
 . "${GAME_NAME}/post-install.sh"
+
+popd
