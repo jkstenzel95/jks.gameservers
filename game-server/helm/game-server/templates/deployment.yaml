@@ -31,15 +31,32 @@ spec:
         operator: "Equal"
         value: {{ .Values.map }}
         effect: "NoExecute"
-      initContainers:
-      - name: gameserver-init
-        image: {{ $initImage }}
+      volumes:
+      - name: game-servers
+        hostPath:
+          path: /mnt/gameservers
+          type: Directory
+      - name: scripts-dir
+        hostPath:
+          path: /gameservers-package/shared/scripts
+          type: Directory
+      - name: game-data
+        hostPath:
+          path: /gameservers-package/shared/data
+          type: Directory
       containers:
       - name: gameserver
         image: {{ $image }}
+        volumeMounts:
+        - mountPath: /gameservers
+          name: game-servers
+        - mountPath: /scripts
+          name: scripts-dir
+        - mountPath: /game-data
+          name: game-data
         env:
         - name: SERVER_MOUNT_LOCATION
-          value: "/mnt/gameservers"
+          value: "/gameservers"
         - name: GAME_NAME
           value: {{ .Values.game }}
         - name: MAP_NAME
