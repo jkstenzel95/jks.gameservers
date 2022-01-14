@@ -16,7 +16,8 @@ else
 fi
 
 # check if backup needs to be downloaded again
-if ! . "check-no-restore-needed.sh"
+export backup_version=$(. "get-backup-version.sh")
+if [[ ($? -eq 0) && (! $backup_version == "") ]]
 then
     # if so, download
     . "${GAME_NAME}/restore-backup.sh"
