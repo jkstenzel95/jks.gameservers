@@ -1,10 +1,8 @@
 #!/bin/bash
 
--e
-
 sudo yum update -y
 sudo yum install unzip -y
-sudo yum -y install wget
+sudo yum -y install wget jq
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
