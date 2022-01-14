@@ -7,6 +7,6 @@ ark_instance_type = "c6i.2xlarge"
 cluster_name = "jks-use2"
 subnet_id = "subnet-05dc9f7b2498d4f92"
 ssh_security_group = "sg-095698a868bf8a6f8"
-shared_package_version = "2ca8c9b58d092afea760c996997dcff4fc20bb50"
+shared_package_version = "090ff99d163154074f314d9ee5ff06c7ed08da61"
 minecraft_map_names = []
 valheim_map_names = []
