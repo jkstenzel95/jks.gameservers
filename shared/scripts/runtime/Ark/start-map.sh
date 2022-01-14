@@ -30,3 +30,5 @@ SessionName="${prefix}${map}${postfix}"
 SERVER_ADMIN_PASSWORD = aws secretsmanager get-secret-value --secret-id jks/gameservers/${ENV}/${REGION_SHORTNAME}/Ark-Server-Admin-Password --query SecretString --output text | jq '."Ark-Server-Admin-Password"'
 
 ShooterGame/Binaries/Linux/ShooterGameServer "${MAP_CODE}?listen?Multihome=0.0.0.0?SessionName=${SessionName}?MaxPlayers=${MAX_PLAYERS}?QueryPort=${QUERY_PORT}?RCONPort=${RCON_PORT}?Port=${PORT}?ServerAdminPassword=${SERVER_ADMIN_PASSWORD}?AltSaveDirectoryName=${MAP_NAME}?OverrideOfficialDifficulty=5.0?GameModIds=${MOD_LIST}" -server -log -NoTransferFromFiltering -exclusivejoin -clusterid="${CLUSTER_ID}"
+
+popd
