@@ -7,6 +7,9 @@ module "shared_sg" {
 resource "aws_s3_bucket" "packages_bucket" {
   bucket = "jks-gs-packages-bucket"
   acl    = "private"
+  lifecycle {
+    prevent_destroy = true
+  }
 
   tags = {
     Name = "jks-gs-packages-bucket"
