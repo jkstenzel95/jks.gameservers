@@ -16,7 +16,7 @@ fi
 
 # check if backup needs to be downloaded again
 export backup_version=$(. "get-backup-version.sh")
-if [[ ($? -eq 0) && (! $backup_version == "") ]]
+if [[ ($? -eq 0) && (! $backup_version == "") && (! $backup_version == "null") ]]
 then
     # if so, download
     . "${GAME_NAME}/restore-backup.sh"
