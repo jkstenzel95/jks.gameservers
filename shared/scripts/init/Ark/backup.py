@@ -38,8 +38,12 @@ def backup_saves_and_configs(shared_mount_location, backup_storage_name):
                 for file in glob.glob("{}/*.bak".format(full_folder_path)):
                     shutil.copy(file, "{}/{}/".format(backup_dir, dir_name))
         # copy SaveGames, clusters
-        shutil.copytree("{}/clusters".format(path_to_saved), "{}/clusters".format(backup_dir))
-        shutil.copytree("{}/SaveGames".format(path_to_saved), "{}/SaveGames".format(backup_dir))
+        clusters_dir = "{}/clusters".format(path_to_saved)
+        savegames_dir  = "{}/SaveGames".format(path_to_saved)
+        if (os.path.isdir(clusters_dir)):
+            shutil.copytree(clusters_dir, "{}/clusters".format(backup_dir))
+        if (os.path.isdir(savegames_dir)):
+            shutil.copytree(savegames_dir, "{}/SaveGames".format(backup_dir))
         shutil.make_archive("{}/{}".format(shared_mount_location, backup_directory_name), "zip", backup_dir)
         backup_zip = "{}.zip".format(backup_directory_name)
         call(["aws", "s3", "cp", "{}/{}".format(shared_mount_location, backup_zip), "s3://{}/{}".format(backup_storage_name, backup_zip)])
