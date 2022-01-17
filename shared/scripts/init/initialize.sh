@@ -27,3 +27,6 @@ fi
 . "${GAME_NAME}/post-install.sh"
 
 popd
+
+sudo chown ec2-user -R /gameservers-package
+sudo chmod -R 0777 /gameservers-package
