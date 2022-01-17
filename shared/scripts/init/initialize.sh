@@ -28,5 +28,5 @@ fi
 
 popd
 
-sudo chown ec2-user -R /gameservers-package
-sudo chmod -R 0777 /gameservers-package
+sudo chown ec2-user -R /mnt/gameservers
+sudo chown ec2-user -R /mnt/gameservers
