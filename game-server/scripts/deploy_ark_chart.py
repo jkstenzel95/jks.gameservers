@@ -32,7 +32,7 @@ def apply_charts(mappings_file, config_file, env, test):
                             dir_path = os.path.dirname(os.path.realpath(__file__))
                             env_file = "{}_env_list.txt".format(map_info["name"])
                             env_file_path = "{}/../helm/game-server/{}".format(dir_path, env_file)
-                            env_dict = { "map_code" : map_info["map_code"], "additional_server_params": map_info["additional_server_params"], "mod_list": mod_string, "max_players": max_players }
+                            env_dict = { "map_code" : map_info["map_code"], "additional_server_params": map_info["additional_server_params"], "mod_list": mod_string, "max_players": str(max_players) }
                             deployment_utilities.generate_env_file(env_dict, env_file_path)
                             values_string = "--set imageTag={},game=Ark,map={},environmentVariableFile={},{},{},{},{}".format(image_version, map_info["name"], env_file, gp1_port_string, gp2_port_string, query_port_string, rcon_port_string)
                             call_command = ["{}/helm_deploy.sh".format(dir_path), "-g", "Ark", "-m", map_info["name"],"-e", env, "-v", values_string]
