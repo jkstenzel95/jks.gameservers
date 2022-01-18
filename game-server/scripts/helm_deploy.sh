@@ -24,7 +24,7 @@ do
 done
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-pushd "${SCRIPT_DIR}/../../helm"
+pushd "${SCRIPT_DIR}/../helm"
 echo helm install "gameserver-${env}-${map}" "game-server" -f "./game-server/${game}/${env}.values.yaml" ${values_string} $test_addendum
 helm install "gameserver-${env}-${map}" "game-server" -f "./game-server/${game}/${env}.values.yaml" ${values_string} $test_addendum
 popd
