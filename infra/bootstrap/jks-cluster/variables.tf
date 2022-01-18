@@ -13,3 +13,7 @@ variable primary_availability_zone {
 variable secondary_availability_zone {
     description =  "the name of the secondary availability zone"
 }
+
+variable "codebuild_role" {
+  description = "The created role for CodeBuild"
+}

@@ -31,38 +31,19 @@ resource "aws_subnet" "subnet2" {
   }
 }
 
-resource "aws_iam_role" "cluster_role" {
-  name = "${local.cluster_name}-role"
-
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
-}
-
 resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.cluster_role.name
+  role       = var.codebuild_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSServicePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = aws_iam_role.cluster_role.name
+  role       = var.codebuild_role.name
 }
 
 resource "aws_eks_cluster" "cluster" {
   name     = "${local.cluster_name}"
-  role_arn = aws_iam_role.cluster_role.arn
+  role_arn = var.codebuild_role.arn
   enabled_cluster_log_types = ["api", "audit"]
 
   vpc_config {
@@ -85,4 +66,11 @@ resource "aws_cloudwatch_log_group" "cluster_logs" {
   retention_in_days = 7
 
   # ... potentially other configuration ...
+}
+
+module config_map {
+  source = "./modules/config-map"
+  
+  cluster = aws_eks_cluster.cluster
+  codebuild_role = var.codebuild_role
 }
