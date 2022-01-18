@@ -7,21 +7,21 @@
 #   {
 #     number: 7777,
 #     protocol: udp,
-#     name: serverPort1
+#     name: SERVER_PORT_1
 #   },
 #   {
 #     number: 7778,
 #     protocol: udp,
-#     name: serverPort2
+#     name: SERVER_PORT_2
 #   },
 #   {
 #     number: 27015,
 #     protocol: udp,
-#     name: steamQuery
+#     name: QUERY_PORT
 #   },
 #   {
 #     number: 32330,
 #     protocol: tcp,
-#     name: RCON
+#     name: RCON_PORT
 #   }
 # ]

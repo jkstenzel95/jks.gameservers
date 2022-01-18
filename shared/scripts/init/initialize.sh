@@ -29,4 +29,4 @@ fi
 popd
 
 sudo chown ec2-user -R /mnt/gameservers
-sudo chown ec2-user -R /mnt/gameservers
+sudo chmod -R 0777 /mnt/gameservers
