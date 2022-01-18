@@ -69,12 +69,12 @@ spec:
           value: {{ .Values.backupStorageName }}
         - name: RESOURCE_BUCKET_NAME
           value: { .Values.resourceBucketName }
-{{ .Files.Get .Values.environmentVariableFile | indent 8 }}
+{{ .Files.Get .Values.environmentVariableFile}}
         {{- range $port := .Values.ports }}
         - name: {{ $port.name }}
           value: {{ $port.number }}
         {{- end}}
-{{ .Files.Get .Values.environmentVariableFile | indent 8 }}
+{{ .Files.Get .Values.environmentVariableFile}}
         ports:
           {{- range $port := .Values.ports }}
           - containerPort: {{ $port.number }}
