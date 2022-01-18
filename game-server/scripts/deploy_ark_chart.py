@@ -10,11 +10,11 @@ def apply_charts(mappings_file, config_file, env, test):
         with open(config_file) as cd:
             mappings_json = json.load(md)
             config_json = json.load(cd)
-            mod_string = ",".join(config_json["mods"])
-            max_players = config_json["max_players"]
             
             for game in config_json["games"]:
                 if game["name"] == "Ark":
+                    mod_string = ",".join(game["mods"])
+                    max_players = game["max_players"]
                     map_set = set(game["maps"])
                     image_version = "{}.{}".format(env, game["image_version"])
                     for idx, map_info in enumerate(mappings_json["maps"]):
