@@ -65,10 +65,6 @@ spec:
           value: {{ .Values.env }}
         - name: REGION_SHORTNAME
           value: {{ .Values.regionShortname }}
-        - name: BACKUP_STORAGE_NAME
-          value: {{ .Values.backupStorageName }}
-        - name: RESOURCE_BUCKET_NAME
-          value: { .Values.resourceBucketName }
 {{ .Files.Get .Values.environmentVariableFile}}
         {{- range $port := .Values.ports }}
         - name: {{ $port.name }}
