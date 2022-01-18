@@ -11,11 +11,16 @@ terraform {
     required_providers {
         aws = {
             source  = "hashicorp/aws"
-            version = "~> 3.68"
+            version = "~> 3.72"
+        }
+
+        kubernetes = {
+            source  = "hashicorp/kubernetes"
+            version = "~> 2.7.1"
         }
     }
 
-    required_version = ">= 1.0.11"
+    required_version = ">= 1.1.3"
 }
 
 provider aws {
@@ -34,4 +39,5 @@ module "jks_cluster" {
     region_shortname = "use2"
     primary_availability_zone = "us-east-2a"
     secondary_availability_zone = "us-east-2b"
+    codebuild_role = module.cicd.codebuild_role
 }
