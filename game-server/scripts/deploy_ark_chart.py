@@ -13,7 +13,7 @@ def apply_charts(mappings_file, config_file, env, test):
             
             for game in config_json["games"]:
                 if game["name"] == "Ark":
-                    mod_string = ",".join(game["mods"])
+                    mod_string = ",".join(str(x) for x in game["mods"])
                     max_players = game["max_players"]
                     map_set = set(game["maps"])
                     image_version = "{}.{}".format(env, game["image_version"])
