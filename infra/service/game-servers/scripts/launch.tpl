@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o xtrace
+
 sudo yum update -y
 sudo yum install unzip -y
 sudo yum -y install wget jq
@@ -51,3 +53,5 @@ fi
 # Run the entrypoint script
 
 . /gameservers-package/shared/scripts/init/initialize.sh
+
+. /etc/eks/bootstrap.sh ${cluster_name}
