@@ -1,7 +1,3 @@
-locals {
-    cluster_name = "jks-${var.region_shortname}"
-}
-
 resource "aws_default_vpc" "default" {
   tags = {
     Name = "Default VPC"
@@ -16,7 +12,7 @@ resource "aws_subnet" "subnet1" {
   map_public_ip_on_launch = true
 
   tags = {
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
@@ -27,24 +23,12 @@ resource "aws_subnet" "subnet2" {
   map_public_ip_on_launch = true
 
   tags = {
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
-  }
-}
-
-data "aws_security_groups" "groups" {
-  filter {
-    name   = "group-name"
-    values = ["jks-gs-*"]
-  }
-
-  filter {
-    name   = "vpc-id"
-    values = [aws_default_vpc.default.id]
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
 resource "aws_iam_role" "cluster_role" {
-  name = "${local.cluster_name}-role"
+  name = "${var.cluster_name}-role"
   assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -81,14 +65,29 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSServicePolicy" {
   role       = aws_iam_role.cluster_role.name
 }
 
+module "security_groups" {
+  source = "./modules/security-groups"
+
+  cluster_name = var.cluster_name
+}
+
+data "aws_security_group" "ssh_sg" {
+  name = var.ssh_security_group_name
+}
+
 resource "aws_eks_cluster" "cluster" {
-  name     = "${local.cluster_name}"
+  name     = "${var.cluster_name}"
   role_arn = aws_iam_role.cluster_role.arn
   enabled_cluster_log_types = ["api", "audit"]
 
   vpc_config {
     subnet_ids = [aws_subnet.subnet1.id, aws_subnet.subnet2.id]
-    security_group_ids = data.aws_security_groups.groups.ids
+    security_group_ids = [
+      data.aws_security_group.ssh_sg.id,
+      module.security_groups.base_sg_id,
+      module.security_groups.node_sg_id,
+      module.security_groups.ark_sg_id
+    ]
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
@@ -103,7 +102,7 @@ resource "aws_eks_cluster" "cluster" {
 resource "aws_cloudwatch_log_group" "cluster_logs" {
   # The log group name format is /aws/eks/<cluster-name>/cluster
   # Reference: https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html
-  name              = "/aws/eks/${local.cluster_name}/cluster"
+  name              = "/aws/eks/${var.cluster_name}/cluster"
   retention_in_days = 7
 
   # ... potentially other configuration ...

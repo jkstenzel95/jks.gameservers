@@ -39,8 +39,11 @@ module "game_servers" {
     availability_zone = "${var.primary_availability_zone}"
     ark_server_image_id = "${var.ark_server_image_id}"
     ark_instance_type = "${var.ark_instance_type}"
-    ssh_security_group = "${var.ssh_security_group}"
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id
     shared_package_version = var.shared_package_version
+    ssh_sg_name = "${var.ssh_sg_name}"
+    base_sg_name = "${var.base_sg_name}"
+    node_sg_name = "${var.node_sg_name}"
+    ark_sg_name = "${var.ark_sg_name}"
 }

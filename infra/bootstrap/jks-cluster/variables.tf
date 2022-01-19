@@ -17,3 +17,11 @@ variable secondary_availability_zone {
 variable "codebuild_role" {
   description = "The created role for CodeBuild"
 }
+
+variable "ssh_security_group_name" {
+    description = "the pre-existing security group providing personal machine ssh access"
+}
+
+variable "cluster_name" {
+    description = "the chosen name for the cluster"
+}

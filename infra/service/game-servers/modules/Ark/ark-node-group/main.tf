@@ -45,10 +45,11 @@ module "node_group" {
     instance_type = "${var.instance_type}"
     resources_bucket_name = "${var.resources_bucket_name}"
     backup_bucket_name = "${var.backup_bucket_name}"
-    base_security_group_id = "${var.base_security_group_id}"
-    additional_security_group_id = "${var.additional_security_group_id}"
+    ssh_sg_id = var.ssh_sg_id
+    base_sg_id = var.base_sg_id
+    node_sg_id = var.node_sg_id
+    game_sg_id = var.ark_sg_id
     server_image_id = "${var.server_image_id}"
-    ssh_security_group = "${var.ssh_security_group}"
     game_policy_arn = "${aws_iam_policy.data_access_policy.arn}"
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id

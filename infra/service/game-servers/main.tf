@@ -1,9 +1,3 @@
-module "shared_sg" {
-    source = "./modules/security-group"
-
-    env = "${var.env}"
-}
-
 resource "aws_s3_bucket" "packages_bucket" {
   bucket = "jks-gs-packages-bucket"
   acl    = "private"
@@ -16,6 +10,22 @@ resource "aws_s3_bucket" "packages_bucket" {
   }
 }
 
+data "aws_security_group" "ssh_sg" {
+  name = var.ssh_sg_name
+}
+
+data "aws_security_group" "base_sg" {
+  name = var.base_sg_name
+}
+
+data "aws_security_group" "node_sg" {
+  name = var.node_sg_name
+}
+
+data "aws_security_group" "ark_sg" {
+  name = var.ark_sg_name
+}
+
 module "ark_resources" {
     source = "./modules/Ark/ark-resources"
 
@@ -23,10 +33,12 @@ module "ark_resources" {
     region_shortname = "${var.region_shortname}"
     availability_zone = "${var.availability_zone}"
     env = "${var.env}"
-    shared_sg_id = module.shared_sg.id
     server_image_id = "${var.ark_server_image_id}"
     instance_type = "${var.ark_instance_type}"
-    ssh_security_group = "${var.ssh_security_group}"
+    ssh_sg_id = data.aws_security_group.ssh_sg.id
+    base_sg_id = data.aws_security_group.base_sg.id
+    node_sg_id = data.aws_security_group.node_sg.id
+    ark_sg_id = data.aws_security_group.ark_sg.id
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id
     packages_bucket_arn = aws_s3_bucket.packages_bucket.arn

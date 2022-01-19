@@ -16,7 +16,6 @@ locals {
         RESOURCE_BUCKET_NAME = "${var.resources_bucket_name}"
       })
     full_launch_script = "${local.common_script}\n\ntouch ${local.initialized_flag_file}"
-    cluster_cidr_blocks = [ "172.31.64.0/24", "172.31.65.0/24" ] 
 }
 
 # the role that will be used by the instance
@@ -50,61 +49,15 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
   role       = module.instance_iam_role.name
 }
 
-resource "aws_security_group" "node_security_group" {
-  name        = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-node_sg"
-  description = "Security group for all nodes in the cluster"
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    "kubernetes.io/cluster/${var.cluster_name}" = "owned",
-  }
-}
-
-resource "aws_security_group_rule" "node-ingress-self" {
-  description              = "Allow node to communicate with each other"
-  from_port                = 0
-  protocol                 = "-1"
-  security_group_id        = "${aws_security_group.node_security_group.id}"
-  source_security_group_id = "${aws_security_group.node_security_group.id}"
-  to_port                  = 65535
-  type                     = "ingress"
-}
-
-resource "aws_security_group_rule" "node-ingress-cluster-https" {
-  description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
-  from_port                = 443
-  protocol                 = "tcp"
-  security_group_id        = "${aws_security_group.node_security_group.id}"
-  cidr_blocks              = local.cluster_cidr_blocks
-  to_port                  = 443
-  type                     = "ingress"
-}
-
-resource "aws_security_group_rule" "node-ingress-cluster-others" {
-  description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
-  from_port                = 1025
-  protocol                 = "tcp"
-  security_group_id        = "${aws_security_group.node_security_group.id}"
-  cidr_blocks              = local.cluster_cidr_blocks
-  to_port                  = 65535
-  type                     = "ingress"
-}
-
 # the launch template for the spot fleet
 resource "aws_launch_template" "launch_template" {
     name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-lt"
 
     vpc_security_group_ids = [
-        "${var.base_security_group_id}",
-        "${var.additional_security_group_id}",
-        "${var.ssh_security_group}",
-        "${aws_security_group.node_security_group.id}"
+        var.base_sg_id,
+        var.game_sg_id,
+        var.ssh_sg_id,
+        var.node_sg_id
     ]
 
     key_name = "jks-gameservers"

@@ -14,8 +14,20 @@ variable availability_zone {
     description =  "the name of the availability zone"
 }
 
-variable "shared_sg_id" {
-    description = "the base security group id"
+variable ssh_sg_id {
+    description = "the id of the security group providing personal machine ssh access"
+}
+
+variable base_sg_id {
+    description = "the id of the base security group"
+}
+
+variable node_sg_id {
+    description = "the id of the node security group"
+}
+
+variable ark_sg_id {
+    description = "the id of the ark security group"
 }
 
 variable server_image_id {
@@ -24,10 +36,6 @@ variable server_image_id {
 
 variable "instance_type" {
     description = "the type of the instance to be used in the fleet"
-}
-
-variable ssh_security_group {
-    description = "the pre-existing security group providing personal machine ssh access"
 }
 
 variable "cluster_name" {

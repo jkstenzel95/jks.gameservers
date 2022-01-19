@@ -23,14 +23,6 @@ variable "data_volume_id" {
     description = "the id of the volume to attach to the instance"
 }
 
-variable "base_security_group_id" {
-    description = "the base security group id to associate"
-}
-
-variable "additional_security_group_id" {
-    description = "the game-specific security group id to associate"
-}
-
 variable server_image_id {
     description = "the image ID (AMI) of the servers being provisioned"
 }
@@ -39,8 +31,20 @@ variable "instance_type" {
     description = "the type of the instance to be used in the fleet"
 }
 
-variable ssh_security_group {
-    description = "the pre-existing security group providing personal machine ssh access"
+variable ssh_sg_id {
+    description = "the id of the security group providing personal machine ssh access"
+}
+
+variable base_sg_id {
+    description = "the id of the base security group"
+}
+
+variable node_sg_id {
+    description = "the id of the node security group"
+}
+
+variable ark_sg_id {
+    description = "the id of the ark security group"
 }
 
 variable resources_bucket_arn {
