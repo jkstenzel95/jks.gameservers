@@ -153,7 +153,7 @@ resource "aws_eks_node_group" "game_node" {
     }
 
     taint {
-      key = "map"
+      key = "mapset"
       value = "${var.map_name}"
       effect = "NO_EXECUTE"
     }

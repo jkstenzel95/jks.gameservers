@@ -1,1 +1,1 @@
-. "${GAME_NAME}/start-map.sh"
+. "/scripts/${GAME_NAME}/start-map.sh" -e "jks"
