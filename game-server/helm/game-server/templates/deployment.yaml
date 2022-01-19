@@ -1,4 +1,5 @@
 {{ $deploymentName := print "Deployment-" .Values.game "-" .Values.map}}
+{{ $deploymentName := lower $deploymentName }}
 {{ $initImage := print "jkstenzel95/jks_gameserver_init:" .Values.imageTag}}
 {{ $image := print "jkstenzel95/jks_gameserver_runtime:" .Values.imageTag}}
 apiVersion: apps/v1

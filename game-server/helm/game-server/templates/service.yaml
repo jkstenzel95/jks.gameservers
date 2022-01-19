@@ -1,4 +1,5 @@
 {{ $serviceName := print "Service-" .Values.game "-" .Values.map}}
+{{ $serviceName := lower $serviceName }}
 apiVersion: v1
 kind: Service
 metadata:
