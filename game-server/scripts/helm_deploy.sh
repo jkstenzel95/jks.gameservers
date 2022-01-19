@@ -23,7 +23,7 @@ do
     esac
 done
 
-helm_name=$("gameserver-${env}-${game}-${map}" "game-server" | tr '[:upper:]' '[:lower:]')
+helm_name=$(echo "gameserver-${env}-${game}-${map}"  | tr '[:upper:]' '[:lower:]')
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 pushd "${SCRIPT_DIR}/../helm"
