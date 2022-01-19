@@ -27,6 +27,6 @@ helm_name=$(echo "gameserver-${env}-${game}-${map}"  | tr '[:upper:]' '[:lower:]
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 pushd "${SCRIPT_DIR}/../helm"
-echo helm install $helm_name "game-server" -f "./game-server/${game}/${env}.values.yaml" ${values_string} $test_addendum
-helm install $helm_name "game-server" -f "./game-server/${game}/${env}.values.yaml" ${values_string} $test_addendum
+echo helm upgrade $helm_name "game-server" -f "./game-server/${game}/${env}.values.yaml" ${values_string} $test_addendum
+helm upgrade $helm_name "game-server" -f "./game-server/${game}/${env}.values.yaml" ${values_string} $test_addendum
 popd
