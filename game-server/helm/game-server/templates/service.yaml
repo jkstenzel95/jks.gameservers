@@ -8,10 +8,11 @@ metadata:
     game: {{ .Values.game }}
     map: {{ .Values.map }}
 spec:
-  type: NodePort
+  type: ClusterIp
   ports:
     {{- range $port := .Values.ports }}
     - port: {{ $port.number }}
+      targetPort: {{ $port.number }}
       protocol: {{ $port.protocol }}
       name: {{ $port.name | replace "_" "-" | lower }}
     {{- end }}
