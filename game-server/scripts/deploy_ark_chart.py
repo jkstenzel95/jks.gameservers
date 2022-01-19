@@ -82,7 +82,7 @@ if __name__ == '__main__':
         # output error, and return with an error code
         print (str(err))
 
-    if (mappings_file is None) or (config_file is None) or (image_version is None) or (test is False):
-        sys.exit("Either --mappings-file, --config-file, --env, or --image-version were not provided.")
+    if (mappings_file is None) or (config_file is None) or (env is None):
+        sys.exit("Either --mappings-file, --config-file, or --env were not provided.")
 
-    apply_charts(mappings_file, config_file, image_version, env, test)
+    apply_charts(mappings_file, config_file, env, test)
