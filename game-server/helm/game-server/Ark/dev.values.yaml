@@ -1,3 +1,4 @@
 game: Ark
 env: dev
 regionShortname: use2
+mapSet: all

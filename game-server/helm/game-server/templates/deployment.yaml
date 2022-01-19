@@ -28,9 +28,9 @@ spec:
         operator: "Equal"
         value: {{ .Values.game }}
         effect: "NoExecute"
-      - key: "map"
+      - key: "mapset"
         operator: "Equal"
-        value: {{ .Values.map }}
+        value: {{ .Values.mapSet }}
         effect: "NoExecute"
       volumes:
       - name: game-servers
@@ -39,7 +39,7 @@ spec:
           type: Directory
       - name: scripts-dir
         hostPath:
-          path: /gameservers-package/shared/scripts
+          path: /gameservers-package/shared/scripts/runtime
           type: Directory
       - name: game-data
         hostPath:
