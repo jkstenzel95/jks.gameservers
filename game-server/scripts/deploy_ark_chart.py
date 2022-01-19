@@ -16,7 +16,7 @@ def apply_charts(mappings_file, config_file, env, test):
                     mod_string = ",".join(str(x) for x in game["mods"])
                     max_players = game["max_players"]
                     map_set = set(game["maps"])
-                    image_version = "{}.{}".format(env, game["image_version"])
+                    image_version = game["image_version"]
                     for idx, map_info in enumerate(mappings_json["maps"]):
                         if map_info["name"] in map_set:
                             print("Creating cluster for map {} with code {} and unique server params {}; Image tag {}".format(map_info["name"], map_info["map_code"], map_info["additional_server_params"], image_version))

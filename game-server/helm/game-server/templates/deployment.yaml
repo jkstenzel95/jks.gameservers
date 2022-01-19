@@ -65,12 +65,11 @@ spec:
           value: {{ .Values.env }}
         - name: REGION_SHORTNAME
           value: {{ .Values.regionShortname }}
-{{ .Files.Get .Values.environmentVariableFile}}
+{{ .Files.Get .Values.environmentVariableFile | indent 8}}
         {{- range $port := .Values.ports }}
         - name: {{ $port.name }}
           value: {{ $port.number }}
         {{- end}}
-{{ .Files.Get .Values.environmentVariableFile}}
         ports:
           {{- range $port := .Values.ports }}
           - containerPort: {{ $port.number }}
