@@ -31,23 +31,64 @@ resource "aws_subnet" "subnet2" {
   }
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
+data "aws_security_groups" "groups" {
+  filter {
+    name   = "group-name"
+    values = ["jks-gs-*"]
+  }
+
+  filter {
+    name   = "vpc-id"
+    values = [aws_default_vpc.default.id]
+  }
+}
+
+resource "aws_iam_role" "cluster_role" {
+  name = "${local.cluster_name}-role"
+  assume_role_policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "eks.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+POLICY
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonEKSClusterBuildPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = var.codebuild_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonEKSServicePolicy" {
+resource "aws_iam_role_policy_attachment" "AmazonEKSServiceBuildPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
   role       = var.codebuild_role.name
 }
 
+resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.cluster_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonEKSServicePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
+  role       = aws_iam_role.cluster_role.name
+}
+
 resource "aws_eks_cluster" "cluster" {
   name     = "${local.cluster_name}"
-  role_arn = var.codebuild_role.arn
+  role_arn = aws_iam_role.cluster_role.arn
   enabled_cluster_log_types = ["api", "audit"]
 
   vpc_config {
     subnet_ids = [aws_subnet.subnet1.id, aws_subnet.subnet2.id]
+    security_group_ids = data.aws_security_groups.groups.ids
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
