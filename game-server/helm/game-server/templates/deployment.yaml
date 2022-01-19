@@ -74,5 +74,5 @@ spec:
         ports:
           {{- range $port := .Values.ports }}
           - containerPort: {{ $port.number }}
-            name: {{ $port.name }}
+            name: {{ $port.name | replace "_" "-" | lower }}
           {{- end}}

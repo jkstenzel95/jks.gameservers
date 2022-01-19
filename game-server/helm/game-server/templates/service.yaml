@@ -13,7 +13,7 @@ spec:
     {{- range $port := .Values.ports }}
     - port: {{ $port.number }}
       protocol: {{ $port.protocol }}
-      name: {{ $port.name }}
+      name: {{ $port.name | replace "_" "-" | lower }}
     {{- end }}
   selector:
     game: {{ .Values.game }}
