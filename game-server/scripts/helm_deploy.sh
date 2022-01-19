@@ -4,7 +4,7 @@ game=""
 env=""
 values_string=""
 test_addendum=""
-while getopts :g:m:e:v:t: flag
+while getopts g:m:e:v:t flag
 do
     case "${flag}" in
         g) game=${OPTARG};;
