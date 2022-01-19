@@ -7,8 +7,12 @@ metadata:
   labels:
     game: {{ .Values.game }}
     map: {{ .Values.map }}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     {{- range $port := .Values.ports }}
     - port: {{ $port.number }}
