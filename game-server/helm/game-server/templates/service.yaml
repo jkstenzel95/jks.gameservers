@@ -8,7 +8,7 @@ metadata:
     game: {{ .Values.game }}
     map: {{ .Values.map }}
 spec:
-  type: ClusterIp
+  type: ClusterIP
   ports:
     {{- range $port := .Values.ports }}
     - port: {{ $port.number }}
