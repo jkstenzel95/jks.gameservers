@@ -1,5 +1,5 @@
 resource "aws_security_group" "base_sg" {
-    name = "jks-gs-${var.env}-server_base-sg"
+    name = "jks-gs-serverbase-sg"
     description = "Allow HTTPS and SSH"
 
     ingress {
@@ -20,6 +20,6 @@ resource "aws_security_group" "base_sg" {
     }
 
   tags = {
-    Name = "jks-gs-${var.env}-server_base-sg"
+    Name = "jks-gs-serverbase-sg"
   }
 }

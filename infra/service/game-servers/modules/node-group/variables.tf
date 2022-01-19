@@ -42,14 +42,6 @@ variable "shared_package_version" {
     description = "the scripts and data files archive file version to download"
 }
 
-variable "base_security_group_id" {
-    description = "the base security group id to associate"
-}
-
-variable "additional_security_group_id" {
-    description = "the game-specific security group id to associate"
-}
-
 variable "instance_type" {
     description = "the type of the instance to be used in the fleet"
 }
@@ -58,8 +50,20 @@ variable "server_image_id" {
     description = "the image ID (AMI) of the servers being provisioned"
 }
 
-variable "ssh_security_group" {
-    description = "the pre-existing security group providing personal machine ssh access"
+variable ssh_sg_id {
+    description = "the id of the security group providing personal machine ssh access"
+}
+
+variable base_sg_id {
+    description = "the id of the base security group"
+}
+
+variable node_sg_id {
+    description = "the id of the node security group"
+}
+
+variable game_sg_id {
+    description = "the id of the game security group"
 }
 
 variable "game_policy_arn" {

@@ -1,5 +1,5 @@
 resource "aws_security_group" "ark_sg" {
-    name = "jks-gs-${var.env}-ark-sg"
+    name = "jks-gs-ark-sg"
     description = "Allow HTTPS and SSH"
 
     ingress {
@@ -30,6 +30,6 @@ resource "aws_security_group" "ark_sg" {
     }
 
   tags = {
-    Name = "jks-gs-${var.env}-ark-sg"
+    Name = "jks-gs-ark-sg"
   }
 }

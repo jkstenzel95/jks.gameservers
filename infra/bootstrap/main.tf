@@ -40,4 +40,6 @@ module "jks_cluster" {
     primary_availability_zone = "us-east-2a"
     secondary_availability_zone = "us-east-2b"
     codebuild_role = module.cicd.codebuild_role
+    ssh_security_group_name = var.ssh_security_group_name
+    cluster_name = var.cluster_name
 }

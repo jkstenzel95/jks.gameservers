@@ -16,8 +16,20 @@ variable "ark_instance_type" {
     description = "the type of the instance to be used in the Ark fleet"
 }
 
-variable ssh_security_group {
-    description = "the pre-existing security group providing personal machine ssh access"
+variable ssh_sg_name {
+    description = "the name of the security group providing personal machine ssh access"
+}
+
+variable base_sg_name {
+    description = "the name of the base security group"
+}
+
+variable node_sg_name {
+    description = "the name of the node security group"
+}
+
+variable ark_sg_name {
+    description = "the name of the ark security group"
 }
 
 variable env {
