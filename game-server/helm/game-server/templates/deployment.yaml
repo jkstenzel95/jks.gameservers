@@ -69,7 +69,7 @@ spec:
 {{ .Files.Get .Values.environmentVariableFile | indent 8}}
         {{- range $port := .Values.ports }}
         - name: {{ $port.name }}
-          value: {{ $port.number }}
+          value: !!string {{ $port.number }}
         {{- end}}
         ports:
           {{- range $port := .Values.ports }}
