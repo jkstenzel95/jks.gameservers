@@ -1,6 +1,6 @@
 apiVersion: v2
-name: game-server-lb
-description: A game server loadbalancer
+name: loadbalancer
+description: A loadbalancer for jks deployments
 
 # A chart can be either an 'application' or a 'library' chart.
 #
