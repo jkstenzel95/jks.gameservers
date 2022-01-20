@@ -4,15 +4,15 @@ resource "aws_iam_policy" "data_access_policy" {
         "Version": "2012-10-17",
         "Statement": [
             {
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListBucket"
-            ],
-            "Resource": [
-                "${var.resources_bucket_arn}",
-                "${var.backup_bucket_arn}",
-                "${var.packages_bucket_arn}"
-            ]
+                "Effect": "Allow",
+                "Action": [
+                    "s3:ListBucket"
+                ],
+                "Resource": [
+                    "${var.resources_bucket_arn}",
+                    "${var.backup_bucket_arn}",
+                    "${var.packages_bucket_arn}"
+                ]
             },
             {
                 "Effect": "Allow",
@@ -31,9 +31,12 @@ resource "aws_iam_policy" "data_access_policy" {
             {
                 "Effect": "Allow",
                 "Action": [
+                    "secretsmanager:GetRandomPassword",
+                    "secretsmanager:GetResourcePolicy",
                     "secretsmanager:GetSecretValue",
                     "secretsmanager:DescribeSecret",
-                    "secretsmanager:List*"
+                    "secretsmanager:ListSecretVersionIds",
+                    "secretsmanager:ListSecrets"
                 ],
                 "Resource": "*"
             }

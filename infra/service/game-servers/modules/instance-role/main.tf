@@ -44,15 +44,6 @@ resource "aws_iam_policy" "policy" {
                 "Effect": "Allow",
                 "Action": "dynamodb:*",
                 "Resource": "*"
-            },
-            {
-                "Effect": "Allow",
-                "Action": [
-                    "secretsmanager:GetSecretValue",
-                    "secretsmanager:DescribeSecret",
-                    "secretsmanager:List*"
-                ],
-                "Resource": "*"
             }
         ]
     })
