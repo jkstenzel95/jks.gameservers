@@ -5,14 +5,27 @@ import sys
 import deploy_ark_chart
 import deploy_minecraft_chart
 import deploy_valheim_chart
+from subprocess import call
 
 def deploy_chart_for_games(shared_files_location, env, test):
     config_file = "{}/config/{}.json".format(shared_files_location, env)
+    ports = []
     with open(config_file) as cd:
         config_json = json.load(cd)
         for game in config_json["games"]:
             mappings_file = "{}/data/{}_mappings.json".format(shared_files_location, game["name"].lower())
-            getattr(sys.modules["deploy_%s_chart" % game["name"].lower()], "apply_charts")(mappings_file, config_file, env, test)
+            ports += getattr(sys.modules["deploy_%s_chart" % game["name"].lower()], "apply_charts")(mappings_file, config_file, env, test)
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    ports_string = ""
+    for idx, port in ports:
+        if idx != 0:
+            ports_string += ","
+        ports_string += "ports[{}].name={},ports[{}].protocol={},ports[{}].number={}".format(idx, port["name"], idx, port["protocol"], idx, port["number"])
+    values_string = "--set {}".format(ports_string)
+    call_command = ["{}/helm_deploy_loadbalancer.sh".format(dir_path), "-v", values_string]
+    if test:
+        call_command.append("-t")
+    call(call_command)
 
 if __name__ == '__main__':
     # test1.py executed as script

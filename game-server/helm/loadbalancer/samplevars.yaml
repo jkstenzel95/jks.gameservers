@@ -1,0 +1,24 @@
+# ---- SET WITH --set DURING HELM INSTALL ----
+# (Example values below)
+# ports: [
+#   {
+#     number: 7777,
+#     protocol: udp,
+#     name: ARK_THEISLAND_SERVER_PORT_1
+#   },
+#   {
+#     number: 7778,
+#     protocol: udp,
+#     name: ARK_THEISLAND_SERVER_PORT_2
+#   },
+#   {
+#     number: 27015,
+#     protocol: udp,
+#     name: ARK_THEISLAND_QUERY_PORT
+#   },
+#   {
+#     number: 32330,
+#     protocol: tcp,
+#     name: ARK_THEISLAND_RCON_PORT
+#   }
+# ]
