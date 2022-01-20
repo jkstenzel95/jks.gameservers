@@ -54,6 +54,11 @@ spec:
       containers:
       - name: gameserver
         image: {{ $image }}
+        resources:
+            requests:
+              memory: "4Gi",
+            limits:
+              memory: "5Gi",
         volumeMounts:
         - mountPath: /gameservers
           name: game-servers
