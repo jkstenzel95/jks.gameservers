@@ -3,7 +3,7 @@ FROM amazonlinux:latest
 RUN yum install nano jq unzip vim wget screen glibc.i686 libstdc++.i686 ncurses-libs.i686 -y
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 RUN unzip awscliv2.zip
-RUN sudo ./aws/install
+RUN ./aws/install
 RUN rm awscliv2.zip
 RUN rm -r aws
 RUN echo "fs.file-max=100000" >> /etc/sysctl.conf
