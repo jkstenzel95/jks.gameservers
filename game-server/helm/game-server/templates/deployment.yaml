@@ -57,8 +57,8 @@ spec:
         resources:
             requests:
               memory: "4Gi",
-              limits:
-                memory: "5Gi",
+            limits:
+              memory: "5Gi",
         volumeMounts:
         - mountPath: /gameservers
           name: game-servers
