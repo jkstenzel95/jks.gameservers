@@ -15,18 +15,27 @@ resource "aws_iam_policy" "data_access_policy" {
             ]
             },
             {
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:DeleteObject",
-                "s3:PutObjectAcl"
-            ],
-            "Resource": [
-                "${var.resources_bucket_arn}/*",
-                "${var.backup_bucket_arn}/*",
-                "${var.packages_bucket_arn}/*"
-            ]
+                "Effect": "Allow",
+                "Action": [
+                    "s3:PutObject",
+                    "s3:GetObject",
+                    "s3:DeleteObject",
+                    "s3:PutObjectAcl"
+                ],
+                "Resource": [
+                    "${var.resources_bucket_arn}/*",
+                    "${var.backup_bucket_arn}/*",
+                    "${var.packages_bucket_arn}/*"
+                ]
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "secretsmanager:GetSecretValue",
+                    "secretsmanager:DescribeSecret",
+                    "secretsmanager:List*"
+                ],
+                "Resource": "*"
             }
         ]
     })
