@@ -2,7 +2,7 @@
 
 prefix=""
 postfix=""
-while getopts u:a:f: flag
+while getopts e:o: flag
 do
     case "${flag}" in
         e) prefix=${OPTARG};;
@@ -14,11 +14,11 @@ done
 
 pushd "${SERVER_MOUNT_LOCATION}/Ark"
 
-if "${prefix}" -ne ""; then
+if [[ "${prefix}" != "" ]]; then
     prefix="${prefix} :: "
 fi
 
-if "${postfix}" -ne ""; then
+if [[ "${postfix}" != "" ]]; then
     postfix=" :: ${postfix}"
 fi
 
