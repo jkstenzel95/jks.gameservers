@@ -6,6 +6,7 @@ import deployment_utilities
 from subprocess import call
 
 def apply_charts(mappings_file, config_file, env, test):
+    ports = []
     with open(mappings_file) as md:
         with open(config_file) as cd:
             mappings_json = json.load(md)
@@ -29,6 +30,11 @@ def apply_charts(mappings_file, config_file, env, test):
                             gp2_port_string = "ports[1].name=SERVER_PORT_2,ports[1].protocol=UDP,ports[1].number={}".format(game_port_2)
                             query_port_string = "ports[2].name=QUERY_PORT,ports[2].protocol=UDP,ports[2].number={}".format(query_port)
                             rcon_port_string = "ports[3].name=RCON_PORT,ports[3].protocol=UDP,ports[3].number={}".format(rcon_port)
+                            port_name_prefix = "ARK_{}_{}".format(map_info["name"].upper(), env.upper())
+                            ports.append({ "name": "{}_SERVER_PORT_1".format(port_name_prefix), "protocol": "UDP", "number": game_port_1 })
+                            ports.append({ "name": "{}_SERVER_PORT_2".format(port_name_prefix), "protocol": "UDP", "number": game_port_2 })
+                            ports.append({ "name": "{}_QUERY_PORT".format(port_name_prefix), "protocol": "UDP", "number": query_port })
+                            ports.append({ "name": "{}_RCON_PORT".format(port_name_prefix), "protocol": "UDP", "number": rcon_port })
                             dir_path = os.path.dirname(os.path.realpath(__file__))
                             env_file = "{}_env_list.txt".format(map_info["name"])
                             env_file_path = "{}/../helm/game-server/{}".format(dir_path, env_file)
@@ -40,6 +46,7 @@ def apply_charts(mappings_file, config_file, env, test):
                                 call_command.append("-t")
                             call(call_command)
                             os.remove(env_file_path)
+    return ports
 
 if __name__ == '__main__':
     # test1.py executed as script

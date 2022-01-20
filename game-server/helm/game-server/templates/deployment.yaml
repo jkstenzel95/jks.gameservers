@@ -7,6 +7,7 @@ kind: Deployment
 metadata:
   name: {{ $deploymentName }}
   labels:
+    cluster: "jks"
     game: {{ .Values.game }}
     map: {{ .Values.map }}
 spec:
@@ -19,8 +20,10 @@ spec:
     metadata:
       annotations: # ?
       labels:
+        cluster: "jks"
         game: {{ .Values.game }}
         map: {{ .Values.map }}
+        app: nginx
     spec:
       # imagePullSecrets:    # Think about this later...
       tolerations:
