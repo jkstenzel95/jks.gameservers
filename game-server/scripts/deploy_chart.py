@@ -17,7 +17,7 @@ def deploy_chart_for_games(shared_files_location, env, test):
             ports += getattr(sys.modules["deploy_%s_chart" % game["name"].lower()], "apply_charts")(mappings_file, config_file, env, test)
     dir_path = os.path.dirname(os.path.realpath(__file__))
     ports_string = ""
-    for idx, port in ports:
+    for idx, port in enumerate(ports):
         if idx != 0:
             ports_string += ","
         ports_string += "ports[{}].name={},ports[{}].protocol={},ports[{}].number={}".format(idx, port["name"], idx, port["protocol"], idx, port["number"])
