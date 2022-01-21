@@ -86,7 +86,7 @@ resource "aws_eks_node_group" "game_node" {
     capacity_type = "SPOT"
     labels = {
         game = "${var.game_name}"
-        map = "${var.map_name}"
+        mapSet = "${var.map_name}"
     }
     
     launch_template {
@@ -98,18 +98,6 @@ resource "aws_eks_node_group" "game_node" {
         desired_size = 1
         max_size     = 1
         min_size     = 1
-    }
-
-    taint {
-      key = "game"
-      value = "${var.game_name}"
-      effect = "NO_EXECUTE"
-    }
-
-    taint {
-      key = "mapset"
-      value = "${var.map_name}"
-      effect = "NO_EXECUTE"
     }
 
     tags = {

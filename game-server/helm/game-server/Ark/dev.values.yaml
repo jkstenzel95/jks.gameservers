@@ -2,3 +2,8 @@ game: Ark
 env: dev
 regionShortname: use2
 mapSet: all
+
+secrets:
+- name: jks/gameservers/dev/use2/Ark-Server-Admin-Password
+  purpose: ARK_SERVER_ADMIN_PASSWORD
+  key: Ark-Server-Admin-Password
