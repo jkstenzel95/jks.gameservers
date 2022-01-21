@@ -7,6 +7,12 @@ from subprocess import call
 
 def apply_charts(mappings_file, config_file, env, test):
     ports = []
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    call_command = ["{}/helm_deploy_serviceaccount.sh".format(dir_path), "-g", "Ark", "-e", env]
+    if test:
+        call_command.append("-t")
+    call(call_command)
+
     with open(mappings_file) as md:
         with open(config_file) as cd:
             mappings_json = json.load(md)
@@ -35,7 +41,6 @@ def apply_charts(mappings_file, config_file, env, test):
                             ports.append({ "name": "{}_SERVER_PORT_2".format(port_name_prefix), "protocol": "UDP", "number": game_port_2 })
                             ports.append({ "name": "{}_QUERY_PORT".format(port_name_prefix), "protocol": "UDP", "number": query_port })
                             ports.append({ "name": "{}_RCON_PORT".format(port_name_prefix), "protocol": "UDP", "number": rcon_port })
-                            dir_path = os.path.dirname(os.path.realpath(__file__))
                             env_file = "{}_env_list.txt".format(map_info["name"])
                             env_file_path = "{}/../helm/game-server/{}".format(dir_path, env_file)
                             env_dict = { "map_code" : map_info["map_code"], "additional_server_params": map_info["additional_server_params"], "mod_list": mod_string, "max_players": str(max_players) }

@@ -10,6 +10,12 @@ from subprocess import call
 def deploy_chart_for_games(shared_files_location, env, test):
     config_file = "{}/config/{}.json".format(shared_files_location, env)
     ports = []
+    call_command = ["helm", "repo", "add", "secrets-store-csi-driver", "https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/master/charts"]
+    call(call_command)
+    call_command = ["helm", "upgrade", "--install", "-n", "kube-system", "csi-secrets-store", "secrets-store-csi-driver/secrets-store-csi-driver"]
+    call(call_command)
+    call_command = ["kubectl", "apply", "-f", "https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml"]
+    call(call_command)
     with open(config_file) as cd:
         config_json = json.load(cd)
         for game in config_json["games"]:

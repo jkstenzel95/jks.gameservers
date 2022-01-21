@@ -2,6 +2,7 @@
 {{ $deploymentName := lower $deploymentName }}
 {{ $initImage := print "jkstenzel95/jks_gameserver_init:" .Values.imageTag}}
 {{ $image := print "jkstenzel95/jks_gameserver_runtime:" .Values.imageTag}}
+{{ $serviceAccountName := print "jks-gameservers-" .Values.env "-" .Values.game "-serviceaccount" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,21 +24,21 @@ spec:
         cluster: "jks"
         game: {{ .Values.game }}
         map: {{ .Values.map }}
-        app: nginx
     spec:
-      # imagePullSecrets:    # Think about this later...
-      tolerations:
-      - key: "game"
-        operator: "Equal"
-        value: {{ .Values.game }}
-        effect: "NoExecute"
-      - key: "mapset"
-        operator: "Equal"
-        value: {{ .Values.mapSet }}
-        effect: "NoExecute"
-      - key: "node.kubernetes.io/memory-pressure"
-        operator: "Exists"
-        effect: "NoSchedule"
+      serviceAccountName: {{ $serviceAccountName }}
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: game
+                operator: in
+                values:
+                - {{ .Values.game }}
+              - key: mapSet
+                operator: in
+                values:
+                - {{ .Values.mapSet }}
       volumes:
       - name: game-servers
         hostPath:
@@ -77,6 +78,13 @@ spec:
           value: {{ .Values.env }}
         - name: REGION_SHORTNAME
           value: {{ .Values.regionShortname }}
+          {{- range $secret := .Values.secrets }}
+        - name: {{ $secret.purpose }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ $secret.name }}
+              key: {{ $secret.key }}
+          {{- end }}
 {{ .Files.Get .Values.environmentVariableFile | indent 8}}
         {{- range $port := .Values.ports }}
         - name: {{ $port.name }}

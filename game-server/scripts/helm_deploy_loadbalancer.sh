@@ -1,7 +1,7 @@
 #!/bin/bash
 
 test_addendum=""
-while getopts g:m:e:v:t flag
+while getopts v:t flag
 do
     case "${flag}" in
         v) values_string=${OPTARG};;
@@ -11,7 +11,7 @@ do
     esac
 done
 
-helm_name=$(echo "gameserver-loadbalancer"  | tr '[:upper:]' '[:lower:]')
+helm_name="gameserver-loadbalancer"
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 pushd "${SCRIPT_DIR}/../helm"
