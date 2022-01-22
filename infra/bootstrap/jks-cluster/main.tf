@@ -115,8 +115,56 @@ module config_map {
   codebuild_role = var.codebuild_role
 }
 
-resource "aws_iam_openid_connect_provider" "cluster" {
+data "tls_certificate" "cluster" {
+  url = aws_eks_cluster.cluster.identity.0.oidc.0.issuer
+
+  depends_on = [
+    module.config_map
+  ]
+}
+
+### External cli kubergrunt
+data "external" "thumb" {
+  program = ["kubergrunt", "eks", "oidc-thumbprint", "--issuer-url", aws_eks_cluster.cluster.identity.0.oidc.0.issuer]
+}
+### OIDC config
+resource "aws_iam_openid_connect_provider" "oidc_provider" {
   client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = []
+  thumbprint_list = [data.external.thumb.result.thumbprint]
   url             = aws_eks_cluster.cluster.identity.0.oidc.0.issuer
+}
+
+# TODO: generalize this
+resource "aws_iam_role" "oidc_role" {
+    name = "jks-gs-dev-use2-oidc-role"
+    assume_role_policy = jsonencode({
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Federated": "${aws_iam_openid_connect_provider.oidc_provider.arn}"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+              "StringLike": {
+                "${aws_iam_openid_connect_provider.oidc_provider.url}:sub": "system:serviceaccount:default:jks-gameservers-dev-ark-serviceaccount"
+              }
+            }
+          }
+        ]
+    })
+
+    tags = {
+      "ServiceAccountName"      = "jks-gameservers-dev-ark-serviceaccount"
+      "ServiceAccountNameSpace" = "kube-system"
+    }
+
+    depends_on = [aws_iam_openid_connect_provider.oidc_provider]
+}
+
+resource "aws_iam_role_policy_attachment" "serviceaccount" {
+  role       = aws_iam_role.oidc_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  depends_on = [aws_iam_role.oidc_role]
 }
