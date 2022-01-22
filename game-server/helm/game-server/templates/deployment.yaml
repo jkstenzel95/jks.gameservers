@@ -2,7 +2,7 @@
 {{ $deploymentName := lower $deploymentName }}
 {{ $initImage := print "jkstenzel95/jks_gameserver_init:" .Values.imageTag}}
 {{ $image := print "jkstenzel95/jks_gameserver_runtime:" .Values.imageTag}}
-{{ $serviceAccountName := print "jks-gameservers-" .Values.env "-" .Values.game "-serviceaccount" }}
+{{ $serviceAccountName := print "jks-gameservers-" .Values.env "-" .Values.game "-serviceaccount" | lower }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -11,12 +11,14 @@ metadata:
     cluster: "jks"
     game: {{ .Values.game }}
     map: {{ .Values.map }}
+    mapSet: {{ .Values.mapSet }}
 spec:
   replicas: 1
   selector:
     matchLabels:
       game: {{ .Values.game }}
       map: {{ .Values.map }}
+      mapSet: {{ .Values.mapSet }}
   template:
     metadata:
       annotations: # ?
@@ -24,22 +26,19 @@ spec:
         cluster: "jks"
         game: {{ .Values.game }}
         map: {{ .Values.map }}
+        mapSet: {{ .Values.mapSet }}
     spec:
       serviceAccountName: {{ $serviceAccountName }}
-      affinity:
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: game
-                operator: in
-                values:
-                - {{ .Values.game }}
-              - key: mapSet
-                operator: in
-                values:
-                - {{ .Values.mapSet }}
+      nodeSelector:
+        game: {{ .Values.game }}
+        mapSet: {{ .Values.mapSet }}
       volumes:
+      - name: jks-secrets
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "aws-secrets"
       - name: game-servers
         hostPath:
           path: /mnt/gameservers
@@ -57,7 +56,7 @@ spec:
         image: {{ $image }}
         resources:
           requests:
-            memory: "5.3Gi"
+            memory: "4Gi"
           limits:
             memory: "6Gi"
         volumeMounts:
@@ -67,6 +66,9 @@ spec:
           name: scripts-dir
         - mountPath: /game-data
           name: game-data
+        - name: jks-secrets
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
         env:
         - name: SERVER_MOUNT_LOCATION
           value: "/gameservers"
@@ -78,13 +80,6 @@ spec:
           value: {{ .Values.env }}
         - name: REGION_SHORTNAME
           value: {{ .Values.regionShortname }}
-          {{- range $secret := .Values.secrets }}
-        - name: {{ $secret.purpose }}
-          valueFrom:
-            secretKeyRef:
-              name: {{ $secret.name }}
-              key: {{ $secret.key }}
-          {{- end }}
 {{ .Files.Get .Values.environmentVariableFile | indent 8}}
         {{- range $port := .Values.ports }}
         - name: {{ $port.name }}
