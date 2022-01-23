@@ -163,8 +163,36 @@ resource "aws_iam_role" "oidc_role" {
     depends_on = [aws_iam_openid_connect_provider.oidc_provider]
 }
 
-resource "aws_iam_role_policy_attachment" "serviceaccount" {
+resource "aws_iam_policy" "secrets_access_policy" {
+    name = "jks-gs-dev-use2-oidc-secrets-policy"
+    policy = jsonencode({
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "secretsmanager:GetRandomPassword",
+                    "secretsmanager:GetResourcePolicy",
+                    "secretsmanager:GetSecretValue",
+                    "secretsmanager:DescribeSecret",
+                    "secretsmanager:ListSecretVersionIds",
+                    "secretsmanager:ListSecrets"
+                ],
+                "Resource": "*"
+            }
+        ]
+    })
+}
+
+
+resource "aws_iam_role_policy_attachment" "serviceaccount_cni" {
   role       = aws_iam_role.oidc_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  depends_on = [aws_iam_role.oidc_role]
+}
+
+resource "aws_iam_role_policy_attachment" "serviceaccount_secrets" {
+  role       = aws_iam_role.oidc_role.name
+  policy_arn = aws_iam_policy.secrets_access_policy.arn
   depends_on = [aws_iam_role.oidc_role]
 }

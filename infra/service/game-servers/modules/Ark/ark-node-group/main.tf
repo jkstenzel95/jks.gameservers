@@ -27,18 +27,6 @@ resource "aws_iam_policy" "data_access_policy" {
                     "${var.backup_bucket_arn}/*",
                     "${var.packages_bucket_arn}/*"
                 ]
-            },
-            {
-                "Effect": "Allow",
-                "Action": [
-                    "secretsmanager:GetRandomPassword",
-                    "secretsmanager:GetResourcePolicy",
-                    "secretsmanager:GetSecretValue",
-                    "secretsmanager:DescribeSecret",
-                    "secretsmanager:ListSecretVersionIds",
-                    "secretsmanager:ListSecrets"
-                ],
-                "Resource": "*"
             }
         ]
     })
