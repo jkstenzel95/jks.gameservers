@@ -196,3 +196,9 @@ resource "aws_iam_role_policy_attachment" "serviceaccount_secrets" {
   policy_arn = aws_iam_policy.secrets_access_policy.arn
   depends_on = [aws_iam_role.oidc_role]
 }
+
+module loadbalancer_role {
+  source = "./modules/loadbalancer-role"
+  
+  cluster_name = "${var.cluster_name}"
+}
