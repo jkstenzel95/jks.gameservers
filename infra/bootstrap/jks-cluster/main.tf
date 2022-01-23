@@ -148,7 +148,8 @@ resource "aws_iam_role" "oidc_role" {
             "Action": "sts:AssumeRoleWithWebIdentity",
             "Condition": {
               "StringLike": {
-                "${aws_iam_openid_connect_provider.oidc_provider.url}:sub": "system:serviceaccount:default:jks-gameservers-dev-ark-serviceaccount"
+                "${aws_iam_openid_connect_provider.oidc_provider.url}:sub": "system:serviceaccount:default:jks-gameservers-dev-ark-serviceaccount",
+                "${aws_iam_openid_connect_provider.oidc_provider.url}:aud": "sts.amazonaws.com"
               }
             }
           }
@@ -159,8 +160,6 @@ resource "aws_iam_role" "oidc_role" {
       "ServiceAccountName"      = "jks-gameservers-dev-ark-serviceaccount"
       "ServiceAccountNameSpace" = "kube-system"
     }
-
-    depends_on = [aws_iam_openid_connect_provider.oidc_provider]
 }
 
 resource "aws_iam_policy" "secrets_access_policy" {
@@ -201,4 +200,5 @@ module loadbalancer_role {
   source = "./modules/loadbalancer-role"
   
   cluster_name = "${var.cluster_name}"
+  oidc_provider = aws_iam_openid_connect_provider.oidc_provider
 }

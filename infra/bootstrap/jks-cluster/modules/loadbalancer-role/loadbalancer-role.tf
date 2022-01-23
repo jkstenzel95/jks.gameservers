@@ -1,19 +1,28 @@
 resource "aws_iam_role" "lb_controller_role" {
-  name = "${var.cluster_name}-loadbalancer-role"
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
+    name = "${var.cluster_name}-loadbalancer-role"
+    assume_role_policy = jsonencode({
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Federated": "${var.oidc_provider.arn}"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+              "StringLike": {
+                "${var.oidc_provider.url}:sub": "system:serviceaccount:kube-system:jks-gameservers-loadbalancer-serviceaccount",
+                "${var.oidc_provider.url}:aud": "sts.amazonaws.com"
+              }
+            }
+          }
+        ]
+    })
+
+    tags = {
+      "ServiceAccountName"      = "jks-gameservers-loadbalancer-serviceaccount"
+      "ServiceAccountNameSpace" = "kube-system"
     }
-  ]
-}
-POLICY
 }
 
 resource "aws_iam_policy" "loadbalancer_policy" {
@@ -235,11 +244,6 @@ resource "aws_iam_policy" "loadbalancer_policy" {
             }
         ]
     })
-
-    tags = {
-      "ServiceAccountName"      = "jks-gameservers-loadbalancer-serviceaccount"
-      "ServiceAccountNameSpace" = "kube-system"
-    }
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSClusterBuildPolicy" {
