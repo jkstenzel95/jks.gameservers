@@ -31,6 +31,7 @@ def deploy_chart_for_games(shared_files_location, env, test):
     call_command = ["{}/helm_deploy_loadbalancer.sh".format(dir_path), "-v", values_string]
     if test:
         call_command.append("-t")
+    call(call_command)
     call_command = ["helm", "repo", "add", "eks", "https://aws.github.io/eks-charts"]
     call(call_command)
     call_command = ["helm", "repo", "update"]
