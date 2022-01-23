@@ -31,6 +31,13 @@ def deploy_chart_for_games(shared_files_location, env, test):
     call_command = ["{}/helm_deploy_loadbalancer.sh".format(dir_path), "-v", values_string]
     if test:
         call_command.append("-t")
+    call_command = ["helm", "repo", "add", "eks", "https://aws.github.io/eks-charts"]
+    call(call_command)
+    call_command = ["helm", "repo", "update"]
+    call(call_command)
+    call_command = ["helm", "upgrade", "--install", "aws-load-balancer-controller", "eks/aws-load-balancer-controller", "-n", "kube-system", "--set", "clusterName=jks-use2", "--set", "serviceAccount.create=false", "--set", "serviceAccount.name=jks-gameservers-loadbalancer-serviceaccount"]
+    if test:
+        call_command.append("-t")
     call(call_command)
 
 if __name__ == '__main__':
