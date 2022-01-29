@@ -15,6 +15,6 @@ helm_name="gameserver-loadbalancer"
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 pushd "${SCRIPT_DIR}/../helm"
-echo helm upgrade --install $helm_name "loadbalancer" ${values_string} $test_addendum
-helm upgrade --install $helm_name "loadbalancer" ${values_string} $test_addendum
+echo helm upgrade --install $helm_name "loadbalancer" ${values_string} $test_addendum --namespace ingress-nginx --create-namespace
+helm upgrade --install $helm_name "loadbalancer" ${values_string} $test_addendum  --namespace ingress-nginx --create-namespace
 popd

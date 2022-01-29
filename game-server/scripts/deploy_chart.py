@@ -26,17 +26,9 @@ def deploy_chart_for_games(shared_files_location, env, test):
     for idx, port in enumerate(ports):
         if idx != 0:
             ports_string += ","
-        ports_string += "ports[{}].name={},ports[{}].protocol={},ports[{}].number={}".format(idx, port["name"], idx, port["protocol"], idx, port["number"])
-    values_string = "--set {}".format(ports_string)
+        ports_string += "ports[{}].name={},ports[{}].protocol={},ports[{}].number={},ports[{}].game={},ports[{}].map={},ports[{}].idx={}".format(idx, port["name"], idx, port["protocol"], idx, port["number"], idx, port["game"], idx, port["map"], idx, idx)
+    values_string = "--set {},env={}".format(ports_string, env)
     call_command = ["{}/helm_deploy_loadbalancer.sh".format(dir_path), "-v", values_string]
-    if test:
-        call_command.append("-t")
-    call(call_command)
-    call_command = ["helm", "repo", "add", "eks", "https://aws.github.io/eks-charts"]
-    call(call_command)
-    call_command = ["helm", "repo", "update"]
-    call(call_command)
-    call_command = ["helm", "upgrade", "--install", "aws-load-balancer-controller", "eks/aws-load-balancer-controller", "-n", "kube-system", "--set", "clusterName=jks-use2", "--set", "serviceAccount.create=false", "--set", "serviceAccount.name=jks-gameservers-loadbalancer-serviceaccount"]
     if test:
         call_command.append("-t")
     call(call_command)

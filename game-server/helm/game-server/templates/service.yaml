@@ -1,0 +1,22 @@
+{{ $serviceName := print "Service-" .Values.env "-" .Values.game "-" .Values.map}}
+{{ $serviceName := lower $serviceName }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $serviceName }}
+  labels:
+    game: {{ .Values.game }}
+    map: {{ .Values.map }}
+spec:
+  type: ClusterIP
+  ports:
+    {{- range $port := .Values.ports }}
+    - port: {{ $port.number }}
+      targetPort: {{ $port.number }}
+      protocol: {{ $port.protocol }}
+      name: {{ $port.name | replace "_" "-" | lower }}
+    {{- end }}
+  selector:
+    cluster: "jks"
+    game: {{ .Values.game }}
+    map: {{ .Values.map }}

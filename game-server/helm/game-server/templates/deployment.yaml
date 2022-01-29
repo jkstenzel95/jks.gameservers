@@ -16,6 +16,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      cluster: "jks"
       game: {{ .Values.game }}
       map: {{ .Values.map }}
       mapSet: {{ .Values.mapSet }}
