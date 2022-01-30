@@ -1,5 +1,5 @@
 locals {
-    server_mount_location = "/mnt/gameservers"
+    server_mount_location = "/mnt/${var.game_name}-server"
     initialized_flag_file = "${local.server_mount_location}/init_flag"
     common_script = templatefile("${path.module}/../../scripts/launch.tpl", 
       { 

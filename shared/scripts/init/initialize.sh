@@ -28,5 +28,5 @@ fi
 
 popd
 
-sudo chown ec2-user -R /mnt/gameservers
-sudo chmod -R 0777 /mnt/gameservers
+sudo chown ec2-user -R $SERVER_MOUNT_LOCATION
+sudo chmod -R 0777 $SERVER_MOUNT_LOCATION

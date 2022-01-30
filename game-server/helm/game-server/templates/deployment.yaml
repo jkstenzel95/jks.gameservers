@@ -42,7 +42,7 @@ spec:
             secretProviderClass: "aws-secrets"
       - name: game-servers
         hostPath:
-          path: /mnt/gameservers
+          path: {{ print "/mnt/" .Values.game "-server" }}/mnt/gameservers
           type: Directory
       - name: scripts-dir
         hostPath:
