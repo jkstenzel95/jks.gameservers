@@ -30,6 +30,11 @@ echo "Attempting mount..."
 while ! sudo mount /dev/sdg ${SERVER_MOUNT_LOCATION}; do echo "Mount not successful... retrying in 15 seconds"; sleep 15; done
 echo "Mount complete!"
 
+PUBLIC_IP=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].PublicIp' --filters Name=tag:Name,Values=jks-gs-dev-use2-ark-all) | grep -o '".*"' | sed 's/"//g')
+ALLOCATION_ID=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].AllocationId' --filters Name=tag:Name,Values=jks-gs-dev-use2-ark-all) | grep -o '".*"' | sed 's/"//g')
+INTERFACE=$(aws ec2 describe-network-interfaces --filters Name=attachment.instance-id,Values=$EC2_INSTANCE_ID Name=addresses.primary,Values=true --query 'NetworkInterfaces[].{Id: NetworkInterfaceId, IP: Association.PublicIp}' | jq -c '.[] | select(.IP != null) | .Id' | tr -d '"')
+aws ec2 associate-address --network-interface-id $INTERFACE --allocation-id $ALLOCATION_ID
+
 export SERVER_MOUNT_LOCATION=${SERVER_MOUNT_LOCATION}
 export GAME_NAME=${GAME_NAME}
 export MAP_NAME=${MAP_NAME}
