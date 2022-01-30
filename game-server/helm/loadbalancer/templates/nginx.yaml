@@ -32,7 +32,7 @@ metadata:
   namespace: ingress-nginx
 data:
   allow-snippet-annotations: 'true'
-  proxy-stream-responses: '1'
+  proxy-stream-responses: '0'
 
 ---
 # Source: ingress-nginx/templates/clusterrole.yaml
@@ -394,7 +394,6 @@ spec:
             {{- range $port := .Values.ports }}
             - name: {{ print "game" "-" $port.idx  }}
               containerPort: {{ $port.number }}
-              hostPort: {{ $port.number }}
               protocol: {{ $port.protocol }}
             {{- end }}
             # END JKS SPECIFIC

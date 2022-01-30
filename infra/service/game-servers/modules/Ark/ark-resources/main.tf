@@ -34,6 +34,16 @@ module "kv_store" {
     map_name = "all"
 }
 
+module "eip" {
+    source = "./../../elastic-ip"
+
+    region_shortname = "${var.region_shortname}"
+    env = "${var.env}"
+    game_name = "Ark"
+    map_name = "all"
+    use_map_in_name = false
+}
+
 module "ark_node_group" {
     source = "./../ark-node-group"
 

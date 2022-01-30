@@ -89,5 +89,7 @@ spec:
         ports:
           {{- range $port := .Values.ports }}
           - containerPort: {{ $port.number }}
+            hostPort: {{ $port.number }}
+            protocol: {{ $port.protocol }}
             name: {{ $port.name | replace "_" "-" | lower }}
           {{- end}}
