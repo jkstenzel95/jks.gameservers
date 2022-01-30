@@ -32,6 +32,10 @@ module "cicd" {
     source = "./cicd"
 }
 
+module "route53_zone" {
+    source = "./route53_zone"
+}
+
 module "jks_cluster" {
     source = "./jks-cluster"
 

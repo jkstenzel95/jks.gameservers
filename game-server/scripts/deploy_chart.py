@@ -31,7 +31,8 @@ def deploy_chart_for_games(shared_files_location, env, test):
     call_command = ["{}/helm_deploy_loadbalancer.sh".format(dir_path), "-v", values_string]
     if test:
         call_command.append("-t")
-    call(call_command)
+    # loadbalancer not handling bidirectional patternless UDP communication well
+    # call(call_command)
 
 if __name__ == '__main__':
     # test1.py executed as script

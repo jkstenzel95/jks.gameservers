@@ -34,8 +34,8 @@ module "kv_store" {
     map_name = "all"
 }
 
-module "eip" {
-    source = "./../../elastic-ip"
+module "ip" {
+    source = "./../../public-ip"
 
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
