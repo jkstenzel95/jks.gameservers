@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scripts_dir="/gameservers-package/shared/scripts/init"
+scripts_dir="${SHARED_DIR}/shared/scripts/init"
 init_flag="${SERVER_MOUNT_LOCATION}/init_flag"
 
 pushd $scripts_dir

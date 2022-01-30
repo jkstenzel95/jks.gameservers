@@ -55,4 +55,5 @@ module "node_group" {
     subnet_id = var.subnet_id
     packages_bucket_name = var.packages_bucket_name
     shared_package_version = var.shared_package_version
+    setup_at_launch = true
 }

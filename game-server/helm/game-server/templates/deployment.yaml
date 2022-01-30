@@ -42,15 +42,11 @@ spec:
             secretProviderClass: "aws-secrets"
       - name: game-servers
         hostPath:
-          path: {{ print "/mnt/" .Values.game "-server" }}/mnt/gameservers
+          path: {{ print "/mnt/" .Values.game "-server" }}
           type: Directory
-      - name: scripts-dir
+      - name: shared-dir
         hostPath:
-          path: /gameservers-package/shared/scripts/runtime
-          type: Directory
-      - name: game-data
-        hostPath:
-          path: /gameservers-package/shared/data
+          path: /gameservers-package
           type: Directory
       containers:
       - name: gameserver
@@ -64,15 +60,15 @@ spec:
         - mountPath: /gameservers
           name: game-servers
         - mountPath: /scripts
-          name: scripts-dir
-        - mountPath: /game-data
+          name: shared-dir
+        - mountPath: /gameservers-package
           name: game-data
         - name: jks-secrets
           mountPath: "/mnt/secrets-store"
           readOnly: true
         env:
         - name: SERVER_MOUNT_LOCATION
-          value: "/gameservers"
+          value: {{ print "/" .Values.game "-server" }}
         - name: GAME_NAME
           value: {{ .Values.game }}
         - name: MAP_NAME
@@ -81,6 +77,8 @@ spec:
           value: {{ .Values.env }}
         - name: REGION_SHORTNAME
           value: {{ .Values.regionShortname }}
+        - name: SHARED_DIR
+          value: /gameservers-package
 {{ .Files.Get .Values.environmentVariableFile | indent 8}}
         {{- range $port := .Values.ports }}
         - name: {{ $port.name }}

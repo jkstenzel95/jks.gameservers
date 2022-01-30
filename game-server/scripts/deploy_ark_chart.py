@@ -20,8 +20,6 @@ def apply_charts(mappings_file, config_file, env, test):
             
             for game in config_json["games"]:
                 if game["name"] == "Ark":
-                    mod_string = ",".join(str(x) for x in game["mods"])
-                    max_players = game["max_players"]
                     map_set = set(game["maps"])
                     image_version = game["image_version"]
                     for idx, map_info in enumerate(mappings_json["maps"]):
@@ -43,14 +41,15 @@ def apply_charts(mappings_file, config_file, env, test):
                             ports.append({ "name": "{}_RCON_PORT".format(port_name_prefix), "protocol": "UDP", "number": rcon_port, "game": "Ark", "map": map_info["name"] })
                             env_file = "{}_env_list.txt".format(map_info["name"])
                             env_file_path = "{}/../helm/game-server/{}".format(dir_path, env_file)
-                            env_dict = { "map_code" : map_info["map_code"], "additional_server_params": map_info["additional_server_params"], "mod_list": mod_string, "max_players": str(max_players) }
+                            # No justification for a additional env variables yet/anymore. Here as a guideline to show how it's done, but has no effect on the deployment
+                            env_dict = {  }
                             deployment_utilities.generate_env_file(env_dict, env_file_path)
                             values_string = "--set imageTag={},game=Ark,map={},environmentVariableFile={},{},{},{},{}".format(image_version, map_info["name"], env_file, gp1_port_string, gp2_port_string, query_port_string, rcon_port_string)
                             call_command = ["{}/helm_deploy.sh".format(dir_path), "-g", "Ark", "-m", map_info["name"],"-e", env, "-v", values_string]
                             if test:
                                 call_command.append("-t")
                             call(call_command)
-                            os.remove(env_file_path)
+                            # os.remove(env_file_path)
     return ports
 
 if __name__ == '__main__':

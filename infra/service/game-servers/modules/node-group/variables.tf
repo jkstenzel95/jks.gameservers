@@ -26,6 +26,10 @@ variable "map_name" {
     description = "the map for which the instance is created"
 }
 
+variable "setup_at_launch" {
+    description = "whether the setup should happen by the node at launch instead of the pod"
+}
+
 variable "backup_bucket_name" {
     description = "the name of the bucket containing server backups"
 }

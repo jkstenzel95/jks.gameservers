@@ -11,10 +11,11 @@ locals {
         SERVER_MOUNT_LOCATION = "${local.server_mount_location}",
         GAME_NAME = "${var.game_name}",
         MAP_NAME = "${var.map_name}",
-        ENV = "${var.env}",
+        ENVIRONMENT = "${var.env}",
         REGION_SHORTNAME = "${var.region_shortname}",
         BACKUP_STORAGE_NAME = "${var.backup_bucket_name}",
-        RESOURCE_BUCKET_NAME = "${var.resources_bucket_name}"
+        RESOURCE_BUCKET_NAME = "${var.resources_bucket_name}",
+        SETUP_AT_LAUNCH = var.setup_at_launch
       })
     full_launch_script = "${local.common_script}\n\ntouch ${local.initialized_flag_file}"
 }
