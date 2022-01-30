@@ -1,7 +1,7 @@
 locals {
     map_clause = var.use_map_in_name ?  "${var.map_name}." : ""
     env_clause = (var.env == "prod") ? "" : "${var.env}."
-    domain = lower("${local.env_clause}${var.game_name}.${local.map_clause}${var.dns_name}}")
+    domain = lower("${local.env_clause}${var.game_name}.${local.map_clause}${var.dns_name}")
 }
 
 data "aws_route53_zone" "main" {
