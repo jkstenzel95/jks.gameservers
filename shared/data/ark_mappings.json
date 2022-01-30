@@ -8,7 +8,7 @@
     {
         "name": "TheCenter",
         "map_code": "TheCenter",
-        "additional_server_params": "?PreventUploadDinos=True?PreventUploadItems=True"
+        "additional_server_params": ""
     },
     {
         "name": "ScorchedEarth",
@@ -18,7 +18,7 @@
     {
         "name": "Ragnarok",
         "map_code": "Ragnarok",
-        "additional_server_params": "?PreventUploadDinos=True?PreventUploadItems=True"
+        "additional_server_params": ""
     },
     {
         "name": "Aberration",
@@ -34,7 +34,7 @@
     {
         "name": "Valguero",
         "map_code": "Valguero_P",
-        "additional_server_params": "?PreventUploadDinos=True?PreventUploadItems=True"
+        "additional_server_params": ""
     },
     {
         "name": "GenesisPart1",
@@ -44,7 +44,7 @@
     {
         "name": "CrystalIsles",
         "map_code": "CrystalIsles",
-        "additional_server_params": "?PreventUploadDinos=True?PreventUploadItems=True"
+        "additional_server_params": ""
     },
     {
         "name": "GenesisPart2",
@@ -54,7 +54,7 @@
     {
         "name": "LostIsland",
         "map_code": "LostIsland",
-        "additional_server_params": "?PreventUploadDinos=True?PreventUploadItems=True"
+        "additional_server_params": ""
     }
     ]
 }
