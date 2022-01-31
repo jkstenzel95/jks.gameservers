@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - yum update -y
+      - yum update -y --skip-broken
       - yum install -y yum-utils jq python2
       - PYTHON=python2 amazon-linux-extras install docker
   pre_build:
