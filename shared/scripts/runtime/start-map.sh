@@ -1,1 +1,1 @@
-. "/scripts/${GAME_NAME}/start-map.sh" -e "jks"
+. "${SHARED_DIR}/shared/scripts/${GAME_NAME}/start-map.sh" -e "jks"

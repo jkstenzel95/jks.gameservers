@@ -12,5 +12,7 @@ phases:
       - version=$(printf '%(%Y%m%d%H%M)T\n' -1)
   build:
     commands:
+      - docker build game-server/docker/init -t "jkstenzel95/jks_gameserver_init:${env}.latest" -t "jkstenzel95/jks_gameserver_init:${env}.$version"
       - docker build game-server/docker/runtime -t "jkstenzel95/jks_gameserver_runtime:${env}.latest" -t "jkstenzel95/jks_gameserver_runtime:${env}.$version"
+      - docker push -a "jkstenzel95/jks_gameserver_init"
       - docker push -a "jkstenzel95/jks_gameserver_runtime"

@@ -2,6 +2,7 @@ game: Ark
 env: dev
 regionShortname: use2
 mapSet: all
+needsSetup: "false"
 
 secrets:
 - name: jks/gameservers/dev/use2/Ark-Server-Admin-Password

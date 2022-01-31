@@ -48,9 +48,9 @@ spec:
         hostPath:
           path: /gameservers-package
           type: Directory
-      containers:
-      - name: gameserver
-        image: {{ $image }}
+      initContainers:
+      - name: gameserver-init
+        image: {{ $initImage }}
         resources:
           requests:
             memory: "4Gi"
@@ -59,7 +59,7 @@ spec:
         volumeMounts:
         - mountPath: /gameservers
           name: game-servers
-        - mountPath: /scripts
+        - mountPath: gameservers-package
           name: shared-dir
         - mountPath: /gameservers-package
           name: game-data
@@ -79,6 +79,41 @@ spec:
           value: {{ .Values.regionShortname }}
         - name: SHARED_DIR
           value: /gameservers-package
+        - name: NEEDS_SETUP
+          value: {{ .Values.needsSetup }}
+      containers:
+      - name: gameserver
+        image: {{ $image }}
+        resources:
+          requests:
+            memory: "4Gi"
+          limits:
+            memory: "6Gi"
+        volumeMounts:
+        - mountPath: /gameservers
+          name: game-servers
+        - mountPath: /gameservers-package
+          name: shared-dir
+        - mountPath: /gameservers-package
+          name: game-data
+        - name: jks-secrets
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
+        env:
+        - name: SERVER_MOUNT_LOCATION
+          value: {{ print "/" .Values.game "-server" }}
+        - name: GAME_NAME
+          value: {{ .Values.game }}
+        - name: MAP_NAME
+          value: {{ .Values.map }}
+        - name: ENVIRONMENT
+          value: {{ .Values.env }}
+        - name: REGION_SHORTNAME
+          value: {{ .Values.regionShortname }}
+        - name: SHARED_DIR
+          value: /gameservers-package
+        - name: NEEDS_SETUP
+          value: {{ .Values.needsSetup }}
 {{ .Files.Get .Values.environmentVariableFile | indent 8}}
         {{- range $port := .Values.ports }}
         - name: {{ $port.name }}
