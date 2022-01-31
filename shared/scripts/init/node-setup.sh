@@ -3,7 +3,8 @@
 # Attach volume to node
 die() { status=$1; shift; echo "FATAL: $*"; exit $status; }
 EC2_INSTANCE_ID="`wget -q -O - http://169.254.169.254/latest/meta-data/instance-id || die \"wget instance-id has failed: $?\"`"
-aws ec2 attach-volume --volume-id ${volume_id} --device "/dev/sdg" --instance-id $EC2_INSTANCE_ID --region ${region}
+VOLUME_ID=$(aws ec2 describe-volumes --filters "Name=tag:Name,Values=jks-gs-${ENVIRONMENT}-${GAME_NAME}-${MAP_SET}-data-volume" | jq ".Volumes[0].VolumeId" | tr -d "\"")
+aws ec2 attach-volume --volume-id $VOLUME_ID --device "/dev/sdg" --instance-id $EC2_INSTANCE_ID --region $REGION
 while [ ! "$(ls /dev/sdg)" = "/dev/sdg" ]; do echo "Volume not yet attached... waiting 5s"; sleep 5; done
 echo "Volume attached!"
 

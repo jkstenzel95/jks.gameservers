@@ -71,6 +71,8 @@ spec:
           value: {{ .Values.game }}
         - name: MAP_NAME
           value: {{ .Values.map }}
+        - name: MAP_SET
+          value: {{ .Values.mapSet }}
         - name: ENVIRONMENT
           value: {{ .Values.env }}
         - name: REGION_SHORTNAME
@@ -102,6 +104,8 @@ spec:
           value: {{ .Values.game }}
         - name: MAP_NAME
           value: {{ .Values.map }}
+        - name: MAP_SET
+          value: {{ .Values.mapSet }}
         - name: ENVIRONMENT
           value: {{ .Values.env }}
         - name: REGION_SHORTNAME
