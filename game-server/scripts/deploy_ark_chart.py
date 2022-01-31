@@ -49,7 +49,7 @@ def apply_charts(mappings_file, config_file, env, test):
                             if test:
                                 call_command.append("-t")
                             call(call_command)
-                            # os.remove(env_file_path)
+                            os.remove(env_file_path)
     return ports
 
 if __name__ == '__main__':

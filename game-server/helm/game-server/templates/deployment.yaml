@@ -61,14 +61,12 @@ spec:
           name: game-servers
         - mountPath: gameservers-package
           name: shared-dir
-        - mountPath: /gameservers-package
-          name: game-data
         - name: jks-secrets
           mountPath: "/mnt/secrets-store"
           readOnly: true
         env:
         - name: SERVER_MOUNT_LOCATION
-          value: {{ print "/" .Values.game "-server" }}
+          value: {{ print "/mnt/" .Values.game "-server" }}
         - name: GAME_NAME
           value: {{ .Values.game }}
         - name: MAP_NAME
@@ -80,7 +78,7 @@ spec:
         - name: SHARED_DIR
           value: /gameservers-package
         - name: NEEDS_SETUP
-          value: {{ .Values.needsSetup }}
+          value: {{ print "\"" .Values.needsSetup "\"" }}
       containers:
       - name: gameserver
         image: {{ $image }}
@@ -94,8 +92,6 @@ spec:
           name: game-servers
         - mountPath: /gameservers-package
           name: shared-dir
-        - mountPath: /gameservers-package
-          name: game-data
         - name: jks-secrets
           mountPath: "/mnt/secrets-store"
           readOnly: true
@@ -113,7 +109,7 @@ spec:
         - name: SHARED_DIR
           value: /gameservers-package
         - name: NEEDS_SETUP
-          value: {{ .Values.needsSetup }}
+          value: {{ print "\"" .Values.needsSetup "\"" }}
 {{ .Files.Get .Values.environmentVariableFile | indent 8}}
         {{- range $port := .Values.ports }}
         - name: {{ $port.name }}

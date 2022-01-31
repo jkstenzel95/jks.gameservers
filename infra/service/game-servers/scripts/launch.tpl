@@ -36,7 +36,7 @@ fi
 # If not setting up at launch, this will defer to the pod
 if [ "${SETUP_AT_LAUNCH}" == "true" ]
 then
-    . "/$SHARED_DIR/shared/scripts/init/system-setup.sh"
+    . "$SHARED_DIR/shared/scripts/init/system-setup.sh"
 fi
 
 . /etc/eks/bootstrap.sh ${cluster_name}
