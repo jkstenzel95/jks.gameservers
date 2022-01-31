@@ -2,7 +2,7 @@
     "games" : [
         {
             "name": "Ark",
-            "image_version" : "dev.202201310507",
+            "image_version" : "dev.202201310741",
             "maps": [
                 "TheIsland",
                 "TheCenter",
