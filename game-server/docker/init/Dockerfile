@@ -8,4 +8,4 @@ RUN rm awscliv2.zip
 RUN rm -r aws
 RUN echo "fs.file-max=100000" >> /etc/sysctl.conf
 RUN echo -e "* soft nofile 1000000\n* hard nofile 1000000" >> /etc/security/limits.conf
-ENTRYPOINT [ "bash", "/gameservers-package/shared/scripts/init_map.sh" ]
+ENTRYPOINT [ "bash", "/gameservers-package/shared/scripts/init/pod-init.sh" ]
