@@ -8,5 +8,5 @@ phases:
       - zip_file="shared-package_$CODEBUILD_RESOLVED_SOURCE_VERSION.zip"
   build:
     commands:
-      - zip -r $zip_file ./shared/data ./shared/scripts
+      - zip -r $zip_file ./shared/data ./shared/scripts ./shared/config
       - aws s3 cp $zip_file "s3://jks-gs-packages-bucket/shared-packages/$zip_file"
