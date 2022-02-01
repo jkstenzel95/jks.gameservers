@@ -3,6 +3,7 @@
 {{ $initImage := print "jkstenzel95/jks_gameserver_init:" .Values.imageTag}}
 {{ $image := print "jkstenzel95/jks_gameserver_runtime:" .Values.imageTag}}
 {{ $serviceAccountName := print "jks-gameservers-" .Values.env "-" .Values.game "-serviceaccount" | lower }}
+{{ $serverMountPath := print "/mnt/" .Values.game "-server" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -41,7 +42,7 @@ spec:
             secretProviderClass: "aws-secrets"
       - name: game-server
         hostPath:
-          path: /gameserver
+          path: {{ $serverMountPath }}
           type: Directory
       - name: shared-dir
         hostPath:
@@ -56,8 +57,6 @@ spec:
           limits:
             memory: {{ .Values.limitsMemory }}
         volumeMounts:
-        - mountPath: /gameserver
-          name: game-server
         - mountPath: gameservers-package
           name: shared-dir
         - name: jks-secrets
@@ -65,7 +64,7 @@ spec:
           readOnly: true
         env:
         - name: SERVER_MOUNT_LOCATION
-          value: /gameserver
+          value: {{ $serverMountPath }}
         - name: GAME_NAME
           value: {{ .Values.game }}
         - name: MAP_NAME
@@ -89,7 +88,7 @@ spec:
           limits:
             memory: {{ .Values.limitsMemory }}
         volumeMounts:
-        - mountPath: /gameserver
+        - mountPath: {{ $serverMountPath }}
           name: game-server
         - mountPath: /gameservers-package
           name: shared-dir
@@ -98,7 +97,7 @@ spec:
           readOnly: true
         env:
         - name: SERVER_MOUNT_LOCATION
-          value: {{ print "/" .Values.game "-server" }}
+          value: {{ $serverMountPath }}
         - name: GAME_NAME
           value: {{ .Values.game }}
         - name: MAP_NAME
