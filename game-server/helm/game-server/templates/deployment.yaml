@@ -22,7 +22,6 @@ spec:
       mapSet: {{ .Values.mapSet }}
   template:
     metadata:
-      annotations: # ?
       labels:
         cluster: "jks"
         game: {{ .Values.game }}
@@ -40,9 +39,9 @@ spec:
           readOnly: true
           volumeAttributes:
             secretProviderClass: "aws-secrets"
-      - name: game-servers
+      - name: game-server
         hostPath:
-          path: {{ print "/mnt/" .Values.game "-server" }}
+          path: /gameserver
           type: Directory
       - name: shared-dir
         hostPath:
@@ -53,12 +52,12 @@ spec:
         image: {{ $initImage }}
         resources:
           requests:
-            memory: "4Gi"
+            memory: {{ .Values.requestsMemory }}
           limits:
-            memory: "6Gi"
+            memory: {{ .Values.limitsMemory }}
         volumeMounts:
-        - mountPath: /gameservers
-          name: game-servers
+        - mountPath: /gameserver
+          name: game-server
         - mountPath: gameservers-package
           name: shared-dir
         - name: jks-secrets
@@ -86,12 +85,12 @@ spec:
         image: {{ $image }}
         resources:
           requests:
-            memory: "4Gi"
+            memory: {{ .Values.requestsMemory }}
           limits:
-            memory: "6Gi"
+            memory: {{ .Values.limitsMemory }}
         volumeMounts:
-        - mountPath: /gameservers
-          name: game-servers
+        - mountPath: /gameserver
+          name: game-server
         - mountPath: /gameservers-package
           name: shared-dir
         - name: jks-secrets

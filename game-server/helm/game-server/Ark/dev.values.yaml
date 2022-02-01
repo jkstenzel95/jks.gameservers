@@ -3,6 +3,8 @@ env: dev
 regionShortname: use2
 mapSet: all
 needsSetup: "false"
+requestsMemory: "4Gi"
+limitsMemory: "6Gi"
 
 secrets:
 - name: jks/gameservers/dev/use2/Ark-Server-Admin-Password
