@@ -6,6 +6,6 @@ ark_server_image_id = "ami-093d9796e55a5b860"
 ark_instance_type = "c6i.4xlarge"
 cluster_name = "jks-use2"
 subnet_id = "subnet-05dc9f7b2498d4f92"
-shared_package_version = "3e1692c1f15db1c6ad2f6f1f7dc34d3255aa2df6"
+shared_package_version = "3a336869914a740097df19c9d97f9762cc0f451e"
 minecraft_map_names = []
 valheim_map_names = []
