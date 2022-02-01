@@ -65,7 +65,7 @@ spec:
           readOnly: true
         env:
         - name: SERVER_MOUNT_LOCATION
-          value: {{ print "/mnt/" .Values.game "-server" }}
+          value: /gameserver
         - name: GAME_NAME
           value: {{ .Values.game }}
         - name: MAP_NAME
