@@ -1,0 +1,12 @@
+# ---- SET WITH --set DURING HELM INSTALL ----
+# (Example values below)
+# imageTag: prod.202112270000
+# map: default
+# environmentVariableFile: "blah.txt"
+# ports: [
+#   {
+#     number: 25565,
+#     protocol: TCP,
+#     name: SERVER_PORT
+#   }
+# ]

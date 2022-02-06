@@ -1,13 +1,10 @@
-game: Ark
+game: Minecraft
 env: dev
 regionShortname: use2
-mapSet: all
+mapSet: 
 needsSetup: "false"
 requestsMemory: "4Gi"
 limitsMemory: "6Gi"
 requestVolume: false
 
 secrets:
-- name: jks/gameservers/dev/use2/Ark-Server-Admin-Password
-  purpose: ARK_SERVER_ADMIN_PASSWORD
-  key: Ark-Server-Admin-Password
