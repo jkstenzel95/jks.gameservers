@@ -44,6 +44,11 @@ spec:
         hostPath:
           path: {{ $serverMountPath }}
           type: Directory
+          {{ if .Values.requestVolume}}
+          {{ $volumeName := print $deploymentName "-volume"}}
+          persistentVolumeClaim:
+            claimName: {{ $volumeName }}
+          {{ end }}
       - name: shared-dir
         hostPath:
           path: /gameservers-package

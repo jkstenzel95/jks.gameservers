@@ -5,6 +5,7 @@ mapSet: all
 needsSetup: "false"
 requestsMemory: "4Gi"
 limitsMemory: "6Gi"
+requestVolume: false
 
 secrets:
 - name: jks/gameservers/dev/use2/Ark-Server-Admin-Password

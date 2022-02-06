@@ -1,0 +1,35 @@
+{{ if .Values.requestVolume }}
+{{ $deploymentName := print "Deployment-" .Values.env "-" .Values.game "-" .Values.map}}
+{{ $deploymentName := lower $deploymentName }}
+{{ $volumeName := print $deploymentName "-volume"}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ $volumeName }}
+  labels:
+    type: {{ $volumeName }}
+spec:
+  capacity:
+    storage: {{ .Values.storageSize }}
+  accessModes:
+    - ReadWriteOnce
+  awsElasticBlockStore:
+    volumeID: {{ .Values.volumeId }}
+    fsType: ext4
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ $volumeName }}
+    labels:
+       type: {{ $volumeName }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+resources:
+  requests:
+    storage: {{ .Values.storageSize }}
+   selector:
+    matchLabels:
+      type: {{ $volumeName }}
+{{ end }}
