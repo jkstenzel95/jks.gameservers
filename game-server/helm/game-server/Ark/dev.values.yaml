@@ -1,7 +1,7 @@
 game: Minecraft
 env: dev
 regionShortname: use2
-mapSet: 
+mapSet: all
 needsSetup: "false"
 requestsMemory: "4Gi"
 limitsMemory: "6Gi"
