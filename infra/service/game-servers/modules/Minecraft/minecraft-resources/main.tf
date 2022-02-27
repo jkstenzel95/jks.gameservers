@@ -1,5 +1,5 @@
 module "shared_data_volume" {
-    source = "./../ark-volume"
+    source = "./../minecraft-volume"
 
     server_region = "${var.server_region}"
     region_shortname = "${var.region_shortname}"
@@ -12,7 +12,7 @@ module "resources_bucket" {
 
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
-    game_name = "Ark"
+    game_name = "Minecraft"
     purpose = "gameresources"
 }
 
@@ -21,7 +21,7 @@ module "backup_bucket" {
 
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
-    game_name = "Ark"
+    game_name = "Minecraft"
     purpose = "backup"
 }
 
@@ -30,8 +30,8 @@ module "kv_store" {
 
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
-    game_name = "Ark"
-    map_name = "all"
+    game_name = "Minecraft"
+    map_name = "main"
 }
 
 module "ip" {
@@ -39,13 +39,13 @@ module "ip" {
 
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
-    game_name = "Ark"
-    map_name = "all" // TODO: Doesn't "main" make sense?
+    game_name = "Minecraft"
+    map_name = "main"
     use_map_in_name = false
 }
 
 resource "aws_iam_policy" "data_access_policy" {
-    name = "jks-gs-${var.env}-${var.region_shortname}-Ark-all-data_policy"
+    name = "jks-gs-${var.env}-${var.region_shortname}-Minecraft-${var.map_name}-data_policy"
     policy = jsonencode({
         "Version": "2012-10-17",
         "Statement": [

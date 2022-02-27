@@ -12,3 +12,8 @@ output ark_sg_id {
     description = "id of the ark security group"
     value = module.ark_sg.sg_id
 }
+
+output minecraft_sg_id {
+    description = "id of the minecraft security group"
+    value = module.minecraft_sg.sg_id
+}

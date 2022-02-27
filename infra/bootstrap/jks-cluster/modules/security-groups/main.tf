@@ -11,3 +11,7 @@ module "node_sg" {
 module "ark_sg" {
     source = "./Ark"
 }
+
+module "minecraft_sg" {
+    source = "./Minecraft"
+}

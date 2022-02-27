@@ -88,7 +88,8 @@ resource "aws_eks_cluster" "cluster" {
       data.aws_security_group.ssh_sg.id,
       module.security_groups.base_sg_id,
       module.security_groups.node_sg_id,
-      module.security_groups.ark_sg_id
+      module.security_groups.ark_sg_id,
+      module.security_groups.minecraft_sg_id
     ]
   }
 

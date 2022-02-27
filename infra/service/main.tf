@@ -38,7 +38,6 @@ module "game_servers" {
     region_shortname = "${var.region_shortname}"
     availability_zone = "${var.primary_availability_zone}"
     ark_server_image_id = "${var.ark_server_image_id}"
-    ark_instance_type = "${var.ark_instance_type}"
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id
     shared_package_version = var.shared_package_version
@@ -46,4 +45,5 @@ module "game_servers" {
     base_sg_name = "${var.base_sg_name}"
     node_sg_name = "${var.node_sg_name}"
     ark_sg_name = "${var.ark_sg_name}"
+    minecraft_sg_name = "${var.minecraft_sg_name}"
 }

@@ -26,14 +26,14 @@ module "instance_iam_role" {
 
     game_name = "${var.game_name}"
     map_name = "${var.map_name}"
-    data_volume_id = "${var.data_volume_id}"
     env = "${var.env}"
     region_shortname = "${var.region_shortname}"
 }
 
 resource "aws_iam_role_policy_attachment" "ec2-instance-policy-attachment" {
+    count = length(game_policy_arns)
     role = module.instance_iam_role.name
-    policy_arn = var.game_policy_arn
+    policy_arn = var.game_policy_arns[count.index]
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
@@ -55,12 +55,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
 resource "aws_launch_template" "launch_template" {
     name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-lt"
 
-    vpc_security_group_ids = [
-        var.base_sg_id,
-        var.game_sg_id,
-        var.ssh_sg_id,
-        var.node_sg_id
-    ]
+    vpc_security_group_ids = var.security_group_ids
 
     key_name = "jks-gameservers"
 
@@ -86,8 +81,7 @@ resource "aws_eks_node_group" "game_node" {
     instance_types = [ "${var.instance_type}" ]
     capacity_type = "SPOT"
     labels = {
-        game = "${var.game_name}"
-        mapSet = "${var.map_name}"
+        "${var.game_name}_${var.map_name}_hosted" = true // TODO: What if multiple? What if none? ie only pod setup needed
     }
     
     launch_template {

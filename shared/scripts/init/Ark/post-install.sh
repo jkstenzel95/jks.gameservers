@@ -4,6 +4,8 @@ mkdir -p "${SERVER_MOUNT_LOCATION}/Ark/ShooterGame/Saved/Config/LinuxServer"
 mkdir -p "${SERVER_MOUNT_LOCATION}/Ark/ShooterGame/Binaries/Linux"
 mkdir -p "${SERVER_MOUNT_LOCATION}/Ark/ShooterGame/Content/"
 
+# TODO: This could be abstracted: File copies are a shared operation
+
 # main server ini file
 aws s3 cp s3://${RESOURCE_BUCKET_NAME}/GameUserSettings.ini "${SERVER_MOUNT_LOCATION}/Ark/ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini"
 

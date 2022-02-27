@@ -31,8 +31,9 @@ spec:
     spec:
       serviceAccountName: {{ $serviceAccountName }}
       nodeSelector:
-        game: {{ .Values.game }}
-        mapSet: {{ .Values.mapSet }}
+        {{ if ! .Values.flexibleDeployment }}
+        {{ print .Values.game "_" .Values.mapSet "_hosted" }}: true
+        {{ end }}
       volumes:
       - name: jks-secrets
         csi:
@@ -78,12 +79,20 @@ spec:
           value: {{ .Values.mapSet }}
         - name: ENVIRONMENT
           value: {{ .Values.env }}
+        - name: REGION
+          value: {{ .Values.region }}
         - name: REGION_SHORTNAME
           value: {{ .Values.regionShortname }}
         - name: SHARED_DIR
           value: /gameservers-package
         - name: NEEDS_SETUP
           value: {{ print "\"" .Values.needsSetup "\"" }}
+        {{ if .Values.needsSetup }}
+        - name: BACKUP_STORAGE_NAME
+          value: {{ .Values.backupStorageName }}
+        - name: RESOURCE_BUCKET_NAME
+          value: {{ .Values.resourceBucketName }}
+        {{ end }}
       containers:
       - name: gameserver
         image: {{ $image }}
@@ -111,12 +120,20 @@ spec:
           value: {{ .Values.mapSet }}
         - name: ENVIRONMENT
           value: {{ .Values.env }}
+        - name: REGION
+          value: {{ .Values.region }}
         - name: REGION_SHORTNAME
           value: {{ .Values.regionShortname }}
         - name: SHARED_DIR
           value: /gameservers-package
         - name: NEEDS_SETUP
           value: {{ print "\"" .Values.needsSetup "\"" }}
+        {{ if .Values.needsSetup }}
+        - name: BACKUP_STORAGE_NAME
+          value: {{ .Values.backupStorageName }}
+        - name: RESOURCE_BUCKET_NAME
+          value: {{ .Values.resourceBucketName }}
+        {{ end }}
 {{ .Files.Get .Values.environmentVariableFile | indent 8}}
         {{- range $port := .Values.ports }}
         - name: {{ $port.name }}

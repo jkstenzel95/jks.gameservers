@@ -3,7 +3,8 @@ variable "server_region" {
 }
 
 variable "data_volume_id" {
-    description = "the id of the volume to attach to the instance"
+    description = "the id of the volume to attach to the instance at launch, if var.setup_at_launch"
+    default = ""
 }
 
 variable "region_shortname" {
@@ -50,28 +51,16 @@ variable "instance_type" {
     description = "the type of the instance to be used in the fleet"
 }
 
-variable "server_image_id" {
-    description = "the image ID (AMI) of the servers being provisioned"
+variable "ark_server_image_id" {
+    description = "the image ID (AMI) of the Ark server being provisioned"
 }
 
-variable ssh_sg_id {
-    description = "the id of the security group providing personal machine ssh access"
+variable security_group_ids {
+    description = "the ids of the security groups to attach to the node group"
 }
 
-variable base_sg_id {
-    description = "the id of the base security group"
-}
-
-variable node_sg_id {
-    description = "the id of the node security group"
-}
-
-variable game_sg_id {
-    description = "the id of the game security group"
-}
-
-variable "game_policy_arn" {
-    description = "the arn for the game-specific policy for accessing kms, s3, etc"
+variable "game_policy_arns" {
+    description = "the arns for the game-specific policies for accessing kms, s3, etc"
 }
 
 variable "cluster_name" {

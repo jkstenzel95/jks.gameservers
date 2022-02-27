@@ -1,6 +1,6 @@
 resource "aws_security_group" "ark_sg" {
     name = "jks-gs-ark-sg"
-    description = "Allow HTTPS and SSH"
+    description = "Allow Ark server traffic"
 
     ingress {
         description = "Ark Port"

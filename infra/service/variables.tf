@@ -12,10 +12,6 @@ variable ark_server_image_id {
     description = "the image ID (AMI) of the Ark server being provisioned"
 }
 
-variable "ark_instance_type" {
-    description = "the type of the instance to be used in the Ark fleet"
-}
-
 variable ssh_sg_name {
     description = "the name of the security group providing personal machine ssh access"
     default = "jks-ssh-group"
@@ -34,6 +30,11 @@ variable node_sg_name {
 variable ark_sg_name {
     description = "the name of the ark security group"
     default = "jks-gs-ark-sg"
+}
+
+variable minecraft_sg_name {
+    description = "the name of the minecraft security group"
+    default = "jks-gs-minecraft-sg"
 }
 
 variable "env" {
