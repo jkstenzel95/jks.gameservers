@@ -45,7 +45,7 @@ module "ip" {
 }
 
 resource "aws_iam_policy" "data_access_policy" {
-    name = "jks-gs-${var.env}-${var.region_shortname}-Minecraft-${var.map_name}-data_policy"
+    name = "jks-gs-${var.env}-${var.region_shortname}-Minecraft-main-data_policy"
     policy = jsonencode({
         "Version": "2012-10-17",
         "Statement": [
@@ -55,8 +55,8 @@ resource "aws_iam_policy" "data_access_policy" {
                     "s3:ListBucket"
                 ],
                 "Resource": [
-                    "${var.resources_bucket_arn}",
-                    "${var.backup_bucket_arn}",
+                    "${module.resources_bucket.arn}",
+                    "${module.backup_bucket.arn}",
                     "${var.packages_bucket_arn}"
                 ]
             },
@@ -69,8 +69,8 @@ resource "aws_iam_policy" "data_access_policy" {
                     "s3:PutObjectAcl"
                 ],
                 "Resource": [
-                    "${var.resources_bucket_arn}/*",
-                    "${var.backup_bucket_arn}/*",
+                    "${module.resources_bucket.arn}/*",
+                    "${module.backup_bucket.arn}/*",
                     "${var.packages_bucket_arn}/*"
                 ]
             }

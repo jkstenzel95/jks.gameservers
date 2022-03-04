@@ -55,8 +55,8 @@ resource "aws_iam_policy" "data_access_policy" {
                     "s3:ListBucket"
                 ],
                 "Resource": [
-                    "${var.resources_bucket_arn}",
-                    "${var.backup_bucket_arn}",
+                    "${module.resources_bucket.arn}",
+                    "${module.backup_bucket.arn}",
                     "${var.packages_bucket_arn}"
                 ]
             },
@@ -69,8 +69,8 @@ resource "aws_iam_policy" "data_access_policy" {
                     "s3:PutObjectAcl"
                 ],
                 "Resource": [
-                    "${var.resources_bucket_arn}/*",
-                    "${var.backup_bucket_arn}/*",
+                    "${module.resources_bucket.arn}/*",
+                    "${module.backup_bucket.arn}/*",
                     "${var.packages_bucket_arn}/*"
                 ]
             }

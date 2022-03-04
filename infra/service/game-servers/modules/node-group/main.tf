@@ -31,7 +31,7 @@ module "instance_iam_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "ec2-instance-policy-attachment" {
-    count = length(game_policy_arns)
+    count = length(var.game_policy_arns)
     role = module.instance_iam_role.name
     policy_arn = var.game_policy_arns[count.index]
 }

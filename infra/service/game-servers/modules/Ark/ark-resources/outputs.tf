@@ -10,12 +10,12 @@ output resources_bucket_arn {
 
 output resources_bucket_name {
     description = "the name of the bucket containing additional game resources"
-    value =  module.resources_bucket.id
+    value =  module.resources_bucket.name
 }
 
 output backup_bucket_name {
     description = "the name of the bucket containing game backups"
-    value =  module.backup_bucket.id
+    value =  module.backup_bucket.name
 }
 
 output backup_bucket_arn {

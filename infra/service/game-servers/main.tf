@@ -14,20 +14,12 @@ data "aws_security_group" "ssh_sg" {
   name = var.ssh_sg_name
 }
 
-data "aws_security_group" "base_sg" {
-  name = var.base_sg_name
+data "aws_security_group" "games_sg" {
+  name = var.games_sg_name
 }
 
 data "aws_security_group" "node_sg" {
   name = var.node_sg_name
-}
-
-data "aws_security_group" "ark_sg" {
-  name = var.ark_sg_name
-}
-
-data "aws_security_group" "minecraft_sg" {
-  name = var.minecraft_sg_name
 }
 
 module "ark_resources" {
@@ -72,8 +64,6 @@ module "nodes" {
   ark_backup_bucket_name = "${module.ark_resources.backup_bucket_name}"
   ark_server_image_id = var.ark_server_image_id
   ssh_sg_id = data.aws_security_group.ssh_sg.id
-  base_sg_id = data.aws_security_group.base_sg.id
+  games_sg_id = data.aws_security_group.games_sg.id
   node_sg_id = data.aws_security_group.node_sg.id
-  ark_sg_id = data.aws_security_group.ark_sg.id
-  minecraft_sg_id = data.aws_security_group.minecraft_sg.id
 }

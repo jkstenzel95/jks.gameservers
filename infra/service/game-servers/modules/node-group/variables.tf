@@ -51,8 +51,8 @@ variable "instance_type" {
     description = "the type of the instance to be used in the fleet"
 }
 
-variable "ark_server_image_id" {
-    description = "the image ID (AMI) of the Ark server being provisioned"
+variable "server_image_id" {
+    description = "the image ID (AMI) of the server being provisioned"
 }
 
 variable security_group_ids {

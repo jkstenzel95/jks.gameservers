@@ -42,8 +42,6 @@ module "game_servers" {
     subnet_id = var.subnet_id
     shared_package_version = var.shared_package_version
     ssh_sg_name = "${var.ssh_sg_name}"
-    base_sg_name = "${var.base_sg_name}"
+    games_sg_name = "${var.games_sg_name}"
     node_sg_name = "${var.node_sg_name}"
-    ark_sg_name = "${var.ark_sg_name}"
-    minecraft_sg_name = "${var.minecraft_sg_name}"
 }

@@ -17,24 +17,14 @@ variable ssh_sg_name {
     default = "jks-ssh-group"
 }
 
-variable base_sg_name {
-    description = "the name of the base security group"
-    default = "jks-gs-serverbase-sg"
+variable games_sg_name {
+    description = "the name of the games security group"
+    default = "jks-gs-games-sg"
 }
 
 variable node_sg_name {
     description = "the name of the node security group"
     default = "jks-gs-node-sg"
-}
-
-variable ark_sg_name {
-    description = "the name of the ark security group"
-    default = "jks-gs-ark-sg"
-}
-
-variable minecraft_sg_name {
-    description = "the name of the minecraft security group"
-    default = "jks-gs-minecraft-sg"
 }
 
 variable "env" {

@@ -31,20 +31,12 @@ variable ssh_sg_id {
     description = "the id of the security group providing personal machine ssh access"
 }
 
-variable base_sg_id {
-    description = "the id of the base security group"
+variable games_sg_id {
+    description = "the id of the games security group"
 }
 
 variable node_sg_id {
     description = "the id of the node security group"
-}
-
-variable ark_sg_id {
-    description = "the id of the ark security group"
-}
-
-variable minecraft_sg_id {
-    description = "the id of the minecraft security group"
 }
 
 variable ark_resources_bucket_arn {
