@@ -32,7 +32,7 @@ spec:
       serviceAccountName: {{ $serviceAccountName }}
       nodeSelector:
         {{ if not .Values.flexibleDeployment }}
-        {{ print .Values.game "_" .Values.mapSet "_hosted" }}: true
+        {{ print .Values.game "_" .Values.mapSet "_hosted" }}: "true"
         {{ end }}
       volumes:
       - name: jks-secrets

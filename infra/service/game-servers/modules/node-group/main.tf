@@ -81,7 +81,7 @@ resource "aws_eks_node_group" "game_node" {
     instance_types = [ "${var.instance_type}" ]
     capacity_type = "SPOT"
     labels = {
-        "${var.game_name}_${var.map_name}_hosted" = true // TODO: What if multiple? What if none? ie only pod setup needed
+        "${var.game_name}_${var.map_name}_hosted" = "true" // TODO: What if multiple? What if none? ie only pod setup needed
     }
     
     launch_template {
