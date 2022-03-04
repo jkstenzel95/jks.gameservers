@@ -31,7 +31,7 @@ spec:
     spec:
       serviceAccountName: {{ $serviceAccountName }}
       nodeSelector:
-        {{ if ! .Values.flexibleDeployment }}
+        {{ if not .Values.flexibleDeployment }}
         {{ print .Values.game "_" .Values.mapSet "_hosted" }}: true
         {{ end }}
       volumes:
