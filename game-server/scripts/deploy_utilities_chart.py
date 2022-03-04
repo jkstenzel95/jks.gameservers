@@ -3,7 +3,7 @@ import sys
 from subprocess import call
 
 def deploy_chart_for_utilities(test):
-    call_command = ["helm", "repo", "add", "secrets-store-csi-driver", "https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/master/charts"]
+    call_command = ["helm", "repo", "add", "secrets-store-csi-driver", "https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts"]
     call(call_command)
     call_command = ["helm", "upgrade", "--install", "-n", "kube-system", "csi-secrets-store", "secrets-store-csi-driver/secrets-store-csi-driver"]
     if test:
