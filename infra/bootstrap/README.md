@@ -14,10 +14,11 @@
 
 - Set up gruntwork (used to install)
 ```console
-curl -LsS https://raw.githubusercontent.com/gruntwork-io/gruntwork-installer/master/bootstrap-gruntwork-installer.sh | bash /dev/stdin --version v0.0.3
+curl -LsS https://raw.githubusercontent.com/gruntwork-io/gruntwork-installer/master/bootstrap-gruntwork-installer.sh | bash /dev/stdin --version v0.0.22
 ```
 - Install kubergrunt (used in setting up OIDC for secrets access)
 ```console
+GITHUB_OAUTH_TOKEN=<your_github_oauth_token>
 gruntwork-install --binary-name "kubergrunt" --repo "https://github.com/gruntwork-io/kubergrunt" --tag "v0.5.13"
 ```
 

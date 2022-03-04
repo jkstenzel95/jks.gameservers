@@ -86,9 +86,8 @@ resource "aws_eks_cluster" "cluster" {
     subnet_ids = [aws_subnet.subnet1.id, aws_subnet.subnet2.id]
     security_group_ids = [
       data.aws_security_group.ssh_sg.id,
-      module.security_groups.base_sg_id,
+      module.security_groups.games_sg_id,
       module.security_groups.node_sg_id,
-      module.security_groups.ark_sg_id
     ]
   }
 

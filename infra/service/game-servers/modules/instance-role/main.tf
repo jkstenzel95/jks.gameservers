@@ -31,7 +31,7 @@ resource "aws_iam_policy" "policy" {
                 ],
                 "Resource": [
                     "arn:aws:ec2:*:*:instance/*",
-                    "arn:aws:ec2:*:*:volume/${var.data_volume_id}"
+                    "arn:aws:ec2:*:*:volume/*"
                 ]
             },
             {
@@ -46,7 +46,7 @@ resource "aws_iam_policy" "policy" {
             {
                 "Effect": "Allow",
                 "Action": "ec2:DescribeVolumes",
-                "Resource": "arn:aws:ec2:*:*:volume/${var.data_volume_id}"
+                "Resource": "arn:aws:ec2:*:*:volume/*"
             },
             {
                 "Sid": "DescribeQueryScanBooksTable",

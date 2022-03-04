@@ -1,13 +1,9 @@
-module "base_sg" {
-    source = "./base"
+module "games_sg" {
+    source = "./games"
 }
 
 module "node_sg" {
     source = "./node"
 
     cluster_name = var.cluster_name
-}
-
-module "ark_sg" {
-    source = "./Ark"
 }

@@ -4,7 +4,7 @@
 die() { status=$1; shift; echo "FATAL: $*"; exit $status; }
 EC2_INSTANCE_ID="`wget -q -O - http://169.254.169.254/latest/meta-data/instance-id || die \"wget instance-id has failed: $?\"`"
 VOLUME_ID=$(aws ec2 describe-volumes --filters "Name=tag:Name,Values=jks-gs-${ENVIRONMENT}-${GAME_NAME}-${MAP_SET}-data-volume" | jq ".Volumes[0].VolumeId" | tr -d "\"")
-aws ec2 attach-volume --volume-id $VOLUME_ID --device "/dev/sdg" --instance-id $EC2_INSTANCE_ID --region $REGION
+until [ aws ec2 attach-volume --volume-id $VOLUME_ID --device "/dev/sdg" --instance-id $EC2_INSTANCE_ID --region $REGION ]; do echo "Volume not available for attach... waiting 5s"; sleep 5; done
 while [ ! "$(ls /dev/sdg)" = "/dev/sdg" ]; do echo "Volume not yet attached... waiting 5s"; sleep 5; done
 echo "Volume attached!"
 
