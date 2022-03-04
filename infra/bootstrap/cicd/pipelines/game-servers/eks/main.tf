@@ -58,7 +58,7 @@ module gameserver_eks_deployment_pipeline {
 module utilities_preview_codebuild_project {
   source = "./codebuild"
 
-  template_filename = "deployspec.yml"
+  template_filename = "utilitiesdeployspec.yml"
   name = "jks-gs-dev-gameserver-eks-utilities-preview"
   is_test = true
   build_role_arn = var.role_arn
@@ -68,7 +68,7 @@ module utilities_preview_codebuild_project {
 module utilities_deploy_codebuild_project {
   source = "./codebuild"
 
-  template_filename = "deployspec.yml"
+  template_filename = "utilitiesdeployspec.yml"
   name = "jks-gs-dev-gameserver-eks-utilities-deploy"
   build_role_arn = var.role_arn
   env = "dev"
