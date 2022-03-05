@@ -1,18 +1,34 @@
 {{ if .Values.requestVolume }}
-{{ $deploymentName := print "Deployment-" .Values.env "-" .Values.game "-" .Values.map}}
+{{ $deploymentName := print "Deployment-" .Values.env "-" .Values.game "-" .Values.map }}
 {{ $deploymentName := lower $deploymentName }}
-{{ $volumeName := print $deploymentName "-volume"}}
+{{ $volumeName := print $deploymentName "-volume" }}
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: {{ $volumeName }}
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+reclaimPolicy: Retain
+mountOptions:
+  - debug
+volumeBindingMode: Immediate
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: {{ $volumeName }}
   labels:
-    type: {{ $volumeName }}
+    type: amazonEBS
 spec:
   capacity:
     storage: {{ .Values.storageSize }}
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  claimRef:
+     namespace: default
+     name: {{ $volumeName }}
   awsElasticBlockStore:
     volumeID: {{ .Values.volumeId }}
     fsType: ext4
@@ -21,15 +37,11 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ $volumeName }}
-    labels:
-       type: {{ $volumeName }}
 spec:
+  storageClassName: standard
   accessModes:
     - ReadWriteOnce
-resources:
-  requests:
-    storage: {{ .Values.storageSize }}
-   selector:
-    matchLabels:
-      type: {{ $volumeName }}
+  resources:
+    requests:
+      storage: {{ .Values.storageSize }}
 {{ end }}
