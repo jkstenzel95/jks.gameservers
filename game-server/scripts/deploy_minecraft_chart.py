@@ -25,19 +25,16 @@ def apply_charts(mappings_file, config_file, env, test):
                     for idx, map in enumerate(map_set):
                         print("Creating cluster for map {}; Image tag {}".format(map, image_version))
                         game_port = deployment_utilities.get_port_number(25565, idx)
-                        rcon_port = game_port + 1
-                        print("We're looking at game port {} with an RCON port of {}".format(game_port, rcon_port))
+                        print("We're looking at game port {}".format(game_port))
                         gp_port_string = "ports[0].name=SERVER_PORT,ports[0].protocol=TCP,ports[0].number={},ports[0].game=Minecraft,ports[0].map={}".format(game_port, map)
-                        rcon_port_string = "ports[1].name=RCON_PORT,ports[1].protocol=UDP,ports[1].number={},ports[1].game=Minecraft,ports[1].map={}".format(rcon_port, map)
                         port_name_prefix = "MINECRAFT_{}_{}".format(map.upper(), env.upper())
                         ports.append({ "name": "{}_SERVER_PORT".format(port_name_prefix), "protocol": "TCP", "number": game_port, "game": "Minecraft", "map": map })
-                        ports.append({ "name": "{}_RCON_PORT".format(port_name_prefix), "protocol": "UDP", "number": rcon_port, "game": "Minecraft", "map": map })
                         env_file = "{}_env_list.txt".format(map)
                         env_file_path = "{}/../helm/game-server/{}".format(dir_path, env_file)
                         # No justification for a additional env variables yet/anymore. Here as a guideline to show how it's done, but has no effect on the deployment
                         env_dict = {  }
                         deployment_utilities.generate_env_file(env_dict, env_file_path)
-                        values_string = "--set imageTag={},game=Minecraft,map={},environmentVariableFile={},{},{}".format(image_version, map, env_file, gp_port_string, rcon_port_string)
+                        values_string = "--set imageTag={},game=Minecraft,map={},environmentVariableFile={},{}".format(image_version, map, env_file, gp_port_string)
                         call_command = ["{}/helm_deploy.sh".format(dir_path), "-g", "Minecraft", "-m", map,"-e", env, "-v", values_string]
                         if test:
                             call_command.append("-t")
