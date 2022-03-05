@@ -4,6 +4,8 @@
 {{ $image := print "jkstenzel95/jks_gameserver_runtime:" .Values.imageTag}}
 {{ $serviceAccountName := print "jks-gameservers-" .Values.env "-" .Values.game "-serviceaccount" | lower }}
 {{ $serverMountPath := print "/mnt/" .Values.game "-server" }}
+{{ $secretProviderName := print "aws-secrets-" .Values.env "-" .Values.game }}
+{{ $secretProviderName := lower $secretProviderName }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -40,7 +42,7 @@ spec:
           driver: secrets-store.csi.k8s.io
           readOnly: true
           volumeAttributes:
-            secretProviderClass: "aws-secrets"
+            secretProviderClass: {{ $secretProviderName }}
       - name: game-server
         {{ if .Values.requestVolume}}
         {{ $volumeName := print $deploymentName "-volume"}}
