@@ -12,6 +12,13 @@
             "mods": [
                 684970590
             ]
+        },
+        {
+            "name": "Minecraft",
+            "image_version" : "dev.202201310758",
+            "maps": [
+                "main"
+            ]
         }
     ] 
 }

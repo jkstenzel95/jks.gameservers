@@ -25,7 +25,7 @@ def apply_charts(mappings_file, config_file, env, test):
                     for idx, map_info in enumerate(mappings_json["maps"]):
                         if map_info["name"] in map_set:
                             print("Creating cluster for map {}; Image tag {}".format(map_info["name"], map_info["additional_server_params"], image_version))
-                            game_port = deployment_utilities.get_port_number(7777, idx)
+                            game_port = deployment_utilities.get_port_number(25565, idx)
                             rcon_port = game_port + 1
                             print("We're looking at game port {} with an RCON port of {}".format(game_port, rcon_port))
                             gp_port_string = "ports[0].name=SERVER_PORT,ports[0].protocol=TCP,ports[0].number={},ports[0].game=Minecraft,ports[0].map={}".format(game_port, map_info["name"])
