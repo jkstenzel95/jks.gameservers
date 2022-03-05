@@ -6,8 +6,8 @@ mapSet: main
 needsSetup: "true"
 requestsMemory: "2Gi"
 limitsMemory: "4Gi"
-requestVolume: false
-flexibleDeployment: false
+requestVolume: true
+flexibleDeployment: true
 backupStorageName: "jks-gs-dev-use2-minecraft-backup-bucket"
 resourceBucketName: "jks-gs-dev-use2-minecraft-gameresources-bucket"
 
