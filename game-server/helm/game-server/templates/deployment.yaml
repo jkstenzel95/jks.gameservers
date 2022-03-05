@@ -42,14 +42,15 @@ spec:
           volumeAttributes:
             secretProviderClass: "aws-secrets"
       - name: game-server
+        {{ if .Values.requestVolume}}
+        {{ $volumeName := print $deploymentName "-volume"}}
+        persistentVolumeClaim:
+          claimName: {{ $volumeName }}
+        {{ else }}
         hostPath:
           path: {{ $serverMountPath }}
           type: Directory
-          {{ if .Values.requestVolume}}
-          {{ $volumeName := print $deploymentName "-volume"}}
-          persistentVolumeClaim:
-            claimName: {{ $volumeName }}
-          {{ end }}
+        {{ end }}
       - name: shared-dir
         hostPath:
           path: /gameservers-package
