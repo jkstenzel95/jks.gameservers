@@ -1,6 +1,6 @@
 FROM amazonlinux:latest
 
-RUN yum install nano jq unzip vim wget screen glibc.i686 libstdc++.i686 ncurses-libs.i686 -y
+RUN yum install nano jq unzip vim wget screen glibc.i686 libstdc++.i686 ncurses-libs.i686 sudo -y
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 RUN unzip awscliv2.zip
 RUN ./aws/install
