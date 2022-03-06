@@ -68,6 +68,8 @@ spec:
           limits:
             memory: {{ .Values.limitsMemory }}
         volumeMounts:
+        - mountPath: {{ $serverMountPath }}
+          name: game-server
         - mountPath: gameservers-package
           name: shared-dir
         {{ if .Values.hasSecrets }}

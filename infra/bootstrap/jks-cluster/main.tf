@@ -179,7 +179,16 @@ resource "aws_iam_policy" "secrets_access_policy" {
                   "secretsmanager:ListSecrets"
               ],
               "Resource": "*"
-          }
+          },
+          {
+                "Effect": "Allow",
+                "Action": [
+                    "ec2:AllocateAddress",
+                    "ec2:AssociateAddress",
+                    "ec2:DescribeAddresses"
+                ],
+                "Resource": "*"
+            },
       ]
     })
 }
