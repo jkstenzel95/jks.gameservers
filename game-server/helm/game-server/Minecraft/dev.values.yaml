@@ -12,5 +12,3 @@ backupStorageName: "jks-gs-dev-use2-minecraft-backup-bucket"
 resourceBucketName: "jks-gs-dev-use2-minecraft-gameresources-bucket"
 storageSize: 56
 volumeId: vol-0e05f6af3f726dfa6
-
-secrets:
