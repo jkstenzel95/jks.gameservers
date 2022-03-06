@@ -9,7 +9,4 @@ limitsMemory: "6Gi"
 requestVolume: false
 flexibleDeployment: false
 
-secrets:
-- name: jks/gameservers/dev/use2/Ark-Server-Admin-Password
-  purpose: ARK_SERVER_ADMIN_PASSWORD
-  key: Ark-Server-Admin-Password
+hasSecrets: true

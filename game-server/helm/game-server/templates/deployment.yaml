@@ -37,12 +37,14 @@ spec:
         {{ print .Values.game "_" .Values.mapSet "_hosted" }}: "true"
         {{ end }}
       volumes:
+      {{ if .Values.hasSecrets }}
       - name: jks-secrets
         csi:
           driver: secrets-store.csi.k8s.io
           readOnly: true
           volumeAttributes:
             secretProviderClass: {{ $secretProviderName }}
+      {{ end }}
       - name: game-server
         {{ if .Values.requestVolume}}
         {{ $volumeName := print $deploymentName "-volume"}}
@@ -68,9 +70,11 @@ spec:
         volumeMounts:
         - mountPath: gameservers-package
           name: shared-dir
+        {{ if .Values.hasSecrets }}
         - name: jks-secrets
           mountPath: "/mnt/secrets-store"
           readOnly: true
+        {{ end }}
         env:
         - name: SERVER_MOUNT_LOCATION
           value: {{ $serverMountPath }}
@@ -109,9 +113,11 @@ spec:
           name: game-server
         - mountPath: /gameservers-package
           name: shared-dir
+        {{ if .Values.hasSecrets }}
         - name: jks-secrets
           mountPath: "/mnt/secrets-store"
           readOnly: true
+        {{ end }}
         env:
         - name: SERVER_MOUNT_LOCATION
           value: {{ $serverMountPath }}
