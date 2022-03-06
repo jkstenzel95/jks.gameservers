@@ -149,7 +149,7 @@ resource "aws_iam_role" "oidc_role" {
             "Action": "sts:AssumeRoleWithWebIdentity",
             "Condition": {
               "StringLike": {
-                "${aws_iam_openid_connect_provider.oidc_provider.url}:sub": "system:serviceaccount:default:jks-gameservers-dev-ark-serviceaccount",
+                "${aws_iam_openid_connect_provider.oidc_provider.url}:sub": "system:serviceaccount:default:jks-gameservers-dev-*-serviceaccount",
                 "${aws_iam_openid_connect_provider.oidc_provider.url}:aud": "sts.amazonaws.com"
               }
             }
