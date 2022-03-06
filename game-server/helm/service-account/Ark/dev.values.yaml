@@ -1,9 +1,7 @@
 game: Ark
 env: dev
 
-secretsParameters:
-  objects: |
-  - objectName: jks/gameservers/dev/use2/Ark-Server-Admin-Password
-    objectType: "secretsmanager"
+secrets:
+- jks/gameservers/dev/use2/Ark-Server-Admin-Password
 
 iamRoleArn: arn:aws:iam::493757919697:role/jks-gs-dev-use2-oidc-role
