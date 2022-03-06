@@ -5,6 +5,6 @@ availability_zone = "us-east-2a"
 ark_server_image_id = "ami-093d9796e55a5b860"
 cluster_name = "jks-use2"
 subnet_id = "subnet-05dc9f7b2498d4f92"
-shared_package_version = "93dda19df215e4894dcb3b2fb70f009c38a9133e"
+shared_package_version = "73bd7a185c9ab7d960863f5543a79b9fdb7718d2"
 minecraft_map_names = []
 valheim_map_names = []
