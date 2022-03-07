@@ -18,7 +18,7 @@ if [ $ATTACH_VOLUME == "true" ]; then
 
     # Mount volume
     sudo mkdir ${SERVER_MOUNT_LOCATION}
-    sudo chown ec2-user -R ${SERVER_MOUNT_LOCATION} 
+    sudo chown $USER -R ${SERVER_MOUNT_LOCATION} 
     sudo chmod -R 0777 ${SERVER_MOUNT_LOCATION}
     echo "Attempting mount..."
     while ! sudo mount /dev/sdg ${SERVER_MOUNT_LOCATION}; do echo "Mount not successful... retrying in 15 seconds"; sleep 15; done

@@ -188,7 +188,13 @@ resource "aws_iam_policy" "secrets_access_policy" {
                     "ec2:DescribeAddresses"
                 ],
                 "Resource": "*"
-            },
+          },
+          {
+                "Sid": "DescribeQueryScanBooksTable",
+                "Effect": "Allow",
+                "Action": "dynamodb:*",
+                "Resource": "*"
+          }
       ]
     })
 }

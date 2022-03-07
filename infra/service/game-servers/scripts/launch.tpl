@@ -29,7 +29,7 @@ then
     sudo aws s3 cp "s3://${packages_bucket_name}/shared-packages/shared-package_${shared_package_version}.zip" /gameservers-package.zip
     sudo chmod -R 0777 /gameservers-package.zip
     mkdir $SHARED_DIR
-    sudo chown ec2-user -R $SHARED_DIR
+    sudo chown $USER -R $SHARED_DIR
     sudo chmod -R 0777 $SHARED_DIR
     unzip -o gameservers-package.zip -d $SHARED_DIR
     rm /gameservers-package.zip

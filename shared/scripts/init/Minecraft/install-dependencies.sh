@@ -1,4 +1,4 @@
 #!/bin/bash
 
 sudo yum update
-sudo yum install java-11-openjdk-devel
+sudo amazon-linux-extras install java-openjdk11
