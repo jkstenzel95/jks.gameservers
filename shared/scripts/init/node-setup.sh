@@ -25,8 +25,9 @@ if [ $ATTACH_VOLUME == "true" ]; then
     echo "Mount complete!"
 fi
 
+LOWERCASE_GAME_DESCRIPTOR=$(echo "${ENVIRONMENT}-${REGION_SHORTNAME}-${GAME_NAME}-${MAP_SET}" | tr '[:upper:]' '[:lower:]')
 # Attach public IP, works in conjunction with Kubernetes hostPort exposure of servers
-PUBLIC_IP=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].PublicIp' --filters Name=tag:Name,Values=jks-gs-dev-use2-ark-all) | grep -o '".*"' | sed 's/"//g')
-ALLOCATION_ID=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].AllocationId' --filters Name=tag:Name,Values=jks-gs-dev-use2-ark-all) | grep -o '".*"' | sed 's/"//g')
+PUBLIC_IP=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].PublicIp' --filters Name=tag:Name,Values=jks-gs-${LOWERCASE_GAME_DESCRIPTOR}) | grep -o '".*"' | sed 's/"//g')
+ALLOCATION_ID=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].AllocationId' --filters Name=tag:Name,Values=jks-gs-${LOWERCASE_GAME_DESCRIPTOR}) | grep -o '".*"' | sed 's/"//g')
 INTERFACE=$(aws ec2 describe-network-interfaces --filters Name=attachment.instance-id,Values=$EC2_INSTANCE_ID Name=addresses.primary,Values=true --query 'NetworkInterfaces[].{Id: NetworkInterfaceId, IP: Association.PublicIp}' | jq -c '.[] | select(.IP != null) | .Id' | tr -d '"')
 aws ec2 associate-address --network-interface-id $INTERFACE --allocation-id $ALLOCATION_ID
