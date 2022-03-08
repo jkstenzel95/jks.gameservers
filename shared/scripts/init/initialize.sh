@@ -28,5 +28,5 @@ fi
 
 popd
 
-[ -z "$USER" ] && sudo chown $USER -R $SERVER_MOUNT_LOCATION
+[ -n "$USER" ] && sudo chown $USER -R $SERVER_MOUNT_LOCATION
 sudo chmod -R 0777 $SERVER_MOUNT_LOCATION
