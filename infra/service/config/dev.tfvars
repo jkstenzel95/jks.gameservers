@@ -5,6 +5,6 @@ env = "dev"
 ark_server_image_id = "ami-093d9796e55a5b860"
 cluster_name = "jks-use2"
 subnet_id = "subnet-05dc9f7b2498d4f92"
-shared_package_version = "f87e488be7de8f1d572b75060e5ad2a87700986c"
+shared_package_version = "2519aae656bc7c6265f8470e33ad23e1599c2e28"
 minecraft_map_names = []
 valheim_map_names = []
