@@ -1,4 +1,9 @@
 #!/bin/bash
 
-sudo yum update
-sudo amazon-linux-extras install java-openjdk11
+scripts_dir="${SHARED_DIR}/shared/scripts/init"
+
+pushd $scripts_dir
+
+. "${GAME_NAME}/install-jdk.sh"
+
+popd
