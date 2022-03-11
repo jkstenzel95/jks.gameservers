@@ -12,4 +12,6 @@ done
 
 # TODO: the game server runtime image may need to reinstall dependencies. In fact, I think most will. Fix structuring.
 . "${SHARED_DIR}/shared/scripts/init/Minecraft/install-dependencies.sh"
-sudo java -Xmx1024M -Xms1024M -jar $SERVER_MOUNT_LOCATION/Minecraft/server.jar
+pushd $SERVER_MOUNT_LOCATION/Minecraft
+java -Xmx1024M -Xms1024M -jar server.jar
+popd
