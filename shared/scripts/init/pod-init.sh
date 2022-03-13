@@ -4,5 +4,6 @@
 if [ "${NEEDS_SETUP}" == "true" ]
 then
     export ATTACH_VOLUME="false"
+    export ATTACH_IP="false"
     . "/$SHARED_DIR/shared/scripts/init/system-setup.sh"
 fi

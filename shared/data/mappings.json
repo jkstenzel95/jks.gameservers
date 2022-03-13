@@ -1,0 +1,12 @@
+{
+    "domain_defaults":
+    {
+        "game": "Minecraft",
+        "map":
+        {
+            "Ark": "all",
+            "Minecraft": "main"
+        },
+        "env": "dev"
+    }
+}

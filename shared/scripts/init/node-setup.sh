@@ -26,8 +26,46 @@ if [ $ATTACH_VOLUME == "true" ]; then
 fi
 
 LOWERCASE_GAME_DESCRIPTOR=$(echo "${ENVIRONMENT}-${REGION_SHORTNAME}-${GAME_NAME}-${MAP_SET}" | tr '[:upper:]' '[:lower:]')
-# Attach public IP, works in conjunction with Kubernetes hostPort exposure of servers
 PUBLIC_IP=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].PublicIp' --filters Name=tag:Name,Values=jks-gs-${LOWERCASE_GAME_DESCRIPTOR}) | grep -o '".*"' | sed 's/"//g')
-ALLOCATION_ID=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].AllocationId' --filters Name=tag:Name,Values=jks-gs-${LOWERCASE_GAME_DESCRIPTOR}) | grep -o '".*"' | sed 's/"//g')
-INTERFACE=$(aws ec2 describe-network-interfaces --filters Name=attachment.instance-id,Values=$EC2_INSTANCE_ID Name=addresses.primary,Values=true --query 'NetworkInterfaces[].{Id: NetworkInterfaceId, IP: Association.PublicIp}' | jq -c '.[] | select(.IP != null) | .Id' | tr -d '"')
-aws ec2 associate-address --network-interface-id $INTERFACE --allocation-id $ALLOCATION_ID
+
+if [ $ATTACH_IP == "true" ]; then
+    # Attach public IP, works in conjunction with Kubernetes hostPort exposure of servers
+    ALLOCATION_ID=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].AllocationId' --filters Name=tag:Name,Values=jks-gs-${LOWERCASE_GAME_DESCRIPTOR}) | grep -o '".*"' | sed 's/"//g')
+    INTERFACE=$(aws ec2 describe-network-interfaces --filters Name=attachment.instance-id,Values=$EC2_INSTANCE_ID Name=addresses.primary,Values=true --query 'NetworkInterfaces[].{Id: NetworkInterfaceId, IP: Association.PublicIp}' | jq -c '.[] | select(.IP != null) | .Id' | tr -d '"')
+    aws ec2 associate-address --network-interface-id $INTERFACE --allocation-id $ALLOCATION_ID
+fi
+
+MAPPINGS_FILE_NAME="${SHARED_DIR}/shared/data/mappings.json"
+DEFAULT_GAME=$(cat $MAPPINGS_FILE_NAME | jq ".domain_defaults.game" | tr -d '"')
+DEFAULT_MAP=$(cat $MAPPINGS_FILE_NAME | jq ".domain_defaults.map.${GAME_NAME}" | tr -d '"')
+DEFAULT_ENV=$(cat $MAPPINGS_FILE_NAME | jq ".domain_defaults.env" | tr -d '"')
+
+# Create record for env.map.game.domain
+SUBDOMAIN="${ENV}.${MAP_SET}.${GAME_NAME}.${DOMAIN}"
+. "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
+
+# Create record for map.game.domain if in default env
+if [ $ENV == $DEFAULT_ENV ]; then
+    SUBDOMAIN="${MAP_SET}.${GAME_NAME}.${DOMAIN}"
+    . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
+
+    # Create record for game.domain if default map
+    if [ $MAP_SET == $DEFAULT_MAP ]; then
+        SUBDOMAIN="${GAME_NAME}.${DOMAIN}"
+        . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
+
+        # Create record for domain if default game
+        if [ $GAME_NAME == $DEFAULT_GAME ]; then
+            SUBDOMAIN="${DOMAIN}"
+            . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
+        fi
+    fi
+fi
+
+# Create record for game.domain if default map
+if [ $MAP_SET == $DEFAULT_MAP ]; then
+fi
+
+# Create record for domain if default game
+if [ $GAME_NAME == $DEFAULT_GAME ]; then
+fi

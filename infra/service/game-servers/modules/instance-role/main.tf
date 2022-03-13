@@ -53,6 +53,32 @@ resource "aws_iam_policy" "policy" {
                 "Effect": "Allow",
                 "Action": "dynamodb:*",
                 "Resource": "*"
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:ListBucket"
+                ],
+                "Resource": "*"
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:PutObject",
+                    "s3:GetObject",
+                    "s3:DeleteObject",
+                    "s3:PutObjectAcl"
+                ],
+                "Resource": [
+                    "*"
+                ],
+            },
+            {
+                "Effect": "Allow",
+                    "Action": [
+                        "route53:ListHostedZonesByName"
+                    ],
+                "Resource": "*"
             }
         ]
     })

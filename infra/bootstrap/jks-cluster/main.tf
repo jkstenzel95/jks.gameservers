@@ -179,7 +179,16 @@ resource "aws_iam_policy" "secrets_access_policy" {
                   "secretsmanager:ListSecrets"
               ],
               "Resource": "*"
-          },
+          }
+      ]
+    })
+}
+
+resource "aws_iam_policy" "data_access_policy" {
+    name = "jks-gs-dev-use2-oidc-data-policy"
+    policy = jsonencode({
+      "Version": "2012-10-17",
+      "Statement": [
           {
                 "Effect": "Allow",
                 "Action": [
@@ -193,6 +202,13 @@ resource "aws_iam_policy" "secrets_access_policy" {
                 "Sid": "DescribeQueryScanBooksTable",
                 "Effect": "Allow",
                 "Action": "dynamodb:*",
+                "Resource": "*"
+          },
+          {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:ListBucket"
+                ],
                 "Resource": "*"
           },
           {
@@ -249,6 +265,12 @@ resource "aws_iam_role_policy_attachment" "serviceaccount_cni" {
 resource "aws_iam_role_policy_attachment" "serviceaccount_secrets" {
   role       = aws_iam_role.oidc_role.name
   policy_arn = aws_iam_policy.secrets_access_policy.arn
+  depends_on = [aws_iam_role.oidc_role]
+}
+
+resource "aws_iam_role_policy_attachment" "serviceaccount_data" {
+  role       = aws_iam_role.oidc_role.name
+  policy_arn = aws_iam_policy.data_access_policy.arn
   depends_on = [aws_iam_role.oidc_role]
 }
 

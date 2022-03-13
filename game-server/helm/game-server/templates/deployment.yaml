@@ -96,6 +96,8 @@ spec:
           value: /gameservers-package
         - name: NEEDS_SETUP
           value: {{ print "\"" .Values.needsSetup "\"" }}
+        - name: DOMAIN
+          value: "winecraft.io"
         {{ if .Values.needsSetup }}
         - name: BACKUP_STORAGE_NAME
           value: {{ .Values.backupStorageName }}
@@ -139,6 +141,8 @@ spec:
           value: /gameservers-package
         - name: NEEDS_SETUP
           value: {{ print "\"" .Values.needsSetup "\"" }}
+        - name: DOMAIN
+          value: "winecraft.io"
         {{ if .Values.needsSetup }}
         - name: BACKUP_STORAGE_NAME
           value: {{ .Values.backupStorageName }}

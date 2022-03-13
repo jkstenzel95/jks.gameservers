@@ -16,6 +16,7 @@ locals {
         BACKUP_STORAGE_NAME = "${var.backup_bucket_name}",
         RESOURCE_BUCKET_NAME = "${var.resources_bucket_name}",
         SETUP_AT_LAUNCH = var.setup_at_launch
+        DOMAIN = "${var.domain}"
       })
     full_launch_script = "${local.common_script}\n\ntouch ${local.initialized_flag_file}"
 }

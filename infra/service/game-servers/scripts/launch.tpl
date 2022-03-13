@@ -22,6 +22,7 @@ export REGION_SHORTNAME=${REGION_SHORTNAME}
 export BACKUP_STORAGE_NAME=${BACKUP_STORAGE_NAME}
 export RESOURCE_BUCKET_NAME=${RESOURCE_BUCKET_NAME}
 export SHARED_DIR=/gameservers-package
+export DOMAIN=${DOMAIN}
 
 # Download scripts
 if [ ! -d $SHARED_DIR ]
@@ -38,7 +39,9 @@ fi
 # If not setting up at launch, this will defer to the pod
 if [ "${SETUP_AT_LAUNCH}" == "true" ]
 then
+    # TODO: There's definitely some variable redundancy here
     export ATTACH_VOLUME="true"
+    export ATTACH_IP="true"
     . "$SHARED_DIR/shared/scripts/init/system-setup.sh"
 fi
 

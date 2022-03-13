@@ -11,6 +11,11 @@ variable "region_shortname" {
     description = "the shortname of the region to provision the instance in"
 }
 
+variable "domain" {
+    description = "the top level domain"
+    default = "winecraft.io"
+}
+
 variable "env" {
     description = "the environment of the server resource set"
 }
