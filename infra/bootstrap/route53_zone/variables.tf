@@ -1,4 +1,4 @@
-variable zone_name {
-    description = "the name of the top level zone to use"
+variable domain_name {
+    description = "the name of the top level domain to use"
     default = "winecraft.io"
 }

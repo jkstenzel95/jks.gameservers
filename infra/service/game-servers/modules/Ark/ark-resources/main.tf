@@ -34,16 +34,6 @@ module "kv_store" {
     map_name = "all"
 }
 
-module "ip" {
-    source = "./../../public-ip"
-
-    region_shortname = "${var.region_shortname}"
-    env = "${var.env}"
-    game_name = "Ark"
-    map_name = "all" // TODO: Doesn't "main" make sense?
-    use_map_in_name = false
-}
-
 resource "aws_iam_policy" "data_access_policy" {
     name = "jks-gs-${var.env}-${var.region_shortname}-Ark-all-data_policy"
     policy = jsonencode({

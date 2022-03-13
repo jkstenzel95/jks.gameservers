@@ -107,3 +107,9 @@ resource "aws_eks_node_group" "game_node" {
         aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
     ]
 }
+
+resource "aws_eip" "eip" {
+    tags = {
+        Name = lower("jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}")
+    }
+}
