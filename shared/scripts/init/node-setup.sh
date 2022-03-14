@@ -48,7 +48,7 @@ SUBDOMAIN="${ENV_L}.${MAP_L}.${GAME_L}.${DOMAIN}"
 . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
 
 # Create record for map.game.domain if in default env
-if [ $ENV == $DEFAULT_ENV ]; then
+if [ $ENVIRONMENT == $DEFAULT_ENV ]; then
     SUBDOMAIN="${MAP_L}.${GAME_L}.${DOMAIN}"
     . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
 
