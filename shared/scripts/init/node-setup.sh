@@ -45,22 +45,22 @@ ENV_L=$(echo $ENVIRONMENT | tr '[:upper:]' '[:lower:]')
 
 # Create record for env.map.game.domain
 SUBDOMAIN="${ENV_L}.${MAP_L}.${GAME_L}.${DOMAIN}"
-. "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
+. "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s "${SUBDOMAIN}" -i "${PUBLIC_IP}"
 
 # Create record for map.game.domain if in default env
 if [ $ENVIRONMENT == $DEFAULT_ENV ]; then
     SUBDOMAIN="${MAP_L}.${GAME_L}.${DOMAIN}"
-    . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
+    . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s "${SUBDOMAIN}" -i "${PUBLIC_IP}"
 
     # Create record for game.domain if default map
     if [ $MAP_SET == $DEFAULT_MAP ]; then
         SUBDOMAIN="${GAME_L}.${DOMAIN}"
-        . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
+        . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s "${SUBDOMAIN}" -i "${PUBLIC_IP}"
 
         # Create record for domain if default game
         if [ $GAME_NAME == $DEFAULT_GAME ]; then
             SUBDOMAIN="${DOMAIN}"
-            . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
+            . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s "${SUBDOMAIN}" -i "${PUBLIC_IP}"
         fi
     fi
 fi
