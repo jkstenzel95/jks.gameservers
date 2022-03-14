@@ -6,18 +6,18 @@ while getopts s:i: flag
 do
     case "${flag}" in
         s) subdomain=${OPTARG};;
-    esac
-    case "${flag}" in
         i) ip=${OPTARG};;
     esac
 done
 
 if [[ "${subdomain}" == "" ]]; then
     echo "Cannot create an alias record without a provided subdomain (-s)"
+    exit 1
 fi
 
 if [[ "${ip}" == "" ]]; then
     echo "Cannot create an alias record without a provided IP (-i)"
+    exit 1
 fi
 
 hosted_zone=$(aws route53 list-hosted-zones-by-name | jq ".HostedZones[] | select(.Name == \"${subdomain}.\") | .Id" | tr -d '/hostedzone/' | tr -d '"')
