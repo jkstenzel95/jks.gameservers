@@ -1,5 +1,5 @@
-variable "map_zone_id" {
-  description = "the id of the map's hosted zone"
+variable "main_zone_id" {
+  description = "the id of the main hosted zone"
 }
 
 variable domain_name {

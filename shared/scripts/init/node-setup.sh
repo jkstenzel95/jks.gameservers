@@ -39,19 +39,22 @@ MAPPINGS_FILE_NAME="${SHARED_DIR}/shared/data/mappings.json"
 DEFAULT_GAME=$(cat $MAPPINGS_FILE_NAME | jq ".domain_defaults.game" | tr -d '"')
 DEFAULT_MAP=$(cat $MAPPINGS_FILE_NAME | jq ".domain_defaults.map.${GAME_NAME}" | tr -d '"')
 DEFAULT_ENV=$(cat $MAPPINGS_FILE_NAME | jq ".domain_defaults.env" | tr -d '"')
+GAME_L=$(echo $GAME_NAME | tr '[:upper:]' '[:lower:]') 
+MAP_L=$(echo $MAP_SET | tr '[:upper:]' '[:lower:]') 
+ENV_L=$(echo $ENV | tr '[:upper:]' '[:lower:]') 
 
 # Create record for env.map.game.domain
-SUBDOMAIN="${ENV}.${MAP_SET}.${GAME_NAME}.${DOMAIN}"
+SUBDOMAIN="${ENV_L}.${MAP_L}.${GAME_L}.${DOMAIN}"
 . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
 
 # Create record for map.game.domain if in default env
 if [ $ENV == $DEFAULT_ENV ]; then
-    SUBDOMAIN="${MAP_SET}.${GAME_NAME}.${DOMAIN}"
+    SUBDOMAIN="${MAP_L}.${GAME_L}.${DOMAIN}"
     . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
 
     # Create record for game.domain if default map
     if [ $MAP_SET == $DEFAULT_MAP ]; then
-        SUBDOMAIN="${GAME_NAME}.${DOMAIN}"
+        SUBDOMAIN="${GAME_L}.${DOMAIN}"
         . "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s $SUBDOMAIN -i $PUBLIC_IP
 
         # Create record for domain if default game

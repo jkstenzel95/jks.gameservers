@@ -7,9 +7,9 @@ resource "aws_route53_zone" "subdomain_zone" {
 }
 
 resource "aws_route53_record" "ns" {
-  zone_id = var.map_zone_id
+  zone_id = var.main_zone_id
   name    = local.domain
   type    = "NS"
   ttl     = "30"
-  records = var.name_servers
+  records = aws_route53_zone.subdomain_zone.name_servers
 }

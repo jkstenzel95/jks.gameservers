@@ -1,5 +1,5 @@
-variable "game_zone_id" {
-  description = "the id of the game's hosted zone"
+variable "main_zone_id" {
+  description = "the id of the main hosted zone"
 }
 
 variable domain_name {
