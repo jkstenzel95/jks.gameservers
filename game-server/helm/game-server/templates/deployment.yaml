@@ -59,6 +59,10 @@ spec:
         hostPath:
           path: /gameservers-package
           type: Directory
+      - name: etc
+        hostPath:
+          path: /etc/jks-gameserver
+          type: Directory
       initContainers:
       - name: gameserver-init
         image: {{ $initImage }}
@@ -70,6 +74,8 @@ spec:
         volumeMounts:
         - mountPath: {{ $serverMountPath }}
           name: game-server
+        - mountPath: /etc/jks-gameserver
+          name: etc
         - mountPath: gameservers-package
           name: shared-dir
         {{ if .Values.hasSecrets }}
@@ -117,6 +123,8 @@ spec:
           name: game-server
         - mountPath: /gameservers-package
           name: shared-dir
+        - mountPath: /etc/jks-gameserver
+          name: etc
         {{ if .Values.hasSecrets }}
         - name: jks-secrets
           mountPath: "/mnt/secrets-store"

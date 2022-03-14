@@ -36,6 +36,11 @@ then
     rm /gameservers-package.zip
 fi
 
+mkdir /etc/jks-gameserver
+sudo chown $USER -R /etc/jks-gameserver
+echo "jks-gs-${ENVIRONMENT}-${REGION_SHORTNAME}-${GAME_NAME}-${MAP_SET}" | tr '[:upper:]' '[:lower:]' > /etc/jks-gameserver/public-ip-name.txt
+sudo chmod -R 0777 /etc/jks-gameserver
+
 # If not setting up at launch, this will defer to the pod
 if [ "${SETUP_AT_LAUNCH}" == "true" ]
 then

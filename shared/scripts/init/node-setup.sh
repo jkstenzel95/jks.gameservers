@@ -25,8 +25,8 @@ if [ $ATTACH_VOLUME == "true" ]; then
     echo "Mount complete!"
 fi
 
-LOWERCASE_GAME_DESCRIPTOR=$(echo "${ENVIRONMENT}-${REGION_SHORTNAME}-${GAME_NAME}-${MAP_SET}" | tr '[:upper:]' '[:lower:]')
-PUBLIC_IP=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].PublicIp' --filters Name=tag:Name,Values=jks-gs-${LOWERCASE_GAME_DESCRIPTOR}) | grep -o '".*"' | sed 's/"//g')
+PUBLIC_IP_NAME=$(cat /etc/jks-gameserver/public-ip-name.txt)
+PUBLIC_IP=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].PublicIp' --filters Name=tag:Name,Values=${PUBLIC_IP_NAME}) | grep -o '".*"' | sed 's/"//g')
 
 if [ $ATTACH_IP == "true" ]; then
     # Attach public IP, works in conjunction with Kubernetes hostPort exposure of servers
