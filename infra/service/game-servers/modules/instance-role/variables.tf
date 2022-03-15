@@ -1,9 +1,5 @@
-variable "game_name" {
-    description = "the game for which the instance is created"
-}
-
-variable "map_name" {
-    description = "the map for which the instance is created"
+variable "instance_identifier" {
+    description = "the clause to be used in identifying the node group and associated resources (ex. gamename-mapname)"
 }
 
 variable "region_shortname" {

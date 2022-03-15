@@ -17,6 +17,7 @@ locals {
         RESOURCE_BUCKET_NAME = "${var.resources_bucket_name}",
         SETUP_AT_LAUNCH = var.setup_at_launch
         DOMAIN = "${var.domain}"
+        PUBLIC_IP_NAME = "${var.public_ip_name}"
       })
     full_launch_script = "${local.common_script}\n\ntouch ${local.initialized_flag_file}"
 }
@@ -25,8 +26,7 @@ locals {
 module "instance_iam_role" {
     source = "./../instance-role"
 
-    game_name = "${var.game_name}"
-    map_name = "${var.map_name}"
+    instance_identifier = "${var.instance_identifier}"
     env = "${var.env}"
     region_shortname = "${var.region_shortname}"
 }
@@ -54,7 +54,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
 
 # the launch template for the spot fleet
 resource "aws_launch_template" "launch_template" {
-    name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-lt"
+    name = "jks-gs-${var.env}-${var.region_shortname}-${var.instance_identifier}-lt"
 
     vpc_security_group_ids = var.security_group_ids
 
@@ -76,7 +76,7 @@ resource "aws_launch_template" "launch_template" {
 
 resource "aws_eks_node_group" "game_node" {
     cluster_name    = "${var.cluster_name}"
-    node_group_name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-node_group"
+    node_group_name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.instance_identifier}-node_group"
     node_role_arn   = module.instance_iam_role.arn
     subnet_ids      = [ var.subnet_id ]
     instance_types = [ "${var.instance_type}" ]
@@ -111,6 +111,6 @@ resource "aws_eks_node_group" "game_node" {
 
 resource "aws_eip" "eip" {
     tags = {
-        Name = lower("jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}")
+        Name = lower("jks-gs-${var.env}-${var.region_shortname}-${var.instance_identifier}")
     }
 }

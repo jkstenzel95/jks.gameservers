@@ -1,6 +1,6 @@
 # the role that will be used in attaching the volume to a machine on startup
 resource "aws_iam_role" "instance_iam_role" {
-    name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-iam-role"
+    name = "jks-gameservers-${var.env}-${var.region_shortname}-${var.instance_identifier}-iam-role"
     assume_role_policy = jsonencode({
         "Version": "2012-10-17",
         "Statement": [
@@ -19,7 +19,7 @@ resource "aws_iam_role" "instance_iam_role" {
 }
 
 resource "aws_iam_policy" "policy" {
-    name = "jks-gs-${var.env}-${var.region_shortname}-${var.game_name}-${var.map_name}-instance_policy"
+    name = "jks-gs-${var.env}-${var.region_shortname}-${var.instance_identifier}-instance_policy"
     policy = jsonencode({
         "Version": "2012-10-17",
         "Statement": [

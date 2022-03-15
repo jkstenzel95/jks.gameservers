@@ -32,6 +32,10 @@ variable "map_name" {
     description = "the map for which the instance is created"
 }
 
+variable "instance_identifier" {
+    description = "the clause to be used in identifying the node group and associated resources (ex. gamename-mapname)"
+}
+
 variable "setup_at_launch" {
     description = "whether the setup should happen by the node at launch instead of the pod"
 }
@@ -50,6 +54,10 @@ variable "packages_bucket_name" {
 
 variable "shared_package_version" {
     description = "the scripts and data files archive file version to download"
+}
+
+variable "public_ip_name" {
+    description = "the name of the public IP resource"
 }
 
 variable "instance_type" {

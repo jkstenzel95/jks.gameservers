@@ -7,7 +7,8 @@ module "ark_node_group" {
     availability_zone = "${var.availability_zone}"
     data_volume_id = "${var.ark_data_volume_id}" // TODO: support this being nonexistent?
     game_name = "Ark"
-    map_name = "${var.ark_map_name}"
+    map_name = "${var.ark_map_name}" // TODO: In the case where there is no game set up at launch, these values will get tricky. Keep blank?
+    instance_identifier = "ark-${var.ark_map_name}"
     instance_type = "c6i.4xlarge"
     resources_bucket_name = "${var.ark_resources_bucket_name}"
     backup_bucket_name = "${var.ark_backup_bucket_name}"
@@ -19,4 +20,5 @@ module "ark_node_group" {
     packages_bucket_name = var.packages_bucket_name
     shared_package_version = var.shared_package_version
     setup_at_launch = true
+    public_ip_name = "jks-gs-${var.env}-${var.region_shortname}-ark-${var.ark_map_name}"
 }
