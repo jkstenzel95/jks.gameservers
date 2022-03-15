@@ -19,6 +19,13 @@
             "maps": [
                 "main"
             ]
+        },
+        {
+            "name": "Valheim",
+            "image_version" : "dev.202203100706",
+            "maps": [
+                "Audigr"
+            ]
         }
     ] 
 }

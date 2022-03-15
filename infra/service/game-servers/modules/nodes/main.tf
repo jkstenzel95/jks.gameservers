@@ -14,7 +14,7 @@ module "ark_node_group" {
     backup_bucket_name = "${var.ark_backup_bucket_name}"
     security_group_ids = [ var.ssh_sg_id, var.games_sg_id, var.node_sg_id ]
     server_image_id = "${var.ark_server_image_id}"
-    game_policy_arns = [ var.ark_data_access_policy_arn, var.minecraft_data_access_policy_arn ]
+    game_policy_arns = [ var.ark_data_access_policy_arn, var.minecraft_data_access_policy_arn, var.valheim_data_access_policy_arn ]
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id
     packages_bucket_name = var.packages_bucket_name

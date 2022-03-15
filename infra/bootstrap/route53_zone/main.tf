@@ -1,5 +1,5 @@
 locals {
-  games = ["ark", "minecraft"]
+  games = ["ark", "minecraft", "valheim"]
 }
 
 resource "aws_route53_zone" "main" {

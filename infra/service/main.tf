@@ -31,8 +31,6 @@ provider aws {
 module "game_servers" {
     source = "./game-servers"
 
-    minecraft_map_names = "${var.minecraft_map_names}"
-    valheim_map_names = "${var.valheim_map_names}"
     env = "${var.env}"
     server_region = "${var.server_region}"
     region_shortname = "${var.region_shortname}"

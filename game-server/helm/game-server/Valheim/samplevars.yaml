@@ -1,0 +1,27 @@
+# ---- SET WITH --set DURING HELM INSTALL ----
+# (Example values below)
+# imageTag: prod.202112270000
+# map: ScorchedEarth
+# environmentVariableFile: "blah.txt"
+# ports: [
+#   {
+#     number: 7777,
+#     protocol: UDP,
+#     name: SERVER_PORT_1
+#   },
+#   {
+#     number: 7778,
+#     protocol: UDP,
+#     name: SERVER_PORT_2
+#   },
+#   {
+#     number: 27015,
+#     protocol: UDP,
+#     name: QUERY_PORT
+#   },
+#   {
+#     number: 32330,
+#     protocol: UDP,
+#     name: RCON_PORT
+#   }
+# ]

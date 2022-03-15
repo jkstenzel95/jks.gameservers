@@ -1,8 +1,3 @@
-variable minecraft_map_names {
-    description = "a list of names of minecraft maps to create"
-    type = list(string)
-}
-
 variable valheim_map_names {
     description = "a list of names of valheim maps to create"
     type = list(string)

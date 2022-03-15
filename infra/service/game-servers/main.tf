@@ -42,6 +42,16 @@ module "minecraft_resources" {
     packages_bucket_arn = aws_s3_bucket.packages_bucket.arn
 }
 
+module "valheim_resources" {
+    source = "./modules/Minecraft/valheim-resources"
+
+    server_region = "${var.server_region}"
+    region_shortname = "${var.region_shortname}"
+    availability_zone = "${var.availability_zone}"
+    env = "${var.env}"
+    packages_bucket_arn = aws_s3_bucket.packages_bucket.arn
+}
+
 module "nodes" {
   source = "./modules/nodes"
 

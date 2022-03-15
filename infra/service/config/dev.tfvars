@@ -6,5 +6,3 @@ ark_server_image_id = "ami-093d9796e55a5b860"
 cluster_name = "jks-use2"
 subnet_id = "subnet-05dc9f7b2498d4f92"
 shared_package_version = "8a6d175d072d6e337af21f74f613b5172e799f4c"
-minecraft_map_names = []
-valheim_map_names = []

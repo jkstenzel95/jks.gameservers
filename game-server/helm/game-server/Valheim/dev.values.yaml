@@ -1,0 +1,16 @@
+game: Valheim
+env: dev
+region: us-east-2
+regionShortname: use2
+mapSet: Audigr
+needsSetup: "true"
+requestsMemory: "2Gi"
+limitsMemory: "4Gi"
+requestVolume: true
+flexibleDeployment: true
+backupStorageName: "jks-gs-dev-use2-valheim-backup-bucket"
+resourceBucketName: "jks-gs-dev-use2-valheim-gameresources-bucket"
+storageSize: 14
+volumeId: 
+
+hasSecrets: false

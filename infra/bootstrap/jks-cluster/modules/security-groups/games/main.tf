@@ -68,6 +68,26 @@ resource "aws_security_group" "games_sg" {
         ipv6_cidr_blocks = ["::/0"]
     }
 
+    # Valheim rules
+
+    ingress {
+        description = "Valheim Port"
+        from_port = 2456
+        to_port = 2458
+        protocol = "tcp"
+        cidr_blocks      = ["0.0.0.0/0"]
+        ipv6_cidr_blocks = ["::/0"]
+    }
+
+    ingress {
+        description = "Valheim Port"
+        from_port = 2456
+        to_port = 2458
+        protocol = "udp"
+        cidr_blocks      = ["0.0.0.0/0"]
+        ipv6_cidr_blocks = ["::/0"]
+    }
+
   tags = {
     Name = "jks-gs-serverbase-sg"
   }

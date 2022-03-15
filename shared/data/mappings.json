@@ -5,7 +5,8 @@
         "map":
         {
             "Ark": "all",
-            "Minecraft": "main"
+            "Minecraft": "main",
+            "Valheim": "Audigr"
         },
         "env": "dev"
     }

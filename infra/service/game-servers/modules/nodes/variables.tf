@@ -59,6 +59,10 @@ variable minecraft_data_access_policy_arn {
     description = "the policy allowing access to minecraft data stores"
 }
 
+variable valheim_data_access_policy_arn {
+    description = "the policy allowing access to valheim data stores"
+}
+
 variable "packages_bucket_name" {
     description = "the name of the bucket containing the scripts and data files package"
 }
