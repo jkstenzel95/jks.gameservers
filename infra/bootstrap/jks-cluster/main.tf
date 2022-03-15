@@ -199,8 +199,8 @@ resource "aws_iam_policy" "data_access_policy" {
                 "Resource": "*"
           },
           {
-                "Sid": "DescribeQueryScanBooksTable",
                 "Effect": "Allow",
+                "Sid": "DescribeQueryScanBooksTable",
                 "Action": "dynamodb:*",
                 "Resource": "*"
           },
@@ -220,6 +220,14 @@ resource "aws_iam_policy" "data_access_policy" {
                     "s3:PutObjectAcl"
                 ],
             "Resource": "*"
+          },
+          {
+              "Effect": "Allow",
+                  "Action": [
+                      "route53:ListHostedZonesByName",
+                      "route53:ChangeResourceRecordSets"
+                  ],
+              "Resource": "*"
           }
       ]
     })
