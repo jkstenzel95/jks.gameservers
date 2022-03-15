@@ -30,7 +30,7 @@ PUBLIC_IP=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].PublicIp' --
 
 if [ $ATTACH_IP == "true" ]; then
     # Attach public IP, works in conjunction with Kubernetes hostPort exposure of servers
-    ALLOCATION_ID=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].AllocationId' --filters Name=tag:Name,Values=jks-gs-${LOWERCASE_GAME_DESCRIPTOR}) | grep -o '".*"' | sed 's/"//g')
+    ALLOCATION_ID=$(echo $(aws ec2 describe-addresses --query 'Addresses[*].AllocationId' --filters Name=tag:Name,Values=${PUBLIC_IP_NAME}) | grep -o '".*"' | sed 's/"//g')
     INTERFACE=$(aws ec2 describe-network-interfaces --filters Name=attachment.instance-id,Values=$EC2_INSTANCE_ID Name=addresses.primary,Values=true --query 'NetworkInterfaces[].{Id: NetworkInterfaceId, IP: Association.PublicIp}' | jq -c '.[] | select(.IP != null) | .Id' | tr -d '"')
     aws ec2 associate-address --network-interface-id $INTERFACE --allocation-id $ALLOCATION_ID
 fi
