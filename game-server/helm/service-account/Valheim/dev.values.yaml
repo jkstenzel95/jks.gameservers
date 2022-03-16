@@ -1,6 +1,7 @@
-game: Minecraft
+game: Valheim
 env: dev
 
 secrets:
+- jks/gameservers/dev/use2/Valheim-Server-Password
 
 iamRoleArn: arn:aws:iam::493757919697:role/jks-gs-dev-use2-oidc-role
