@@ -7,4 +7,4 @@ minecraft_maps = [ "main" ]
 valheim_maps = [ "Audigr" ]
 cluster_name = "jks-use2"
 subnet_id = "subnet-05dc9f7b2498d4f92"
-shared_package_version = "8a6d175d072d6e337af21f74f613b5172e799f4c"
+shared_package_version = "d526acf93fa7d8cef115c32992f1ef746cb30aa0"
