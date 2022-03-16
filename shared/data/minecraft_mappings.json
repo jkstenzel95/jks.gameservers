@@ -1,1 +1,10 @@
-{}
+{
+    "maps": [
+        {
+            "name": "main",
+            "volumeId": "vol-056659c685df85e12",
+            "requestsMemory": "2Gi",
+            "limitsMemory": "4Gi"
+        }
+    ]
+}

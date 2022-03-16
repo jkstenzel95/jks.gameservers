@@ -1,0 +1,6 @@
+game: Minecraft
+env: dev
+
+secrets:
+
+iamRoleArn: arn:aws:iam::493757919697:role/jks-gs-dev-use2-oidc-role

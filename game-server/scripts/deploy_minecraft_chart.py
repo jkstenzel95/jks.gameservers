@@ -22,24 +22,26 @@ def apply_charts(mappings_file, config_file, env, test):
                 if game["name"] == "Minecraft":
                     map_set = set(game["maps"])
                     image_version = game["image_version"]
-                    for idx, map in enumerate(map_set):
-                        print("Creating cluster for map {}; Image tag {}".format(map, image_version))
-                        game_port = deployment_utilities.get_port_number(25565, idx)
-                        print("We're looking at game port {}".format(game_port))
-                        gp_port_string = "ports[0].name=SERVER_PORT,ports[0].protocol=TCP,ports[0].number={},ports[0].game=Minecraft,ports[0].map={}".format(game_port, map)
-                        port_name_prefix = "MINECRAFT_{}_{}".format(map.upper(), env.upper())
-                        ports.append({ "name": "{}_SERVER_PORT".format(port_name_prefix), "protocol": "TCP", "number": game_port, "game": "Minecraft", "map": map })
-                        env_file = "{}_env_list.txt".format(map)
-                        env_file_path = "{}/../helm/game-server/{}".format(dir_path, env_file)
-                        # No justification for a additional env variables yet/anymore. Here as a guideline to show how it's done, but has no effect on the deployment
-                        env_dict = {  }
-                        deployment_utilities.generate_env_file(env_dict, env_file_path)
-                        values_string = "--set imageTag={},game=Minecraft,map={},environmentVariableFile={},{}".format(image_version, map, env_file, gp_port_string)
-                        call_command = ["{}/helm_deploy.sh".format(dir_path), "-g", "Minecraft", "-m", map,"-e", env, "-v", values_string]
-                        if test:
-                            call_command.append("-t")
-                        call(call_command)
-                        os.remove(env_file_path)
+                    for idx, map_info in enumerate(mappings_json["maps"]):
+                        map = map_info["name"]
+                        if map in map_set:
+                            print("Creating cluster for map {}; Image tag {}".format(map, image_version))
+                            game_port = deployment_utilities.get_port_number(25565, idx)
+                            print("We're looking at game port {}".format(game_port))
+                            gp_port_string = "ports[0].name=SERVER_PORT,ports[0].protocol=TCP,ports[0].number={},ports[0].game=Minecraft,ports[0].map={}".format(game_port, map)
+                            port_name_prefix = "MINECRAFT_{}_{}".format(map.upper(), env.upper())
+                            ports.append({ "name": "{}_SERVER_PORT".format(port_name_prefix), "protocol": "TCP", "number": game_port, "game": "Minecraft", "map": map })
+                            env_file = "{}_env_list.txt".format(map)
+                            env_file_path = "{}/../helm/game-server/{}".format(dir_path, env_file)
+                            # No justification for a additional env variables yet/anymore. Here as a guideline to show how it's done, but has no effect on the deployment
+                            env_dict = {  }
+                            deployment_utilities.generate_env_file(env_dict, env_file_path)
+                            values_string = "--set imageTag={},game=Minecraft,map={},mapSet={},volumeId={},requestsMemory={},limitsMemory={},environmentVariableFile={},{}".format(image_version, map, map, map_info["volumeId"], map_info["requestsMemory"], map_info["limitsMemory"], env_file, gp_port_string)
+                            call_command = ["{}/helm_deploy.sh".format(dir_path), "-g", "Minecraft", "-m", map,"-e", env, "-v", values_string]
+                            if test:
+                                call_command.append("-t")
+                            call(call_command)
+                            os.remove(env_file_path)
     return ports
 
 if __name__ == '__main__':
