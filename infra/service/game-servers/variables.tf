@@ -1,8 +1,3 @@
-variable valheim_map_names {
-    description = "a list of names of valheim maps to create"
-    type = list(string)
-}
-
 variable ark_server_image_id {
     description = "the image ID (AMI) of the ark server being provisioned"
 }
@@ -17,6 +12,14 @@ variable games_sg_name {
 
 variable node_sg_name {
     description = "the name of the node security group"
+}
+
+variable minecraft_maps {
+    description = "the list of minecraft maps to create resources for"
+}
+
+variable valheim_maps {
+    description = "the list of valheim maps to create resources for"
 }
 
 variable env {

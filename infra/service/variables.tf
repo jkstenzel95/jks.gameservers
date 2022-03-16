@@ -1,6 +1,9 @@
-variable valheim_map_names {
-    description = "a list of names of valheim maps to create"
-    type = list(string)
+variable minecraft_maps {
+    description = "the list of minecraft maps to create resources for"
+}
+
+variable valheim_maps {
+    description = "the list of valheim maps to create resources for"
 }
 
 variable ark_server_image_id {

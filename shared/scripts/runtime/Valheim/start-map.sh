@@ -27,8 +27,6 @@ config_file_name="${SHARED_DIR}/shared/config/${ENVIRONMENT}.json"
 mappings_file_name="${SHARED_DIR}/shared/data/ark_mappings.json"
 MAP_DATA=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\")")
 CONFIG_DATA=$(cat $config_file_name | jq ".games[] | select(.name == \"$GAME_NAME\")")
-MAX_PLAYERS=$(echo $CONFIG_DATA | jq ".max_players")
-MAP_CODE=$(echo $MAP_DATA | jq ".map_code" | tr -d '"')
 MOD_LIST=$(echo $CONFIG_DATA | jq ".mods | @csv" | tr -d '"' | tr -d " ")
 ADDITIONAL_SERVER_PARAMS=$(echo $MAP_DATA | jq ".additional_server_params" | tr -d '"')
 

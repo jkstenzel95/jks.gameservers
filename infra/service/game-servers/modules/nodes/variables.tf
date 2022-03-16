@@ -51,16 +51,16 @@ variable "packages_bucket_arn" {
     description = "the bucket containing the scripts and data files package"
 }
 
-variable ark_data_access_policy_arn {
-    description = "the policy allowing access to ark data stores"
+variable ark_data_access_policy_arns {
+    description = "the policies allowing access to ark data stores"
 }
 
-variable minecraft_data_access_policy_arn {
-    description = "the policy allowing access to minecraft data stores"
+variable minecraft_data_access_policy_arns {
+    description = "the policies allowing access to minecraft data stores"
 }
 
-variable valheim_data_access_policy_arn {
-    description = "the policy allowing access to valheim data stores"
+variable valheim_data_access_policy_arns {
+    description = "the policies allowing access to valheim data stores"
 }
 
 variable "packages_bucket_name" {

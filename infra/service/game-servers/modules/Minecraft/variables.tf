@@ -1,13 +1,13 @@
 variable "server_region" {
-    description = "region to provision the server in"
+    description = "region to provision the instance in"
 }
 
 variable "region_shortname" {
     description = "the shortname of the region to provision the instance in"
 }
 
-variable "map_name" {
-    description = "the name of the map to create resources for"
+variable "maps" {
+    description = "the list of maps to create resources for the"
 }
 
 variable "env" {
@@ -16,4 +16,8 @@ variable "env" {
 
 variable availability_zone {
     description =  "the name of the availability zone"
+}
+
+variable "packages_bucket_arn" {
+    description = "the bucket containing the scripts and data files package"
 }

@@ -23,33 +23,35 @@ data "aws_security_group" "node_sg" {
 }
 
 module "ark_resources" {
-    source = "./modules/Ark/ark-resources"
+  source = "./modules/Ark/ark-resources"
 
-    server_region = "${var.server_region}"
-    region_shortname = "${var.region_shortname}"
-    availability_zone = "${var.availability_zone}"
-    env = "${var.env}"
-    packages_bucket_arn = aws_s3_bucket.packages_bucket.arn
+  server_region = "${var.server_region}"
+  region_shortname = "${var.region_shortname}"
+  availability_zone = "${var.availability_zone}"
+  env = "${var.env}"
+  packages_bucket_arn = aws_s3_bucket.packages_bucket.arn
 }
 
 module "minecraft_resources" {
-    source = "./modules/Minecraft/minecraft-resources"
+  source = "./modules/Minecraft"
 
-    server_region = "${var.server_region}"
-    region_shortname = "${var.region_shortname}"
-    availability_zone = "${var.availability_zone}"
-    env = "${var.env}"
-    packages_bucket_arn = aws_s3_bucket.packages_bucket.arn
+  server_region = "${var.server_region}"
+  region_shortname = "${var.region_shortname}"
+  availability_zone = "${var.availability_zone}"
+  maps = var.minecraft_maps
+  env = "${var.env}"
+  packages_bucket_arn = aws_s3_bucket.packages_bucket.arn
 }
 
 module "valheim_resources" {
-    source = "./modules/Minecraft/valheim-resources"
+  source = "./modules/Valheim"
 
-    server_region = "${var.server_region}"
-    region_shortname = "${var.region_shortname}"
-    availability_zone = "${var.availability_zone}"
-    env = "${var.env}"
-    packages_bucket_arn = aws_s3_bucket.packages_bucket.arn
+  server_region = "${var.server_region}"
+  region_shortname = "${var.region_shortname}"
+  availability_zone = "${var.availability_zone}"
+  maps = var.minecraft_maps
+  env = "${var.env}"
+  packages_bucket_arn = aws_s3_bucket.packages_bucket.arn
 }
 
 module "nodes" {
@@ -65,8 +67,9 @@ module "nodes" {
   packages_bucket_arn = aws_s3_bucket.packages_bucket.arn
   packages_bucket_name = aws_s3_bucket.packages_bucket.id
   shared_package_version = var.shared_package_version
-  ark_data_access_policy_arn = module.minecraft_resources.data_access_policy_arn
-  minecraft_data_access_policy_arn = module.minecraft_resources.data_access_policy_arn
+  ark_data_access_policy_arns = [ module.ark_resources.data_access_policy_arn ]
+  minecraft_data_access_policy_arns = module.minecraft_resources.data_access_policy_arns
+  valheim_data_access_policy_arns = module.valheim_resources.data_access_policy_arns
   ark_data_volume_id = module.ark_resources.shared_data_volume_id
   ark_resources_bucket_arn = module.ark_resources.resources_bucket_arn
   ark_resources_bucket_name = "${module.ark_resources.resources_bucket_name}"

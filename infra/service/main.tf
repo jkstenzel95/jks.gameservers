@@ -36,6 +36,8 @@ module "game_servers" {
     region_shortname = "${var.region_shortname}"
     availability_zone = "${var.primary_availability_zone}"
     ark_server_image_id = "${var.ark_server_image_id}"
+    minecraft_maps = var.minecraft_maps
+    valheim_maps = var.valheim_maps
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id
     shared_package_version = var.shared_package_version
