@@ -9,6 +9,7 @@ import sys
 
 untracked_items=["server.jar"]
 
+# TODO_MODS: This almost certainly needs to change for mods to avoid excessive storage
 def backup_saves_and_configs(shared_mount_location, backup_storage_name):
     path_to_saved = "{}/Minecraft".format(shared_mount_location)
     backup_version = datetime.datetime.now().strftime('%Y-%m-%d_%H%M')

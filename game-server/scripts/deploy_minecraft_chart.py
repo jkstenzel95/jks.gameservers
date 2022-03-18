@@ -36,7 +36,7 @@ def apply_charts(mappings_file, config_file, env, test):
                             # No justification for a additional env variables yet/anymore. Here as a guideline to show how it's done, but has no effect on the deployment
                             env_dict = {  }
                             deployment_utilities.generate_env_file(env_dict, env_file_path)
-                            values_string = "--set imageTag={},game=Minecraft,map={},mapSet={},volumeId={},requestsMemory={},limitsMemory={},environmentVariableFile={},{}".format(image_version, map, map, map_info["volumeId"], map_info["requestsMemory"], map_info["limitsMemory"], env_file, gp_port_string)
+                            values_string = "--set imageTag={},game=Minecraft,map={},mapSet={},volumeId={},requestsMemory={},limitsMemory={},environmentVariableFile={},{}".format(image_version, map, map, map_info["volume_id"], map_info["requests_memory"], map_info["limits_memory"], env_file, gp_port_string)
                             call_command = ["{}/helm_deploy.sh".format(dir_path), "-g", "Minecraft", "-m", map,"-e", env, "-v", values_string]
                             if test:
                                 call_command.append("-t")

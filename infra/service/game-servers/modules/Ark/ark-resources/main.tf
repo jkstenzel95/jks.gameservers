@@ -31,7 +31,7 @@ module "kv_store" {
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
     game_name = "Ark"
-    map_name = "all"
+    map_name = "all" # TODO: Fix Ark defaulting on a specific mapset
 }
 
 resource "aws_iam_policy" "data_access_policy" {

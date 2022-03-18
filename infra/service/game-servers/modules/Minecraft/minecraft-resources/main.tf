@@ -23,6 +23,7 @@ module "backup_bucket" {
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
     game_name = "Minecraft"
+    map_name = "${var.map_name}"
     purpose = "backup"
 }
 

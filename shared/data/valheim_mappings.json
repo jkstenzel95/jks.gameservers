@@ -3,8 +3,8 @@
         {
             "name": "Audigr",
             "volumeId": "vol-0cb0bfa6b9d0b6b82",
-            "requestsMemory": "2Gi",
-            "limitsMemory": "4Gi"
+            "requests_memory": "2Gi",
+            "limits_memory": "4Gi"
         }
     ]
 }
