@@ -28,9 +28,10 @@ def apply_charts(mappings_file, config_file, env, test):
                             print("Creating cluster for map {}; Image tag {}".format(map, image_version))
                             game_port = deployment_utilities.get_port_number(25565, idx)
                             print("We're looking at game port {}".format(game_port))
-                            gp_port_string = "ports[0].name=SERVER_PORT,ports[0].protocol=TCP,ports[0].number={},ports[0].game=Minecraft,ports[0].map={}".format(game_port, map)
+                            gp_port_string = "ports[0].name=SERVER_PORT,ports[0].protocol=TCP,ports[0].number={},ports[0].name=SERVER_PORT,ports[0].protocol=UDP,ports[0].number={},ports[0].game=Minecraft,ports[0].map={}".format(game_port, game_port, map)
                             port_name_prefix = "MINECRAFT_{}_{}".format(map.upper(), env.upper())
-                            ports.append({ "name": "{}_SERVER_PORT".format(port_name_prefix), "protocol": "TCP", "number": game_port, "game": "Minecraft", "map": map })
+                            ports.append({ "name": "{}_SERVER_PORT_TCP".format(port_name_prefix), "protocol": "TCP", "number": game_port, "game": "Minecraft", "map": map })
+                            ports.append({ "name": "{}_SERVER_PORT_UDP".format(port_name_prefix), "protocol": "UDP", "number": game_port, "game": "Minecraft", "map": map })
                             env_file = "{}_env_list.txt".format(map)
                             env_file_path = "{}/../helm/game-server/{}".format(dir_path, env_file)
                             # No justification for a additional env variables yet/anymore. Here as a guideline to show how it's done, but has no effect on the deployment

@@ -53,7 +53,7 @@ resource "aws_security_group" "games_sg" {
     ingress {
         description = "Minecraft TCP Port"
         from_port = 25565
-        to_port = 25565
+        to_port = 25585
         protocol = "tcp"
         cidr_blocks      = ["0.0.0.0/0"]
         ipv6_cidr_blocks = ["::/0"]
@@ -62,7 +62,7 @@ resource "aws_security_group" "games_sg" {
     ingress {
         description = "Minecraft UDP Port"
         from_port = 25565
-        to_port = 25565
+        to_port = 25585
         protocol = "udp"
         cidr_blocks      = ["0.0.0.0/0"]
         ipv6_cidr_blocks = ["::/0"]

@@ -2,6 +2,7 @@
     "maps": [
         {
             "name": "main",
+            "domain_abbreviation": "main",
             "volume_id": "vol-056659c685df85e12",
             "requests_memory": "2Gi",
             "limits_memory": "2Gi",
@@ -11,6 +12,7 @@
         },
         {
             "name": "gregtech",
+            "domain_abbreviation": "greg",
             "volume_id": "",
             "requests_memory": "6Gi",
             "limits_memory": "6Gi",
@@ -22,11 +24,24 @@
         },
         {
             "name": "greedycraft",
+            "domain_abbreviation": "greedy",
             "volume_id": "",
             "requests_memory": "8Gi",
             "limits_memory": "8Gi",
             "jdk_version": "8",
             "java_args": "-Xmx6G -Xms6G -Xss4M -Dfile.encoding=GBK -Dsun.rmi.dgc.server.gcInterval=1800000 -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -XX:-OmitStackTraceInFastThrow -XX:+OptimizeStringConcat -XX:+UseAdaptiveGCBoundary -XX:G1HeapRegionSize=32M",
+            "is_modded": true,
+            "forge_version": "forge-1.12.2-14.23.5.2855",
+            "modpack_zip": "GreedyCraft-Server-1.35.2.118.x.zip"
+        },
+        {
+            "name": "rebirth",
+            "domain_abbreviation": "rebirth",
+            "volume_id": "",
+            "requests_memory": "6Gi",
+            "limits_memory": "6Gi",
+            "jdk_version": "8",
+            "java_args": "-Xmx6G -Xms6G",
             "is_modded": true,
             "forge_version": "forge-1.12.2-14.23.5.2855",
             "modpack_zip": "GreedyCraft-Server-1.35.2.118.x.zip"

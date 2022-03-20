@@ -49,6 +49,11 @@ if [ $GAME_NAME != "" ]; then
     SUBDOMAIN="${ENV_L}.${MAP_L}.${GAME_L}.${DOMAIN}"
     bash "${SHARED_DIR}/shared/scripts/init/create-alias.sh" -s "${SUBDOMAIN}" -i "${PUBLIC_IP}"
 
+    mappings_file_name="${SHARED_DIR}/shared/data/mappings.json"
+    game_mappings_file_name="${SHARED_DIR}/shared/data/${GAME_L}_mappings.json"
+    GAME_ABBREV=$(cat $mappings_file_name | jq ".game_domain_abbrevations.${GAME_NAME}" | tr -d '"')
+    MAP_ABBREV=$(cat $game_mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .domain_abbreviation"  | tr -d '"')
+
     # Create record for map.game.domain if in default env
     if [ $ENVIRONMENT == $DEFAULT_ENV ]; then
         SUBDOMAIN="${MAP_L}.${GAME_L}.${DOMAIN}"

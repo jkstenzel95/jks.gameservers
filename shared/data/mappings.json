@@ -9,5 +9,12 @@
             "Valheim": "Audigr"
         },
         "env": "dev"
+    },
+
+    "game_domain_abbrevations":
+    {
+        "Ark": "ark",
+        "Minecraft": "mc",
+        "Valheim": "valheim"
     }
 }
