@@ -1,4 +1,4 @@
-module "shared_data_volume" {
+module "data_volume" {
     source = "./../minecraft-volume"
 
     server_region = "${var.server_region}"

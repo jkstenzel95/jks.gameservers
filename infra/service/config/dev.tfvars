@@ -3,6 +3,7 @@ region_shortname = "use2"
 primary_availability_zone = "us-east-2a"
 env = "dev"
 ark_server_image_id = "ami-093d9796e55a5b860"
+ark_mapsets = [ "all" ]
 minecraft_maps = [ "main" ]
 valheim_maps = [ "Audigr" ]
 cluster_name = "jks-use2"

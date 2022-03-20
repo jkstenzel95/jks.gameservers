@@ -1,3 +1,4 @@
+# TODO: A lot of duplication between games here. Just generalize the disk sizes as variables somewhere.
 module "volume" {
     source = "./../../volume"
 

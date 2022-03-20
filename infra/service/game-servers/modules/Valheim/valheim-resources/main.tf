@@ -1,4 +1,4 @@
-module "shared_data_volume" {
+module "data_volume" {
     source = "./../valheim-volume"
 
     server_region = "${var.server_region}"
@@ -23,6 +23,7 @@ module "backup_bucket" {
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
     game_name = "Valheim"
+    map_name = "${var.map_name}"
     purpose = "backup"
 }
 

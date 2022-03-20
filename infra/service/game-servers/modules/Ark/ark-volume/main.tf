@@ -5,7 +5,7 @@ module "volume" {
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
     game_name = "Ark"
-    map_name = "all"
+    map_name = "${var.map_name}"
     availability_zone = "${var.availability_zone}"
     volume_size = 200
     type = "gp2"

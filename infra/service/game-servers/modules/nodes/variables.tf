@@ -51,7 +51,7 @@ variable "packages_bucket_arn" {
     description = "the bucket containing the scripts and data files package"
 }
 
-variable ark_data_access_policy_arns {
+variable ark_data_access_policy_arn {
     description = "the policies allowing access to ark data stores"
 }
 

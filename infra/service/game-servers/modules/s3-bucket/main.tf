@@ -1,4 +1,4 @@
-local {
+locals {
   map_clause = (var.map_name != "") ? "${var.map_name}-" : "" 
 }
 

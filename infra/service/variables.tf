@@ -1,3 +1,7 @@
+variable ark_mapsets {
+    description = "the list of ark mapsets to create resources for"
+}
+
 variable minecraft_maps {
     description = "the list of minecraft maps to create resources for"
 }

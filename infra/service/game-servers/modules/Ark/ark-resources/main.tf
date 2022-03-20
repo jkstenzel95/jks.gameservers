@@ -3,6 +3,7 @@ module "shared_data_volume" {
 
     server_region = "${var.server_region}"
     region_shortname = "${var.region_shortname}"
+    map_name = "${var.map_name}"
     env = "${var.env}"
     availability_zone = "${var.availability_zone}"
 }
@@ -22,6 +23,7 @@ module "backup_bucket" {
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
     game_name = "Ark"
+    map_name = "${var.map_name}"
     purpose = "backup"
 }
 
@@ -31,11 +33,11 @@ module "kv_store" {
     region_shortname = "${var.region_shortname}"
     env = "${var.env}"
     game_name = "Ark"
-    map_name = "all" # TODO: Fix Ark defaulting on a specific mapset
+    map_name = "${var.map_name}"
 }
 
 resource "aws_iam_policy" "data_access_policy" {
-    name = "jks-gs-${var.env}-${var.region_shortname}-Ark-all-data_policy"
+    name = "jks-gs-${var.env}-${var.region_shortname}-Ark-${var.map_name}-data_policy"
     policy = jsonencode({
         "Version": "2012-10-17",
         "Statement": [

@@ -13,8 +13,7 @@ The data and logic shared across deployment pipelines and server/node setup/star
 
 ## Notes:
 - To set a backup for restore, in the backup table, add the following:
-    - Key: {GAME_NAME}_{MAP_NAME}_backup_version
-        - Capitalization matters - if the game is 'Ark', use that instead of 'ark'
+    - Key: backup_version
     - KeyValue: {BACKUP_VERSION}
         - Backup version is the name of the zip file minus the ".zip"
 - Any changes to packages requires a publish, then a packages version bump in infra/service (see that README.md to understand how to do that), then an instance termination
