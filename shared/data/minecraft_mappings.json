@@ -43,8 +43,8 @@
             "jdk_version": "8",
             "java_args": "-Xmx6G -Xms6G",
             "is_modded": true,
-            "forge_version": "forge-1.12.2-14.23.5.2855",
-            "modpack_zip": "GreedyCraft-Server-1.35.2.118.x.zip"
+            "forge_version": "forge-1.12.2-14.23.5.2860",
+            "modpack_zip": ""
         }
     ]
 }
