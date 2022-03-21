@@ -9,7 +9,7 @@ resource "aws_dynamodb_table" "game_key_value_store" {
   }
 
   replica {
-    region_name = "us-east-2"
+    region_name = "us-east-1"
   }
 
   replica {
