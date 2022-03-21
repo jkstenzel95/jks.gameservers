@@ -12,6 +12,7 @@ module "resources_bucket" {
     source = "./../../s3-bucket"
 
     region_shortname = "${var.region_shortname}"
+    map_name = "${var.map_name}"
     env = "${var.env}"
     game_name = "Valheim"
     purpose = "gameresources"
