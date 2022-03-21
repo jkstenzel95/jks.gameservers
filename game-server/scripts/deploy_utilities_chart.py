@@ -11,7 +11,7 @@ def deploy_chart_for_utilities(test):
     call(call_command)
     call_command = ["kubectl", "apply", "-f", "https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml"]
     if test:
-        call_command.append("--dry-run='client'")
+        call_command.append("--dry-run=\"client\"")
     call(call_command)
 
 if __name__ == '__main__':
