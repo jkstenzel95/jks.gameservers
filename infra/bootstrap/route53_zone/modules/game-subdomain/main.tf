@@ -1,8 +1,8 @@
 locals {
     ark_mapsets = [ "all" ]
     minecraft_maps = [ "main", "greg", "greedy", "rebirth" ]
-    valheim_maps = [ "Audigr" ]
-    maps = var.game_name == "ark" ? local.ark_mapsets : ( var.game_name == "minecraft" ? local.minecraft_maps : [] )
+    valheim_maps = [ "audigr" ]
+    maps = var.game_name == "ark" ? local.ark_mapsets : ( var.game_name == "mc" ? local.minecraft_maps : (var.game_name == "valheim" ? local.valheim_maps : [] ) )
     domain = lower("${var.game_name}.${var.domain_name}")
 }
 
