@@ -2,7 +2,7 @@
     "maps": [
         {
             "name": "Audigr",
-            "volume_id": "vol-02fa2896c62c7a219",
+            "volume_id": "vol-0cd5965b69a582e58",
             "requests_memory": "2Gi",
             "limits_memory": "4Gi"
         }

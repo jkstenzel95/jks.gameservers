@@ -11,6 +11,5 @@ flexibleDeployment: true
 backupStorageName: "jks-gs-dev-use2-valheim-backup-bucket"
 resourceBucketName: "jks-gs-dev-use2-valheim-gameresources-bucket"
 storageSize: 14
-volumeId: vol-0cb0bfa6b9d0b6b82
 
 hasSecrets: false

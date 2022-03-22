@@ -3,7 +3,7 @@
         {
             "name": "main",
             "domain_abbreviation": "main",
-            "volume_id": "vol-09b53027bd63c28c5",
+            "volume_id": "vol-075df8a579b3ce1dc",
             "requests_memory": "2Gi",
             "limits_memory": "2Gi",
             "jdk_version": "17",
@@ -13,7 +13,7 @@
         {
             "name": "gregtech",
             "domain_abbreviation": "greg",
-            "volume_id": "vol-0ac3b302f72ff188d",
+            "volume_id": "vol-04dffca6b47c66e30",
             "requests_memory": "6Gi",
             "limits_memory": "6Gi",
             "jdk_version": "8",
@@ -25,7 +25,7 @@
         {
             "name": "greedycraft",
             "domain_abbreviation": "greedy",
-            "volume_id": "vol-0a11a16bff8942b31",
+            "volume_id": "vol-09b51a2a6dce1c660",
             "requests_memory": "8Gi",
             "limits_memory": "8Gi",
             "jdk_version": "8",

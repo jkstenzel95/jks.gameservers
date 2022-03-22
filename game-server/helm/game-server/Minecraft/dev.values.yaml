@@ -11,6 +11,5 @@ flexibleDeployment: true
 backupStorageName: "jks-gs-dev-use2-minecraft-main-backup-bucket"
 resourceBucketName: "jks-gs-dev-use2-minecraft-main-gameresources-bucket"
 storageSize: 56
-volumeId: vol-056659c685df85e12
 
 hasSecrets: false
