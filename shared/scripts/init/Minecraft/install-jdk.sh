@@ -9,8 +9,8 @@ do
 done
 
 if [ $version == 8 ]; then
-    sudo yum update
-    sudo yum install java-1.8.0-openjdk
+    sudo yum update -y
+    sudo yum install java-1.8.0-openjdk -y
     exit 0
 elif [ $version == 17 ]; then
     sudo dnf -y install curl wget

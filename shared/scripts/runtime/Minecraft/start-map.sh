@@ -14,8 +14,6 @@ do
     esac
 done
 
-# TODO: the game server runtime image may need to reinstall dependencies. In fact, I think most will. Fix structuring.
-. "${SHARED_DIR}/shared/scripts/init/Minecraft/install-dependencies.sh"
 pushd $SERVER_MOUNT_LOCATION/Minecraft
 mappings_file_name="${SHARED_DIR}/shared/data/minecraft_mappings.json"
 java_args=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .java_args" | tr -d '"')
