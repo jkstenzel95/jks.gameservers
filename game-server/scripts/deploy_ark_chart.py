@@ -5,7 +5,7 @@ import sys
 import deployment_utilities
 from subprocess import call
 
-def apply_charts(mappings_file, config_file, env, test):
+def apply_charts(mappings_file, config_file, env, region, test):
     ports = []
     dir_path = os.path.dirname(os.path.realpath(__file__))
     call_command = ["{}/helm_deploy_serviceaccount.sh".format(dir_path), "-g", "Ark", "-e", env]
