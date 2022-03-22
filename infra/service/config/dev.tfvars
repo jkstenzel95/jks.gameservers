@@ -8,4 +8,4 @@ minecraft_maps = [ "main", "gregtech", "greedycraft" ]
 valheim_maps = [ "Audigr" ]
 cluster_name = "jks-use2"
 subnet_id = "subnet-05dc9f7b2498d4f92"
-shared_package_version = "5a7a9e63bcc3dc75bb8d98d617d15abd53ce1f2b"
+shared_package_version = "574456d4475a9e15a0f4249e61f4cc0d7ebaecb5"
