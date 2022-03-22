@@ -15,6 +15,11 @@ variable "build_role_arn" {
     description = "the AWS IAM role to use in the build stages"
 }
 
+variable "region_shortname" {
+    description = "the shortname of the region to provision the instance in"
+    default = "use2"
+}
+
 variable "env" {
     description = "the environment of the server resource set"
 }

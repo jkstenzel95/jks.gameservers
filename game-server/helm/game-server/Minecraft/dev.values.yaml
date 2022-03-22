@@ -8,8 +8,6 @@ requestsMemory: "2Gi"
 limitsMemory: "4Gi"
 requestVolume: true
 flexibleDeployment: true
-backupStorageName: "jks-gs-dev-use2-minecraft-main-backup-bucket"
-resourceBucketName: "jks-gs-dev-use2-minecraft-main-gameresources-bucket"
 storageSize: 38
 
 hasSecrets: false

@@ -1,7 +1,7 @@
 game: Ark
 env: dev
-region: us-east-2
-regionShortname: use2
+region: us-east-2 # TODO: Make this flexible
+regionShortname: use2 # TODO: Make this flexible
 mapSet: all
 needsSetup: "false"
 requestsMemory: "4Gi"

@@ -15,4 +15,4 @@ phases:
       - aws eks --region us-east-2 update-kubeconfig --name jks-use2 --role-arn ${build_role}
   build:
     commands:
-      - python3 ./game-server/scripts/deploy_chart.py --shared-files-location ./shared --env ${env} ${test_clause}
+      - python3 ./game-server/scripts/deploy_chart.py --shared-files-location ./shared --region ${region} --env ${env} ${test_clause}

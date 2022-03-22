@@ -5,7 +5,7 @@ import sys
 import deployment_utilities
 from subprocess import call
 
-def apply_charts(mappings_file, config_file, env, test):
+def apply_charts(mappings_file, config_file, env, region, test):
     ports = []
     dir_path = os.path.dirname(os.path.realpath(__file__))
     call_command = ["{}/helm_deploy_serviceaccount.sh".format(dir_path), "-g", "Minecraft", "-e", env]
@@ -37,7 +37,18 @@ def apply_charts(mappings_file, config_file, env, test):
                             # No justification for a additional env variables yet/anymore. Here as a guideline to show how it's done, but has no effect on the deployment
                             env_dict = {  }
                             deployment_utilities.generate_env_file(env_dict, env_file_path)
-                            values_string = "--set imageTag={},game=Minecraft,map={},mapSet={},volumeId={},requestsMemory={},limitsMemory={},environmentVariableFile={},{}".format(image_version, map, map, map_info["volume_id"], map_info["requests_memory"], map_info["limits_memory"], env_file, gp_port_string)
+                            values_string = "--set imageTag={},game=Minecraft,map={},mapSet={},volumeId={},requestsMemory={},limitsMemory={},backupStorageName={},resourceBucketName={},environmentVariableFile={},{}" \
+                                            .format(
+                                                image_version, \
+                                                map, \
+                                                map, \
+                                                map_info["volume_id"], \
+                                                map_info["requests_memory"], \
+                                                map_info["limits_memory"], \
+                                                "jks-gs-{}-{}-minecraft-{}-backup-bucket".format(env,region,map), \
+                                                "jks-gs-{}-{}-minecraft-{}-gameresources-bucket".format(env,region,map), \
+                                                env_file, \
+                                                gp_port_string)
                             call_command = ["{}/helm_deploy.sh".format(dir_path), "-g", "Minecraft", "-m", map,"-e", env, "-v", values_string]
                             if test:
                                 call_command.append("-t")
@@ -57,12 +68,13 @@ if __name__ == '__main__':
     options = "t"
     
     # Long options
-    long_options = ["mappings-file=", "config-file=", "env="]
+    long_options = ["mappings-file=", "config-file=", "env=", "region="]
 
     mappings_file = None
     config_file = None
     env = None
     test = False
+    region = None
 
     try:
         # Parsing argument
@@ -79,6 +91,9 @@ if __name__ == '__main__':
             elif currentArgument == "--env":
                 env = currentValue
 
+            elif currentArgument == "--region":
+                region = currentValue
+
             elif currentArgument == "-t":
                 test = True
                 
@@ -86,7 +101,7 @@ if __name__ == '__main__':
         # output error, and return with an error code
         print (str(err))
 
-    if (mappings_file is None) or (config_file is None) or (env is None):
-        sys.exit("Either --mappings-file, --config-file, or --env were not provided.")
+    if (mappings_file is None) or (config_file is None) or (region is None) or (env is None):
+        sys.exit("Either --mappings-file, --config-file, --region, or --env were not provided.")
 
-    apply_charts(mappings_file, config_file, env, test)
+    apply_charts(mappings_file, config_file, env, region, test)

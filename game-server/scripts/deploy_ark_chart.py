@@ -64,12 +64,13 @@ if __name__ == '__main__':
     options = "t"
     
     # Long options
-    long_options = ["mappings-file=", "config-file=", "env="]
+    long_options = ["mappings-file=", "config-file=", "env=", "region="]
 
     mappings_file = None
     config_file = None
     env = None
     test = False
+    region = None
 
     try:
         # Parsing argument
@@ -85,6 +86,9 @@ if __name__ == '__main__':
 
             elif currentArgument == "--env":
                 env = currentValue
+            
+            elif currentArgument == "--region":
+                region = currentValue
 
             elif currentArgument == "-t":
                 test = True
@@ -93,7 +97,7 @@ if __name__ == '__main__':
         # output error, and return with an error code
         print (str(err))
 
-    if (mappings_file is None) or (config_file is None) or (env is None):
-        sys.exit("Either --mappings-file, --config-file, or --env were not provided.")
+    if (mappings_file is None) or (config_file is None) or (region is None) or (env is None):
+        sys.exit("Either --mappings-file, --config-file, --region, or --env were not provided.")
 
     apply_charts(mappings_file, config_file, env, test)

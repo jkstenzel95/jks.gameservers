@@ -2,6 +2,8 @@
 # (Example values below)
 # imageTag: prod.202112270000
 # map: default
+# backupStorageName: "jks-gs-dev-use2-minecraft-main-backup-bucket"
+# resourceBucketName: "jks-gs-dev-use2-minecraft-main-gameresources-bucket"
 # environmentVariableFile: "blah.txt"
 # ports: [
 #   {

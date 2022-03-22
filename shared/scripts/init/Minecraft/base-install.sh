@@ -4,7 +4,7 @@ scripts_dir="${SHARED_DIR}/shared/scripts"
 
 pushd $scripts_dir
 
-mkdir "${SERVER_MOUNT_LOCATION}/Minecraft"
+mkdir -p "${SERVER_MOUNT_LOCATION}/Minecraft"
 
 mappings_file_name="${SHARED_DIR}/shared/data/minecraft_mappings.json"
 is_modded=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .is_modded" | tr -d '"')

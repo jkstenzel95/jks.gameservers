@@ -6,13 +6,13 @@ import deploy_minecraft_chart
 import deploy_valheim_chart
 from subprocess import call
 
-def deploy_chart_for_games(shared_files_location, env, test):
+def deploy_chart_for_games(shared_files_location, env, region, test):
     config_file = "{}/config/{}.json".format(shared_files_location, env)
     with open(config_file) as cd:
         config_json = json.load(cd)
         for game in config_json["games"]:
             mappings_file = "{}/data/{}_mappings.json".format(shared_files_location, game["name"].lower())
-            getattr(sys.modules["deploy_%s_chart" % game["name"].lower()], "apply_charts")(mappings_file, config_file, env, test)
+            getattr(sys.modules["deploy_%s_chart" % game["name"].lower()], "apply_charts")(mappings_file, config_file, env, region, test)
 
 if __name__ == '__main__':
     # test1.py executed as script
@@ -26,11 +26,12 @@ if __name__ == '__main__':
     options = "t"
     
     # Long options
-    long_options = ["shared-files-location=", "env="]
+    long_options = ["shared-files-location=", "env=", "region="]
 
     shared_files_location = None
     env = None
     test = False
+    region = None
 
     try:
         # Parsing argument
@@ -45,6 +46,9 @@ if __name__ == '__main__':
             elif currentArgument == "--env":
                 env = currentValue
 
+            elif currentArgument == "--region":
+                region = currentValue
+
             elif currentArgument == "-t":
                 test = True
                 
@@ -52,7 +56,7 @@ if __name__ == '__main__':
         # output error, and return with an error code
         print (str(err))
 
-    if (shared_files_location is None) or (env is None):
-        sys.exit("Either --shared-files-location or --env were not provided.")
+    if (shared_files_location is None) or (region is None) or (env is None):
+        sys.exit("Either --shared-files-location, --region, or --env were not provided.")
 
-    deploy_chart_for_games(shared_files_location, env, test)
+    deploy_chart_for_games(shared_files_location, env, region, test)
