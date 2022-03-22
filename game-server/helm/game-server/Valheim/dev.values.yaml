@@ -12,4 +12,4 @@ backupStorageName: "jks-gs-dev-use2-valheim-backup-bucket"
 resourceBucketName: "jks-gs-dev-use2-valheim-gameresources-bucket"
 storageSize: 14
 
-hasSecrets: false
+hasSecrets: true
