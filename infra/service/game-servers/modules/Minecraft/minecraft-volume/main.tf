@@ -7,7 +7,7 @@ module "volume" {
     game_name = "Minecraft"
     map_name = "${var.map_name}"
     availability_zone = "${var.availability_zone}"
-    volume_size = 60
+    volume_size = 40
     type = "gp2"
     iops = null
 }
