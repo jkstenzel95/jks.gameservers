@@ -45,6 +45,18 @@
             "is_modded": true,
             "forge_version": "forge-1.12.2-14.23.5.2860",
             "modpack_zip": ""
+        },
+        {
+            "name": "pixelmon",
+            "domain_abbreviation": "pixelmon",
+            "volume_id": "",
+            "requests_memory": "4Gi",
+            "limits_memory": "4Gi",
+            "jdk_version": "8",
+            "java_args": "-Xms3G -Xmx3G -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=100 -XX:+DisableExplicitGC -XX:TargetSurvivorRatio=90 -XX:G1NewSizePercent=50 -XX:G1MaxNewSizePercent=80 -XX:G1MixedGCLiveThresholdPercent=50 -XX:+AlwaysPreTouch",
+            "is_modded": true,
+            "forge_version": "forge-1.12.2-14.23.5.2860",
+            "modpack_zip": ""
         }
     ]
 }
