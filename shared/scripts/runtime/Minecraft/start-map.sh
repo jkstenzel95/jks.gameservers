@@ -30,3 +30,6 @@ fi
 java $java_args -jar $server_jar $footer
 
 popd
+
+echo "Server failed to start! Sleeping to allow shell access for debugging."
+sleep 1800
