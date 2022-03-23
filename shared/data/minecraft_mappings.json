@@ -3,7 +3,7 @@
         {
             "name": "main",
             "domain_abbreviation": "main",
-            "volume_id": "vol-073bd1ce1cef5977f",
+            "volume_id": "vol-09b83d9f5a647fe25",
             "requests_memory": "2Gi",
             "limits_memory": "2Gi",
             "jdk_version": "17",
@@ -13,7 +13,7 @@
         {
             "name": "gregtech",
             "domain_abbreviation": "greg",
-            "volume_id": "vol-072fdb9c107f6eb4d",
+            "volume_id": "vol-09d7948efc1f3c6e4",
             "requests_memory": "6Gi",
             "limits_memory": "6Gi",
             "jdk_version": "8",
@@ -41,7 +41,7 @@
             "requests_memory": "6Gi",
             "limits_memory": "6Gi",
             "jdk_version": "8",
-            "java_args": "-Xmx6G -Xms6G",
+            "java_args": "-Xmx5G -Xms5G",
             "is_modded": true,
             "forge_version": "forge-1.12.2-14.23.5.2860",
             "modpack_zip": ""
