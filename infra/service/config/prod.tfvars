@@ -7,4 +7,4 @@ minecraft_maps = []
 valheim_maps = []
 cluster_name = "jks-use2"
 subnet_id = "subnet-05dc9f7b2498d4f92"
-shared_package_version = "ffc00168328aaf658c6c66e2f38594c7a2d59d8e"
+shared_package_version = "8a1a934d563f91ee2f2096e5922af80bab5b9a35"
