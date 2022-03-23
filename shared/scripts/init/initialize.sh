@@ -5,6 +5,8 @@ init_flag="${SERVER_MOUNT_LOCATION}/init_flag"
 
 pushd $scripts_dir
 
+. "wipe-if-requested.sh"
+
 . "${GAME_NAME}/install-dependencies.sh"
 
 if [[ ! -f "${init_flag}" ]]; then
