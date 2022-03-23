@@ -3,13 +3,14 @@ import getopt
 import glob
 import json
 import os
+import re
 import shutil
 from subprocess import call
 import sys
 
-untracked_items=["server.jar"]
+untracked_items=["server.jar", "mods", "libraries" ]
+untracked_regexes=[ ".+\.jar" ]
 
-# TODO_MODS: This almost certainly needs to change for mods to avoid excessive storage
 def backup_saves_and_configs(shared_mount_location, backup_storage_name):
     path_to_saved = "{}/Minecraft".format(shared_mount_location)
     backup_version = datetime.datetime.now().strftime('%Y-%m-%d_%H%M')
@@ -19,6 +20,13 @@ def backup_saves_and_configs(shared_mount_location, backup_storage_name):
     try:
         for item in os.listdir(path_to_saved):
             if (item not in untracked_items):
+                matched = False
+                for pattern in untracked_regexes:
+                    if bool(re.match(pattern, item)):
+                        matched = True
+                        break
+                if matched:
+                    continue
                 full_item_path = os.path.join(path_to_saved, item)
                 if (os.path.isfile(full_item_path)):
                     shutil.copy(full_item_path, "{}/{}".format(backup_dir, item))

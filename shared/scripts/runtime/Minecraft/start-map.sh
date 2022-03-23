@@ -21,6 +21,10 @@ is_modded=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\
 server_jar="server.jar"
 footer=""
 
+if [ -f /etc/profile.d/jdk.sh ]; then
+    source /etc/profile.d/jdk.sh
+fi
+
 if [ "${is_modded}" == "true" ]; then
     forge_version=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .forge_version" | tr -d '"')
     server_jar="${forge_version}-universal.jar"
