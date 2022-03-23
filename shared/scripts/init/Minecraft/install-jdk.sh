@@ -22,6 +22,9 @@ elif [ $version == 17 ]; then
 export JAVA_HOME=/opt/jdk-17
 export PATH=\$PATH:\$JAVA_HOME/bin
 EOF
+
+    source /etc/profile.d/jdk.sh
+    rm openjdk-17_linux-x64_bin.tar.gz
     exit 0
 else
     echo "ERROR: Java version $version does not have installation logic."
