@@ -6,7 +6,7 @@ echo "{ \"Key\": { \"S\": \"needs_wipe\" } }" > key.json
 needs_wipe=$(aws dynamodb get-item --table-name $table_name --key "file://key.json" --projection-expression "KeyValue" | jq '."Item"."KeyValue"."BOOL"')
 rm key.json
 
-if [[ ( $(echo $needs_wipe | tr '[:upper:]' '[:lower:]') == "true") ||  ]]
+if [[ $(echo $needs_wipe | tr '[:upper:]' '[:lower:]') == "true" ]]
 then
     # if so, delete init flag and files
     if [ -f "${SERVER_MOUNT_LOCATION}/init_flag" ]; then
