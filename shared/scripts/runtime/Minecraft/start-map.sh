@@ -31,6 +31,6 @@ if [ "${is_modded}" == "true" ]; then
     footer="nogui"
 fi
 
-java $java_args -jar $server_jar $footer
+java $java_args -jar $server_jar --port $SERVER_PORT $footer
 
 popd
