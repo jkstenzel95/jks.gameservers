@@ -28,7 +28,7 @@ def apply_charts(mappings_file, config_file, env, region, test):
                             print("Creating cluster for map {}; Image tag {}".format(map, image_version))
                             game_port = deployment_utilities.get_port_number(25565, idx)
                             print("We're looking at game port {}".format(game_port))
-                            gp_port_string = "ports[0].name=SERVER_PORT,ports[0].protocol=UDP,ports[0].number={},ports[0].game=Minecraft,ports[0].map={}".format(game_port, map)
+                            gp_port_string = "ports[0].name=SERVER_PORT,ports[0].protocol=TCP,ports[0].number={},ports[0].game=Minecraft,ports[0].map={}".format(game_port, map)
                             gp_udp_port_string = "ports[1].name=SERVER_PORT_UDP,ports[1].protocol=UDP,ports[1].number={},ports[1].game=Minecraft,ports[1].map={}".format(game_port, map)
                             port_name_prefix = "MINECRAFT_{}_{}".format(map.upper(), env.upper())
                             ports.append({ "name": "{}_SERVER_PORT".format(port_name_prefix), "protocol": "TCP", "number": game_port, "game": "Minecraft", "map": map })
