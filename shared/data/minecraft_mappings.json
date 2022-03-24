@@ -49,7 +49,7 @@
         {
             "name": "pixelmon",
             "domain_abbreviation": "pixelmon",
-            "volume_id": "",
+            "volume_id": "vol-0b0f92dd0df94072c",
             "requests_memory": "4Gi",
             "limits_memory": "5Gi",
             "jdk_version": "8",
