@@ -20,7 +20,7 @@
             "java_args": "-Xmx5G -Xms5G",
             "is_modded": true,
             "forge_version": "forge-1.7.10-10.13.4.1614-1.7.10",
-            "modpack_zip": "GTNewHorizonsServer-1.7.10-2.1.2.3.zip"
+            "modpack_zip": "GTNewHorizonsServer-1.7.10-2.1.2.0.zip"
         },
         {
             "name": "greedycraft",
