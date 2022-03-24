@@ -8,10 +8,11 @@ mkdir -p "${SERVER_MOUNT_LOCATION}/Minecraft"
 
 mappings_file_name="${SHARED_DIR}/shared/data/minecraft_mappings.json"
 is_modded=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .is_modded" | tr -d '"')
+eula_hangs=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .eula_hangs" | tr -d '"')
 
 if [ "${is_modded}" == "true" ]; then
-    bash "${scripts_dir}/init/Minecraft/install-forge.sh"
     bash "${scripts_dir}/init/Minecraft/apply-forge-modpack.sh"
+    bash "${scripts_dir}/init/Minecraft/install-forge.sh"
 else
     # Vanilla server needs that jar to start
     pushd "${SERVER_MOUNT_LOCATION}"
@@ -20,7 +21,12 @@ else
     popd
 fi
 
-bash "${scripts_dir}/runtime/Minecraft/start-map.sh"
+if [ "${eula_hangs}" == "true" ]; then
+    awaiting_eula_text=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .awaiting_eula_text" | tr -d '"')
+    bash "${scripts_dir}/init/run-and-kill-after-phrase.sh" -c "${scripts_dir}/runtime/Minecraft/start-map.sh" -r "$awaiting_eula_text"
+else
+    bash "${scripts_dir}/runtime/Minecraft/start-map.sh"
+fi
 
 sed -i -e 's/eula=false/eula=true/g' "${SERVER_MOUNT_LOCATION}/Minecraft/eula.txt"
 

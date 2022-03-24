@@ -22,5 +22,7 @@ do
         kill $pid
         rm $log
         exit 0
+    else
+        echo "Still awaiting a match in the form of $match"
     fi
 done

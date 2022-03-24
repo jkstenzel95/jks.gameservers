@@ -4,59 +4,65 @@
             "name": "main",
             "domain_abbreviation": "main",
             "volume_id": "vol-09b83d9f5a647fe25",
-            "requests_memory": "2Gi",
+            "requests_memory": "1Gi",
             "limits_memory": "2Gi",
             "jdk_version": "17",
             "java_args": "-Xmx1024M -Xms1024M",
-            "is_modded": false
+            "is_modded": false,
+            "eula_hangs": false
         },
         {
             "name": "gregtech",
             "domain_abbreviation": "greg",
             "volume_id": "vol-09d7948efc1f3c6e4",
-            "requests_memory": "6Gi",
+            "requests_memory": "2Gi",
             "limits_memory": "6Gi",
             "jdk_version": "8",
-            "java_args": "-Xmx5G -Xms5G",
+            "java_args": "-Xmx6G -Xms2G",
             "is_modded": true,
             "forge_version": "forge-1.7.10-10.13.4.1614-1.7.10",
-            "modpack_zip": "GTNewHorizonsServer-1.7.10-2.1.2.0.zip"
+            "modpack_zip": "GTNewHorizonsServer-1.7.10-2.1.2.0.zip",
+            "eula_hangs": false
         },
         {
             "name": "greedycraft",
             "domain_abbreviation": "greedy",
             "volume_id": "vol-0e5cf0170b069e386",
-            "requests_memory": "8Gi",
-            "limits_memory": "8Gi",
+            "requests_memory": "5Gi",
+            "limits_memory": "6Gi",
             "jdk_version": "8",
-            "java_args": "-Xmx6G -Xms6G -Xss4M -Dfile.encoding=GBK -Dsun.rmi.dgc.server.gcInterval=1800000 -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -XX:-OmitStackTraceInFastThrow -XX:+OptimizeStringConcat -XX:+UseAdaptiveGCBoundary -XX:G1HeapRegionSize=32M",
+            "java_args": "-Xmx5G -Xms5G -Xss4M -Dfile.encoding=GBK -Dsun.rmi.dgc.server.gcInterval=1800000 -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -Dfml.ignorePatchDiscrepancies=true -Dfml.ignoreInvalidMinecraftCertificates=true -XX:-OmitStackTraceInFastThrow -XX:+OptimizeStringConcat -XX:+UseAdaptiveGCBoundary -XX:G1HeapRegionSize=32M",
             "is_modded": true,
             "forge_version": "forge-1.12.2-14.23.5.2855",
-            "modpack_zip": "GreedyCraft-Server-1.35.2.118.x.zip"
+            "modpack_zip": "GreedyCraft-Server-1.35.2.118.x.zip",
+            "eula_hangs": true,
+            "awaiting_eula_text": "You need to agree to the EULA in order to run the server"
         },
         {
             "name": "rebirth",
             "domain_abbreviation": "rebirth",
             "volume_id": "",
-            "requests_memory": "6Gi",
+            "requests_memory": "5Gi",
             "limits_memory": "6Gi",
             "jdk_version": "8",
             "java_args": "-Xmx5G -Xms5G",
             "is_modded": true,
             "forge_version": "forge-1.12.2-14.23.5.2860",
-            "modpack_zip": ""
+            "modpack_zip": "",
+            "eula_hangs": false
         },
         {
             "name": "pixelmon",
             "domain_abbreviation": "pixelmon",
             "volume_id": "vol-0b0f92dd0df94072c",
-            "requests_memory": "4Gi",
+            "requests_memory": "1Gi",
             "limits_memory": "5Gi",
             "jdk_version": "8",
             "java_args": "-Xms1024M -Xmx4096M -XX:+UseG1GC -Dsun.rmi.dgc.server.gcInterval=2147483646 -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -Dfml.readTimeout=180",
             "is_modded": true,
             "forge_version": "forge-1.12.2-14.23.5.2860",
-            "modpack_zip": "pixelmon.zip"
+            "modpack_zip": "pixelmon.zip",
+            "eula_hangs": false
         }
     ]
 }

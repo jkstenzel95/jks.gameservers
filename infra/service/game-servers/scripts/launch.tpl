@@ -26,6 +26,18 @@ export DOMAIN=${DOMAIN}
 export PUBLIC_IP_NAME=${PUBLIC_IP_NAME}
 export ATTACH_IP="true"
 
+echo "{ \"Key\": { \"S\": \"packages_test_version\" } }" > key.json
+packages_test_version=$(aws dynamodb get-item --table-name "jks-gs-${ENVIRONMENT}-${REGION_SHORTNAME}-${GAME_NAME}-${MAP_NAME}-kv_table" --key "file://key.json" --projection-expression "KeyValue" | jq '."Item"."KeyValue"."S"' | tr -d '"')
+rm key.json
+if [[ (! $packages_test_version == "") && (! $packages_test_version == "null") ]]; then
+    shared_package_version=$packages_test_version
+    echo "{ \"Key\": {\"S\": \"packages_test_version\"}, \"KeyValue\": {\"S\": \"\"} }" > entry.json
+    aws dynamodb put-item --table-name "jks-gs-${ENVIRONMENT}-${REGION_SHORTNAME}-${GAME_NAME}-${MAP_NAME}-kv_table" --item file://entry.json
+    rm entry.json
+else
+    shared_package_version=${shared_package_version}
+fi
+
 # Download scripts
 if [ ! -d $SHARED_DIR ]
 then
