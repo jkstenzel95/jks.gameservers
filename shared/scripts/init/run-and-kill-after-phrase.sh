@@ -19,6 +19,8 @@ while sleep 60
 do
     if fgrep --quiet "$match" "$log"
     then
+        echo "Results of run before killing:"
+        cat $log
         kill $pid
         rm $log
         exit 0
