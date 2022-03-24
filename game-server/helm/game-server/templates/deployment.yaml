@@ -110,6 +110,10 @@ spec:
         - name: RESOURCE_BUCKET_NAME
           value: {{ .Values.resourceBucketName }}
         {{ end }}
+        {{- range $port := .Values.ports }}
+        - name: {{ $port.name }}
+          value: !!string {{ $port.number }}
+        {{- end}}
       containers:
       - name: gameserver
         image: {{ $image }}
