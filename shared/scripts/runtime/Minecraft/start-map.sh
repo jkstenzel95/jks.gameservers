@@ -27,7 +27,11 @@ fi
 
 if [ "${is_modded}" == "true" ]; then
     forge_version=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .forge_version" | tr -d '"')
-    server_jar="${forge_version}-universal.jar"
+    if [[ -f "${forge_version}-universal.jar" ]]; then
+        server_jar="${forge_version}-universal.jar"
+    else
+        server_jar="${forge_version}.jar"
+    fi
     footer="nogui"
 fi
 
