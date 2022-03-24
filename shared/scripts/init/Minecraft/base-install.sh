@@ -15,7 +15,7 @@ if [ "${is_modded}" == "true" ]; then
 else
     # Vanilla server needs that jar to start
     pushd "${SERVER_MOUNT_LOCATION}"
-    download_url=$(curl --no-progress-meter "$(curl --no-progress-meter https://launchermeta.mojang.com/mc/game/version_manifest.json | jq ".versions[0].url" | tr -d "\"")" | jq ".downloads.server.url" |  tr -d "\"")
+    download_url=$(curl --no-progress-meter "$(curl --no-progress-meter https://launchermeta.mojang.com/mc/game/version_manifest.json | jq "[.versions[] | select(.type == \"release\")][0].url" | tr -d "\"")" | jq ".downloads.server.url" |  tr -d "\"")
     curl $download_url --output ./Minecraft/server.jar
     popd
 fi

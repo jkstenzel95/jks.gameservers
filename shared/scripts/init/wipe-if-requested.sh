@@ -16,7 +16,7 @@ then
 
     if [ -d "${SERVER_MOUNT_LOCATION}/${GAME_NAME}" ]; then
         echo "Server folder exists. Deleting."
-        rm -r "${SERVER_MOUNT_LOCATION}/${GAME_NAME}/*"
+        rm -rf "${SERVER_MOUNT_LOCATION}/${GAME_NAME}"
     fi
 fi
 
