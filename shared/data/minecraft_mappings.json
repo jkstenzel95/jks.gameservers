@@ -16,7 +16,7 @@
             "domain_abbreviation": "greg",
             "volume_id": "vol-09d7948efc1f3c6e4",
             "requests_memory": "2Gi",
-            "limits_memory": "6Gi",
+            "limits_memory": "7Gi",
             "jdk_version": "8",
             "java_args": "-Xmx6G -Xms2G",
             "is_modded": true,
