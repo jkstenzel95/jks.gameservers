@@ -35,9 +35,10 @@ export LD_LIBRARY_PATH=$SERVER_MOUNT_LOCATION/Valheim/linux64:$LD_LIBRARY_PATH
 echo "LD_LIBRARY_PATH postswap: $LD_LIBRARY_PATH"
 export SteamAppID=892970
 
-SERVER_PASSWORD=$(cat /mnt/secrets-store/jks_gameservers_${ENVIRONMENT}_${REGION_SHORTNAME}_Valheim-Server-Password | jq '."Valheim-Server-Password"' | tr -d '"')
+SERVER_PASSWORD=$(cat /mnt/secrets-store/jks_gameservers_${ENVIRONMENT}_${REGION_SHORTNAME}_Valheim-Server-Password | jq '.["jks/gameser
+vers/${ENVIRONMENT}/${REGION_SHORTNAME}/Valheim-Server-Password"]' | tr -d '"')
 
-$SERVER_MOUNT_LOCATION/Valheim/valheim_server.x86_64 -name "<servername>" -port $SERVER_PORT -nographics -batchmode -world "${MAP_NAME}" -password "${SERVER_PASSWORD}" -public 1
+$SERVER_MOUNT_LOCATION/Valheim/valheim_server.x86_64 -name "${SessionName}" -port $SERVER_PORT -nographics -batchmode -world "${MAP_NAME}" -password "${SERVER_PASSWORD}" -public 1
 
 export LD_LIBRARY_PATH=$templdpath
 
