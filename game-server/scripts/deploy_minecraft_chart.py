@@ -28,6 +28,15 @@ def apply_charts(mappings_file, config_file, env, region, test):
                             print("Creating cluster for map {}; Image tag {}".format(map, image_version))
                             game_port = deployment_utilities.get_port_number(25565, idx)
                             print("We're looking at game port {}".format(game_port))
+                            limits_cpu = ""
+                            requests_cpu = ""
+                            has_cpu_specified = "false"
+                            if "limits_cpu" in map_info:
+                                limits_cpu = map_info["limits_cpu"]
+                                has_cpu_specified = "true"
+                            if "requests_cpu" in map_info:
+                                requests_cpu = map_info["requests_cpu"]
+                                has_cpu_specified = "true"
                             gp_port_string = "ports[0].name=SERVER_PORT,ports[0].protocol=TCP,ports[0].number={},ports[0].game=Minecraft,ports[0].map={}".format(game_port, map)
                             gp_udp_port_string = "ports[1].name=SERVER_PORT_UDP,ports[1].protocol=UDP,ports[1].number={},ports[1].game=Minecraft,ports[1].map={}".format(game_port, map)
                             port_name_prefix = "MINECRAFT_{}_{}".format(map.upper(), env.upper())
@@ -38,7 +47,7 @@ def apply_charts(mappings_file, config_file, env, region, test):
                             # No justification for a additional env variables yet/anymore. Here as a guideline to show how it's done, but has no effect on the deployment
                             env_dict = {  }
                             deployment_utilities.generate_env_file(env_dict, env_file_path)
-                            values_string = "--set imageTag={},game=Minecraft,map={},mapSet={},volumeId={},requestsMemory={},limitsMemory={},backupStorageName={},resourceBucketName={},environmentVariableFile={},{},{}" \
+                            values_string = "--set imageTag={},game=Minecraft,map={},mapSet={},volumeId={},requestsMemory={},limitsMemory={},hasCpuSpecified={},requestsCpu={},limitsCpu={},backupStorageName={},resourceBucketName={},environmentVariableFile={},{},{}" \
                                             .format(
                                                 image_version, \
                                                 map, \
@@ -46,6 +55,9 @@ def apply_charts(mappings_file, config_file, env, region, test):
                                                 map_info["volume_id"], \
                                                 map_info["requests_memory"], \
                                                 map_info["limits_memory"], \
+                                                has_cpu_specified,
+                                                requests_cpu,
+                                                limits_cpu,
                                                 "jks-gs-{}-{}-minecraft-{}-backup-bucket".format(env,region,map), \
                                                 "jks-gs-{}-{}-minecraft-{}-gameresources-bucket".format(env,region,map), \
                                                 env_file, \

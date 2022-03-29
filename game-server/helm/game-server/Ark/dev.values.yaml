@@ -8,5 +8,6 @@ requestsMemory: "4Gi"
 limitsMemory: "6Gi"
 requestVolume: false
 flexibleDeployment: false
+hasCpuSpecified: false
 
 hasSecrets: true
