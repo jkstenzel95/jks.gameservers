@@ -46,7 +46,7 @@ def apply_charts(mappings_file, config_file, env, region, test):
                             # No justification for a additional env variables yet/anymore. Here as a guideline to show how it's done, but has no effect on the deployment
                             env_dict = {  }
                             deployment_utilities.generate_env_file(env_dict, env_file_path)
-                            values_string = "--set imageTag={},game=Valheim,map={},mapSet={},volumeId={},requestsMemory={},limitsMemory={},backupStorageName={},resourceBucketName={},environmentVariableFile={},{}" \
+                            values_string = "--set imageTag={},game=Valheim,map={},mapSet={},volumeId={},requestsMemory={},limitsMemory={},backupStorageName={},resourceBucketName={},environmentVariableFile={},{},{},{},{},{},{}" \
                                             .format(
                                                 image_version, \
                                                 map, \
