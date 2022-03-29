@@ -69,8 +69,14 @@ spec:
         resources:
           requests:
             memory: {{ .Values.requestsMemory }}
+            {{ if .Values.hasCpuSpecified }}
+            cpu: {{ .Values.requestsCpu }}
+            {{ end }}
           limits:
             memory: {{ .Values.limitsMemory }}
+            {{ if .Values.hasCpuSpecified }}
+            cpu: {{ .Values.limitsCpu }}
+            {{ end }}
         volumeMounts:
         - mountPath: {{ $serverMountPath }}
           name: game-server
@@ -121,12 +127,12 @@ spec:
           requests:
             memory: {{ .Values.requestsMemory }}
             {{ if .Values.hasCpuSpecified }}
-            cpu: .Values.requestsCpu
+            cpu: {{ .Values.requestsCpu }}
             {{ end }}
           limits:
             memory: {{ .Values.limitsMemory }}
             {{ if .Values.hasCpuSpecified }}
-            cpu: .Values.limitsCpu
+            cpu: {{ .Values.limitsCpu }}
             {{ end }}
         volumeMounts:
         - mountPath: {{ $serverMountPath }}
