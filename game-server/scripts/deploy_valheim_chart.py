@@ -28,9 +28,19 @@ def apply_charts(mappings_file, config_file, env, region, test):
                             print("Creating cluster for map {}; Image tag {}".format(map, image_version))
                             game_port = deployment_utilities.get_port_number(2456, idx, 3)
                             print("We're looking at game port {}".format(game_port))
-                            gp_port_string = "ports[0].name=SERVER_PORT,ports[0].protocol=TCP,ports[0].number={},ports[0].game=Valheim,ports[0].map={}".format(game_port, map)
+                            gp1_port_string = "ports[0].name=SERVER_PORT,ports[0].protocol=TCP,ports[0].number={},ports[0].game=Valheim,ports[0].map={}".format(game_port, map)
+                            gp2_port_string = "ports[1].name=SERVER_PORT_2,ports[1].protocol=TCP,ports[1].number={},ports[1].game=Valheim,ports[1].map={}".format(game_port + 1, map)
+                            gp3_port_string = "ports[2].name=SERVER_PORT_3,ports[2].protocol=TCP,ports[2].number={},ports[2].game=Valheim,ports[2].map={}".format(game_port + 2, map)
+                            gp1_udp_port_string = "ports[3].name=SERVER_PORT_UDP,ports[3].protocol=UDP,ports[3].number={},ports[3].game=Valheim,ports[3].map={}".format(game_port, map)
+                            gp2_udp_port_string = "ports[4].name=SERVER_PORT_2_UDP,ports[4].protocol=UDP,ports[4].number={},ports[4].game=Valheim,ports[4].map={}".format(game_port + 1, map)
+                            gp3_udp_port_string = "ports[5].name=SERVER_PORT_3_UDP,ports[5].protocol=UDP,ports[5].number={},ports[5].game=Valheim,ports[5].map={}".format(game_port + 2, map)
                             port_name_prefix = "VALHEIM_{}_{}".format(map.upper(), env.upper())
                             ports.append({ "name": "{}_SERVER_PORT".format(port_name_prefix), "protocol": "TCP", "number": game_port, "game": "Valheim", "map": map })
+                            ports.append({ "name": "{}_SERVER_PORT_2".format(port_name_prefix), "protocol": "TCP", "number": game_port, "game": "Valheim", "map": map })
+                            ports.append({ "name": "{}_SERVER_PORT_3".format(port_name_prefix), "protocol": "TCP", "number": game_port, "game": "Valheim", "map": map })
+                            ports.append({ "name": "{}_SERVER_PORT_UDP".format(port_name_prefix), "protocol": "UDP", "number": game_port, "game": "Valheim", "map": map })
+                            ports.append({ "name": "{}_SERVER_PORT_2_UDP".format(port_name_prefix), "protocol": "UDP", "number": game_port, "game": "Valheim", "map": map })
+                            ports.append({ "name": "{}_SERVER_PORT_3_UDP".format(port_name_prefix), "protocol": "UDP", "number": game_port, "game": "Valheim", "map": map })
                             env_file = "{}_env_list.txt".format(map)
                             env_file_path = "{}/../helm/game-server/{}".format(dir_path, env_file)
                             # No justification for a additional env variables yet/anymore. Here as a guideline to show how it's done, but has no effect on the deployment
@@ -47,7 +57,12 @@ def apply_charts(mappings_file, config_file, env, region, test):
                                                 "jks-gs-{}-{}-minecraft-{}-backup-bucket".format(env,region,map), \
                                                 "jks-gs-{}-{}-minecraft-{}-gameresources-bucket".format(env,region,map), \
                                                 env_file, \
-                                                gp_port_string)
+                                                gp1_port_string, \
+                                                gp2_port_string, \
+                                                gp3_port_string, \
+                                                gp1_udp_port_string, \
+                                                gp2_udp_port_string, \
+                                                gp3_udp_port_string)
                             call_command = ["{}/helm_deploy.sh".format(dir_path), "-g", "Valheim", "-m", map,"-e", env, "-v", values_string]
                             if test:
                                 call_command.append("-t")

@@ -71,7 +71,7 @@ resource "aws_security_group" "games_sg" {
     # Valheim rules
 
     ingress {
-        description = "Valheim Port"
+        description = "Valheim TCP Port"
         from_port = 2456
         to_port = 2458
         protocol = "tcp"
@@ -80,7 +80,7 @@ resource "aws_security_group" "games_sg" {
     }
 
     ingress {
-        description = "Valheim Port"
+        description = "Valheim UDP Port"
         from_port = 2456
         to_port = 2458
         protocol = "udp"
