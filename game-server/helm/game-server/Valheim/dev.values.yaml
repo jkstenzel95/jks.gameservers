@@ -6,9 +6,7 @@ mapSet: Audigr
 needsSetup: "true"
 requestsMemory: "2Gi"
 limitsMemory: "4Gi"
-hasCpuSpecified: true
-requestsCpu: "4"
-limitsCpu: "4"
+hasCpuSpecified: false
 requestVolume: true
 flexibleDeployment: true
 backupStorageName: "jks-gs-dev-use2-valheim-backup-bucket"
