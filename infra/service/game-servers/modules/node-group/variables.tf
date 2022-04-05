@@ -52,10 +52,6 @@ variable "packages_bucket_name" {
     description = "the name of the bucket containing the scripts and data files package"
 }
 
-variable "shared_package_version" {
-    description = "the scripts and data files archive file version to download"
-}
-
 variable "public_ip_name" {
     description = "the name of the public IP resource"
 }
