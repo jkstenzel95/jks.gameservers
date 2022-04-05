@@ -21,14 +21,16 @@ else
     popd
 fi
 
-if [ "${eula_hangs}" == "true" ]; then
-    echo "Since the server will hang awaiting a EULA agreement, the server will be killed once that prompt is issued."
-    awaiting_eula_text=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .awaiting_eula_text" | tr -d '"')
-    bash "${scripts_dir}/init/run-and-kill-after-phrase.sh" -c "bash ${scripts_dir}/runtime/Minecraft/start-map.sh" -r "$awaiting_eula_text"
-else
-    bash "${scripts_dir}/runtime/Minecraft/start-map.sh"
-fi
+if [[ ! -f "${SERVER_MOUNT_LOCATION}/Minecraft/eula.txt" ]] || ! grep -q "eula=true"; then
+    if [ "${eula_hangs}" == "true" ]; then
+        echo "Since the server will hang awaiting a EULA agreement, the server will be killed once that prompt is issued."
+        awaiting_eula_text=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .awaiting_eula_text" | tr -d '"')
+        bash "${scripts_dir}/init/run-and-kill-after-phrase.sh" -c "bash ${scripts_dir}/runtime/Minecraft/start-map.sh" -r "$awaiting_eula_text"
+    else
+        bash "${scripts_dir}/runtime/Minecraft/start-map.sh"
+    fi
 
-sed -i -e 's/eula=false/eula=true/g' "${SERVER_MOUNT_LOCATION}/Minecraft/eula.txt"
+    sed -i -e 's/eula=false/eula=true/g' "${SERVER_MOUNT_LOCATION}/Minecraft/eula.txt"
+fi
 
 popd
