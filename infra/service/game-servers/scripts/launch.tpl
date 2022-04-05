@@ -26,22 +26,19 @@ export DOMAIN=${DOMAIN}
 export PUBLIC_IP_NAME=${PUBLIC_IP_NAME}
 export ATTACH_IP="true"
 
-echo "{ \"Key\": { \"S\": \"packages_test_version\" } }" > key.json
-packages_test_version=$(aws dynamodb get-item --table-name "jks-gs-${ENVIRONMENT}-${REGION_SHORTNAME}-${GAME_NAME}-${MAP_NAME}-kv_table" --key "file://key.json" --projection-expression "KeyValue" | jq '."Item"."KeyValue"."S"' | tr -d '"')
+echo "{ \"Key\": { \"S\": \"packages_version\" } }" > key.json
+shared_packages_version=$(aws dynamodb get-item --table-name "jks-gs-${ENVIRONMENT}-${REGION_SHORTNAME}-kv_table" --key "file://key.json" --projection-expression "KeyValue" | jq '."Item"."KeyValue"."S"' | tr -d '"')
 rm key.json
-if [[ (! $packages_test_version == "") && (! $packages_test_version == "null") ]]; then
-    shared_package_version=$packages_test_version
-    echo "{ \"Key\": {\"S\": \"packages_test_version\"}, \"KeyValue\": {\"S\": \"\"} }" > entry.json
-    aws dynamodb put-item --table-name "jks-gs-${ENVIRONMENT}-${REGION_SHORTNAME}-${GAME_NAME}-${MAP_NAME}-kv_table" --item file://entry.json
-    rm entry.json
-else
-    shared_package_version=${shared_package_version}
+echo "Cluster-wide packages version determined to be \"$shared_packages_version\"."
+if [[ ($shared_packages_version == "") || ($shared_packages_version == "null") ]]; then
+    echo "A packages version was not specified in jks-gs-${ENVIRONMENT}-${REGION_SHORTNAME}-kv_table via \"key packages_version\". Exiting."
+    exit 1
 fi
 
 # Download scripts
 if [ ! -d $SHARED_DIR ]
 then
-    sudo aws s3 cp "s3://${packages_bucket_name}/shared-packages/shared-package_${shared_package_version}.zip" /gameservers-package.zip
+    sudo aws s3 cp "s3://${packages_bucket_name}/shared-packages/shared-package_$shared_packages_version.zip" /gameservers-package.zip
     sudo chmod -R 0777 /gameservers-package.zip
     mkdir $SHARED_DIR
     sudo chown $USER -R $SHARED_DIR

@@ -67,10 +67,6 @@ variable "packages_bucket_name" {
     description = "the name of the bucket containing the scripts and data files package"
 }
 
-variable "shared_package_version" {
-    description = "the scripts and data files archive file version to download"
-}
-
 variable "ark_resources_bucket_name" {
     description = "the name of the bucket containing Ark server resources"
 }

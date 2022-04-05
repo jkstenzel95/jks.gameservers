@@ -5,8 +5,10 @@ The Terraform and script repository for infrastructure deployment and initializa
 ### /bootstrap
 - Deploys build pipelines for main infra
 - Infra that's only meant to be deployed once (infra storage, build pipelines)
+- Run manually
 ### /service
 - The main infra for game servers and the surrounding services
+- Deploy via pipeline
 
 Create keypair jks-gameservers
 Create SSH security group for ssh, put id in config

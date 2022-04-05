@@ -49,7 +49,3 @@ variable "cluster_name" {
 variable subnet_id {
     description = "the subnet id"
 }
-
-variable "shared_package_version" {
-    description = "the scripts and data files archive file version to download"
-}

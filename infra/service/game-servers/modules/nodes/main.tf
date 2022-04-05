@@ -18,7 +18,6 @@ module "ark_node_group" {
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id
     packages_bucket_name = var.packages_bucket_name
-    shared_package_version = var.shared_package_version
     setup_at_launch = true
     public_ip_name = "jks-gs-${var.env}-${var.region_shortname}-ark-${var.ark_map_name}"
 }

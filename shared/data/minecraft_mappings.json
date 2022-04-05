@@ -70,7 +70,7 @@
         },
         {
             "name": "skymon",
-            "domain_abbreviation": "pixelmon",
+            "domain_abbreviation": "skymon",
             "volume_id": "vol-028d32bec3a5669a6",
             "requests_memory": "2Gi",
             "limits_memory": "5Gi",

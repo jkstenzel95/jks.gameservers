@@ -6,7 +6,6 @@ locals {
         volume_id = "${var.data_volume_id}",
         region = "${var.server_region}",
         packages_bucket_name = "${var.packages_bucket_name}",
-        shared_package_version = "${var.shared_package_version}"
         cluster_name = "${var.cluster_name}"
         SERVER_MOUNT_LOCATION = "${local.server_mount_location}",
         GAME_NAME = "${var.game_name}",

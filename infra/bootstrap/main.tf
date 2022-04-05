@@ -36,6 +36,13 @@ module "route53_zone" {
     source = "./route53_zone"
 }
 
+module "kv_store_dev" {
+    source = "./kv-store"
+
+    env = "dev"
+    region_shortname = "use2"
+}
+
 module "jks_cluster" {
     source = "./jks-cluster"
 

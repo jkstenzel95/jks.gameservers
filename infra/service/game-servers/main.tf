@@ -79,7 +79,6 @@ module "nodes" {
   ark_map_name = "all"
   packages_bucket_arn = aws_s3_bucket.packages_bucket.arn
   packages_bucket_name = aws_s3_bucket.packages_bucket.id
-  shared_package_version = var.shared_package_version
   ark_data_access_policy_arn = lookup(local.ark_data_access_policy_arns_map, local.ark_main_mapset)
   minecraft_data_access_policy_arns = module.minecraft_resources.data_access_policy_arns
   valheim_data_access_policy_arns = module.valheim_resources.data_access_policy_arns

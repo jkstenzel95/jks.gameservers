@@ -41,7 +41,6 @@ module "game_servers" {
     valheim_maps = var.valheim_maps
     cluster_name = "${var.cluster_name}"
     subnet_id = var.subnet_id
-    shared_package_version = var.shared_package_version
     ssh_sg_name = "${var.ssh_sg_name}"
     games_sg_name = "${var.games_sg_name}"
     node_sg_name = "${var.node_sg_name}"
