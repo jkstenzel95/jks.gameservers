@@ -77,7 +77,7 @@
             "jdk_version": "8",
             "java_args": "-Xms1024M -Xmx4096M -XX:+UseG1GC -Dsun.rmi.dgc.server.gcInterval=2147483646 -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -Dfml.readTimeout=180",
             "is_modded": true,
-            "forge_version": "forge-1.12.2-14.23.5.2859",
+            "forge_version": "forge-1.12.2-14.23.5.2860",
             "modpack_zip": "Pixelmon-Skyblock_Server_12.2.2.zip",
             "eula_hangs": false
         }
