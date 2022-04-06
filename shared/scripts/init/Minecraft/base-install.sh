@@ -21,7 +21,7 @@ else
     popd
 fi
 
-if [[ ! -f "${SERVER_MOUNT_LOCATION}/Minecraft/eula.txt" ]] || ! grep -q "eula=true"; then
+if [[ ! -f "${SERVER_MOUNT_LOCATION}/Minecraft/eula.txt" ]] || ! grep -q "eula=true" "${SERVER_MOUNT_LOCATION}/Minecraft/eula.txt"; then
     if [ "${eula_hangs}" == "true" ]; then
         echo "Since the server will hang awaiting a EULA agreement, the server will be killed once that prompt is issued."
         awaiting_eula_text=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .awaiting_eula_text" | tr -d '"')
