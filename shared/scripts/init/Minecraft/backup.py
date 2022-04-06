@@ -9,14 +9,20 @@ from subprocess import call
 import sys
 
 untracked_items=["server.jar", "mods", "libraries" ]
-untracked_regexes=[ ".+\.jar" ]
+untracked_regexes=[ ".+\.jar", ".+\.so" ]
 
-def backup_saves_and_configs(shared_mount_location, backup_storage_name):
+def backup_saves_and_configs(shared_mount_location, backup_storage_name, map_name):
     path_to_saved = "{}/Minecraft".format(shared_mount_location)
     backup_version = datetime.datetime.now().strftime('%Y-%m-%d_%H%M')
     backup_directory_name = "Backup_{}".format(backup_version)
     backup_dir = "{}/{}".format(shared_mount_location, backup_directory_name)
+    mappings_file = "/gameservers-package/shared/data/minecraft_mappings.json"
     os.mkdir(backup_dir)
+    is_modded = False
+    with open(os.path.expanduser(mappings_file)) as md:
+        mappings_json = json.load(md)
+        for idx, map_info in enumerate(mappings_json["maps"]):
+            if map_info["name"] == :
     try:
         for item in os.listdir(path_to_saved):
             if (item not in untracked_items):
@@ -46,10 +52,11 @@ if __name__ == '__main__':
     options = ""
     
     # Long options
-    long_options = ["shared-mount-location=", "backup-storage-name="]
+    long_options = ["shared-mount-location=", "backup-storage-name=", "map-name="]
 
     shared_mount_location = None
     backup_storage_name = None
+    map_name = None
 
     try:
         # Parsing argument
@@ -63,12 +70,15 @@ if __name__ == '__main__':
 
             elif currentArgument == "--backup-storage-name":
                 backup_storage_name = currentValue
+
+            elif currentArgument == "--map-name":
+                map_name = currentValue
                 
     except getopt.error as err:
         # output error, and return with an error code
         print (str(err))
 
-    if (shared_mount_location is None) or (backup_storage_name is None):
-        sys.exit("Either --shared-mount-location or --backup-storage-name were not provided.")
+    if (shared_mount_location is None) or (backup_storage_name is None) or (map_name is None):
+        sys.exit("Either --shared-mount-location, --backup-storage-name, or --map-name were not provided.")
 
-    backup_saves_and_configs(shared_mount_location, backup_storage_name)
+    backup_saves_and_configs(shared_mount_location, backup_storage_name, map_name)
