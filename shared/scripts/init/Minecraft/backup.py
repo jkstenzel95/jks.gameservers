@@ -2,14 +2,14 @@ import datetime
 import getopt
 import glob
 import json
+import logging
 import os
 import re
 import shutil
 from subprocess import call
 import sys
 
-untracked_items=["server.jar", "mods", "libraries" ]
-untracked_regexes=[ ".+\.jar", ".+\.so" ]
+untracked_vanilla_items=["server.jar"]
 
 def backup_saves_and_configs(shared_mount_location, backup_storage_name, map_name):
     path_to_saved = "{}/Minecraft".format(shared_mount_location)
@@ -22,17 +22,18 @@ def backup_saves_and_configs(shared_mount_location, backup_storage_name, map_nam
     with open(os.path.expanduser(mappings_file)) as md:
         mappings_json = json.load(md)
         for idx, map_info in enumerate(mappings_json["maps"]):
-            if map_info["name"] == :
+            if map_info["name"] == map_name:
+                is_modded = map_info["is_modded"]
+                break
+    
     try:
+        if (is_modded):
+            logging.info("Opting for the modded backup process")
+        if (is_modded):
+            logging.info("Opting for the vanilla backup process")
         for item in os.listdir(path_to_saved):
-            if (item not in untracked_items):
-                matched = False
-                for pattern in untracked_regexes:
-                    if bool(re.match(pattern, item)):
-                        matched = True
-                        break
-                if matched:
-                    continue
+            if (is_modded or item not in untracked_vanilla_items):
+                logging.info("Copying item ")
                 full_item_path = os.path.join(path_to_saved, item)
                 if (os.path.isfile(full_item_path)):
                     shutil.copy(full_item_path, "{}/{}".format(backup_dir, item))
