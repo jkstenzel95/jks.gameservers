@@ -2,13 +2,15 @@
 
 scripts_dir="${SHARED_DIR}/shared/scripts"
 
+pushd $scripts_dir
+
 mappings_file_name="${SHARED_DIR}/shared/data/minecraft_mappings.json"
 is_modded=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .is_modded" | tr -d '"')
-backup_version=$(. "get-backup-version.sh")
+backup_version=$(. "init/get-backup-version.sh")
 
 # If there's no backup or the the game isn't modded. Note that we can assume here the game is not installed.
 if [[ ($? -ne 0) || ($backup_version == "") || ($backup_version == "null") || "${is_modded}" != "true" ]]; then
-    pushd $scripts_dir
+    
 
     mkdir -p "${SERVER_MOUNT_LOCATION}/Minecraft"
     eula_hangs=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .eula_hangs" | tr -d '"')
