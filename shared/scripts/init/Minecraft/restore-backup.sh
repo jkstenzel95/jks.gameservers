@@ -6,10 +6,9 @@ aws s3 cp "s3://${BACKUP_STORAGE_NAME}/${backup_version}.zip" Restore.zip
 
 mappings_file_name="${SHARED_DIR}/shared/data/minecraft_mappings.json"
 is_modded=$(cat $mappings_file_name | jq ".maps[] | select(.name == \"$MAP_NAME\") | .is_modded" | tr -d '"')
-replace_folder = "Minecraft/world"
+replace_folder="Minecraft/world"
 if [[ is_modded == "true" ]]; then
-    old_folder = "Minecraft"
-else
+    old_folder="Minecraft"
 fi
 
 if [ -d "${SERVER_MOUNT_LOCATION}/${replace_folder}" ]; then
