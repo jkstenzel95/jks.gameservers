@@ -15,10 +15,10 @@
             "name": "gregtech",
             "domain_abbreviation": "greg",
             "volume_id": "vol-09d7948efc1f3c6e4",
-            "requests_memory": "2Gi",
+            "requests_memory": "7Gi",
             "limits_memory": "7Gi",
-            "requests_cpu": "2",
-            "limits_cpu": "7",
+            "requests_cpu": "11",
+            "limits_cpu": "11",
             "jdk_version": "8",
             "java_args": "-Xmx6G -Xms2G",
             "is_modded": true,
@@ -52,7 +52,7 @@
             "java_args": "-Xmx6144M -Xms256M -XX:+UseG1GC -Dsun.rmi.dgc.server.gcInterval=2147483646 -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=51 -XX:G1HeapRegionSize=32M",
             "is_modded": true,
             "forge_version": "forge-1.12.2-14.23.5.2860",
-            "modpack_zip": "RotN_3.0.1_Server.zip",
+            "modpack_zip": "RotN_3.0.1a_Server.zip",
             "eula_hangs": false
         },
         {
