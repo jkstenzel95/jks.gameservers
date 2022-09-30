@@ -5,9 +5,9 @@
             "domain_abbreviation": "main",
             "volume_id": "vol-09b83d9f5a647fe25",
             "requests_memory": "2Gi",
-            "limits_memory": "2Gi",
+            "limits_memory": "5Gi",
             "jdk_version": "17",
-            "java_args": "-Xmx1024M -Xms1024M",
+            "java_args": "-Xms1024M -Xmx4096M",
             "is_modded": false,
             "eula_hangs": false
         },
