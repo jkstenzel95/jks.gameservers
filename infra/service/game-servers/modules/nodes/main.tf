@@ -9,7 +9,7 @@ module "ark_node_group" {
     game_name = "Ark"
     map_name = "${var.ark_map_name}" // TODO: In the case where there is no game set up at launch, these values will get tricky. Keep blank?
     instance_identifier = "ark-${var.ark_map_name}"
-    instance_type = "c6i.8xlarge"
+    instance_type = "c6i.4xlarge" // "c6i.8xlarge" for 3 Ark servers. c6i.4xlarge for three Minecraft servers, vanilla + pixelmon + gregtech
     resources_bucket_name = "${var.ark_resources_bucket_name}"
     backup_bucket_name = "${var.ark_backup_bucket_name}"
     security_group_ids = [ var.ssh_sg_id, var.games_sg_id, var.node_sg_id ]

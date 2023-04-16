@@ -3,11 +3,7 @@
         {
             "name": "Ark",
             "image_version" : "dev.202203100706",
-            "maps": [
-                "TheIsland",
-                "TheCenter",
-                "ScorchedEarth"
-            ],
+            "maps": [],
             "max_players": 16,
             "mods": [
                 684970590
@@ -19,16 +15,13 @@
             "maps": [
                 "main",
                 "gregtech",
-                "pixelmon",
-                "rebirth"
+                "pixelmon"
             ]
         },
         {
             "name": "Valheim",
             "image_version" : "dev.202203100706",
-            "maps": [
-                "Audigr"
-            ]
+            "maps": []
         }
     ] 
 }
