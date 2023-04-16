@@ -30,6 +30,7 @@ provider aws {
 
 module "cicd" {
     source = "./cicd"
+    account_id = var.account_id
 }
 
 module "route53_zone" {

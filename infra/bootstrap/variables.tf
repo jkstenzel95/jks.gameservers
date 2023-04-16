@@ -12,3 +12,8 @@ variable "cluster_name" {
     description = "the chosen name for the cluster"
     default = "jks-use2"
 }
+
+variable "account_id" {
+    description = "the id of the account used"
+    default = "493757919697"
+}

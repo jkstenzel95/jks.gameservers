@@ -25,6 +25,13 @@ resource "aws_iam_role" "codebuild_role" {
         "Service": "eks.amazonaws.com"
       },
       "Action": "sts:AssumeRole"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": "arn:aws:iam::${var.account_id}:role/jks_gameservers_codebuild_deploy_role"
+      },
+      "Action": "sts:AssumeRole"
     }
   ]
 }
