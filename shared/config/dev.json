@@ -13,9 +13,7 @@
             "name": "Minecraft",
             "image_version" : "dev.202203100706",
             "maps": [
-                "main",
-                "gregtech",
-                "pixelmon"
+                "main"
             ]
         },
         {
